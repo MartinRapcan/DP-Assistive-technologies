@@ -8,17 +8,17 @@ using UnityEngine.XR.Interaction.Toolkit;
 /// </summary>
 public class VRWC_WheelInteractable : XRBaseInteractable
 {
-    Rigidbody m_Rigidbody;
+    Rigidbody _mRigidbody;
 
-    float wheelRadius;
+    float _wheelRadius;
 
-    bool onSlope = false;
+    bool _onSlope = false;
     [SerializeField] bool hapticsEnabled = true;
 
     [Range(0, 0.5f), Tooltip("Distance from wheel collider at which the interaction manager will cancel selection.")]
     [SerializeField] float deselectionThreshold = 0.25f;
 
-    GameObject grabPoint;
+    GameObject _grabPoint;
 
     public Text label1;
     public Text label2;
@@ -26,8 +26,8 @@ public class VRWC_WheelInteractable : XRBaseInteractable
 
     private void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        wheelRadius = GetComponent<SphereCollider>().radius;
+        _mRigidbody = GetComponent<Rigidbody>();
+        _wheelRadius = GetComponent<SphereCollider>().radius;
 
         // Slope check is run in coroutine at optimized intervals.
         StartCoroutine(CheckForSlope());
@@ -61,33 +61,33 @@ public class VRWC_WheelInteractable : XRBaseInteractable
     void SpawnGrabPoint(XRBaseInteractor interactor)
     {
         // If there is an active grab point, cancel selection.
-        if (grabPoint)
+        if (_grabPoint)
         {
-            interactionManager.CancelInteractableSelection(grabPoint.GetComponent<XRGrabInteractable>());
+            interactionManager.CancelInteractableSelection(_grabPoint.GetComponent<XRGrabInteractable>());
         }
 
         // Instantiate new grab point at interactor's position.
-        grabPoint = new GameObject($"{transform.name}'s grabPoint", typeof(VRWC_GrabPoint), typeof(Rigidbody), typeof(FixedJoint));
+        _grabPoint = new GameObject($"{transform.name}'s grabPoint", typeof(VRWC_GrabPoint), typeof(Rigidbody), typeof(FixedJoint));
 
-        grabPoint.transform.position = interactor.transform.position;
+        _grabPoint.transform.position = interactor.transform.position;
 
         // Attach grab point to this wheel using fixed joint.
-        grabPoint.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
+        _grabPoint.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
 
         // Force selection between current interactor and new grab point.
-        interactionManager.ForceSelect(interactor, grabPoint.GetComponent<XRGrabInteractable>());
+        interactionManager.ForceSelect(interactor, _grabPoint.GetComponent<XRGrabInteractable>());
     }
 
     IEnumerator BrakeAssist(XRBaseInteractor interactor)
     {
         VRWC_XRNodeVelocitySupplier interactorVelocity = interactor.GetComponent<VRWC_XRNodeVelocitySupplier>();
 
-        while (grabPoint)
+        while (_grabPoint)
         {
             // If the interactor's forward/backward movement approximates zero, it is considered to be braking.
             if (interactorVelocity.velocity.z < 0.05f && interactorVelocity.velocity.z > -0.05f)
             {
-                m_Rigidbody.AddTorque(-m_Rigidbody.angularVelocity.normalized * 25f);
+                _mRigidbody.AddTorque(-_mRigidbody.angularVelocity.normalized * 25f);
 
                 SpawnGrabPoint(interactor);
             }
@@ -99,10 +99,10 @@ public class VRWC_WheelInteractable : XRBaseInteractable
     IEnumerator MonitorDetachDistance(XRBaseInteractor interactor)
     {
         // While this wheel has an active grabPoint.
-        while (grabPoint)
+        while (_grabPoint)
         {
             // If interactor drifts beyond the threshold distance from wheel, force deselection.
-            if (Vector3.Distance(transform.position, interactor.transform.position) >= wheelRadius + deselectionThreshold)
+            if (Vector3.Distance(transform.position, interactor.transform.position) >= _wheelRadius + deselectionThreshold)
             {
                 interactionManager.CancelInteractorSelection(interactor);
             }
@@ -118,11 +118,11 @@ public class VRWC_WheelInteractable : XRBaseInteractable
 
         ActionBasedController controller = interactor.GetComponent<ActionBasedController>();
 
-        Vector3 lastAngularVelocity = new Vector3(transform.InverseTransformDirection(m_Rigidbody.angularVelocity).x, 0f, 0f);
+        Vector3 lastAngularVelocity = new Vector3(transform.InverseTransformDirection(_mRigidbody.angularVelocity).x, 0f, 0f);
 
-        while (grabPoint)
+        while (_grabPoint)
         {
-            Vector3 currentAngularVelocity = new Vector3(transform.InverseTransformDirection(m_Rigidbody.angularVelocity).x, 0f, 0f);
+            Vector3 currentAngularVelocity = new Vector3(transform.InverseTransformDirection(_mRigidbody.angularVelocity).x, 0f, 0f);
             Vector3 angularAcceleration = (currentAngularVelocity - lastAngularVelocity) / runInterval;
 
             // If current velocity and acceleration have perpendicular or opposite directions, the wheel is decelerating.
@@ -160,7 +160,7 @@ public class VRWC_WheelInteractable : XRBaseInteractable
         {
             if (Physics.Raycast(transform.position, -Vector3.up, out RaycastHit hit))
             {
-                onSlope = hit.normal != Vector3.up;
+                _onSlope = hit.normal != Vector3.up;
             }
 
             yield return new WaitForSeconds(0.1f);
