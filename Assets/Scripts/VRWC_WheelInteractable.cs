@@ -13,12 +13,16 @@ public class VRWC_WheelInteractable : XRBaseInteractable
     float _wheelRadius;
 
     bool _onSlope = false;
-    [SerializeField] bool hapticsEnabled = true;
+    [SerializeField] 
+    private bool hapticsEnabled = true;
 
     [Range(0, 0.5f), Tooltip("Distance from wheel collider at which the interaction manager will cancel selection.")]
-    [SerializeField] float deselectionThreshold = 0.25f;
+    [SerializeField] 
+    private float _deselectionThreshold = 0.25f;
 
-    GameObject _grabPoint;
+    [SerializeField] 
+    private GameObject _grabPointPrefab;
+    private GameObject _grabPoint;
 
     public Text label1;
     public Text label2;
@@ -67,12 +71,10 @@ public class VRWC_WheelInteractable : XRBaseInteractable
         }
 
         // Instantiate new grab point at interactor's position.
-        _grabPoint = new GameObject($"{transform.name}'s grabPoint", typeof(VRWC_GrabPoint), typeof(Rigidbody), typeof(FixedJoint));
-
-        _grabPoint.transform.position = interactor.transform.position;
+        _grabPoint = Instantiate(_grabPointPrefab, interactor.transform.position, Quaternion.identity);
 
         // Attach grab point to this wheel using fixed joint.
-        _grabPoint.GetComponent<FixedJoint>().connectedBody = GetComponent<Rigidbody>();
+        _grabPoint.GetComponent<FixedJoint>().connectedBody = _mRigidbody;
 
         // Force selection between current interactor and new grab point.
         interactionManager.ForceSelect(interactor, _grabPoint.GetComponent<XRGrabInteractable>());
@@ -102,7 +104,7 @@ public class VRWC_WheelInteractable : XRBaseInteractable
         while (_grabPoint)
         {
             // If interactor drifts beyond the threshold distance from wheel, force deselection.
-            if (Vector3.Distance(transform.position, interactor.transform.position) >= _wheelRadius + deselectionThreshold)
+            if (Vector3.Distance(transform.position, interactor.transform.position) >= _wheelRadius + _deselectionThreshold)
             {
                 interactionManager.CancelInteractorSelection(interactor);
             }
