@@ -560,7 +560,7 @@ Transform:
   m_GameObject: {fileID: 3355997933788464947}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -722,7 +722,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   hapticsEnabled: 1
-  deselectionThreshold: 0.25
+  _deselectionThreshold: 0.25
+  _grabPointPrefab: {fileID: 5995066894422174529, guid: 48b3558099b340e438a29295e5b1340c, type: 3}
   label1: {fileID: 0}
   label2: {fileID: 0}
 --- !u!54 &3355997933869472932
@@ -1203,7 +1204,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   hapticsEnabled: 1
-  deselectionThreshold: 0.25
+  _deselectionThreshold: 0.25
+  _grabPointPrefab: {fileID: 5995066894422174529, guid: 48b3558099b340e438a29295e5b1340c, type: 3}
   label1: {fileID: 0}
   label2: {fileID: 0}
 --- !u!54 &3355997934027076922
@@ -1534,7 +1536,7 @@ MonoBehaviour:
   m_OriginBaseGameObject: {fileID: 3355997934270379128}
   m_CameraFloorOffsetObject: {fileID: 3355997933788464947}
   m_RequestedTrackingOriginMode: 0
-  m_CameraYOffset: 1.1176
+  m_CameraYOffset: 0
 --- !u!1 &3355997934338465200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2435,9 +2437,9 @@ MonoBehaviour:
   m_UpdateTrackingType: 0
   m_EnableInputTracking: 1
   m_EnableInputActions: 1
-  m_ModelPrefab: {fileID: 7101944524307439477, guid: ce180e419dc50485c9f1f0cae5d0545e, type: 3}
+  m_ModelPrefab: {fileID: 0}
   m_ModelParent: {fileID: 0}
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 6479689578227952914}
   m_AnimateModel: 0
   m_ModelSelectTransition: 
   m_ModelDeSelectTransition: 
@@ -2764,7 +2766,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997935585448726}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e231abc60adbf4a39a05a3c47116ea03, type: 3}
   m_Name: 
@@ -3151,7 +3153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997935591170731}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e231abc60adbf4a39a05a3c47116ea03, type: 3}
   m_Name: 
@@ -4096,6 +4098,11 @@ PrefabInstance:
 --- !u!4 &4625968333149680418 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 56186ccf27ad7864681108ed88349071, type: 3}
+  m_PrefabInstance: {fileID: 5167885855102784713}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6479689578227952914 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2185512022143744475, guid: 56186ccf27ad7864681108ed88349071, type: 3}
   m_PrefabInstance: {fileID: 5167885855102784713}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7491620562988540532

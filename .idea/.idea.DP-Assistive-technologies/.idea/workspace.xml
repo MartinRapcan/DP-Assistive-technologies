@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/VRWC_WheelchairRig.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/VRWC_WheelchairRig.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Prototype.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Prototype.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/VRWC_WheelInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/VRWC_WheelInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,6 +149,7 @@
       <workItem from="1708951927942" duration="531000" />
       <workItem from="1709156255605" duration="649000" />
       <workItem from="1709159231597" duration="4282000" />
+      <workItem from="1709217215294" duration="709000" />
     </task>
     <servers />
   </component>
