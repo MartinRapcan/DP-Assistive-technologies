@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -66,8 +67,18 @@ public class Movement : MonoBehaviour
         rightWheelRigidbody.angularVelocity = Vector3.zero;
         leftWheelRigidbody.velocity = Vector3.zero;
         rightWheelRigidbody.velocity = Vector3.zero;
-        _direction = Direction.None;
+        StartCoroutine(AfterStopMovingCoroutine());
     }
+    
+    private IEnumerator AfterStopMovingCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (_direction == Direction.Stop)
+        {
+            _direction = Direction.None;
+        }
+    }
+    
     
     public void ShouldTurnLeft()
     {
@@ -101,7 +112,7 @@ public class Movement : MonoBehaviour
         leftWheelRigidbody.AddForce(force);
     }
 
-    
+
     private void MoveBackward()
     {
         var force = -frameTransform.forward * Mathf.Clamp(10f * Time.time, 0f, maxForce);
