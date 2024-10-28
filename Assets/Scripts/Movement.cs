@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    private enum Direction
+    public enum Direction
     {
         Forward,
         Backward,
@@ -15,17 +16,29 @@ public class Movement : MonoBehaviour
 
     [SerializeField]
     private Rigidbody leftWheelRigidbody;
-    
     [SerializeField]
     private Rigidbody rightWheelRigidbody;
     
     [SerializeField]
     private Transform frameTransform;
     
-    private Direction _direction = Direction.None;
+    [SerializeField]
+    private Camera cameraFront;
+    [SerializeField]
+    private Camera cameraBack; 
     
     [SerializeField]
-    private float maxForce;
+    private RenderTexture renderTexture;
+    
+    private Direction _direction = Direction.None;
+
+    [SerializeField] private float maxForce;
+
+    private void Start()
+    {
+        cameraFront.targetTexture = renderTexture;
+        cameraBack.targetTexture = renderTexture;  
+    }
 
     private void Update()
     {
@@ -50,17 +63,25 @@ public class Movement : MonoBehaviour
                 break;
         }
     }
+    
+    // Public methods to change direction
+    public void ShouldTurnRight() => _direction = Direction.Right;
+    public void ShouldStopMoving() => _direction = Direction.Stop;
+    public void ShouldTurnLeft() => _direction = Direction.Left;
+    public void ShouldMoveForward()
+    {
+        _direction = Direction.Forward;
+        cameraFront.enabled = true;
+        cameraBack.enabled = false;
+    }
 
-    public void ShouldTurnRight()
+    public void ShouldMoveBackward()
     {
-        _direction = Direction.Right;
+        _direction = Direction.Backward;
+        cameraFront.enabled = false;
+        cameraBack.enabled = true;
     }
-    
-    public void ShouldStopMoving()
-    {
-        _direction = Direction.Stop;
-    }
-    
+
     private void StopMoving()
     {
         leftWheelRigidbody.angularVelocity = Vector3.zero;
@@ -79,11 +100,6 @@ public class Movement : MonoBehaviour
         }
     }
     
-    
-    public void ShouldTurnLeft()
-    {
-        _direction = Direction.Left;
-    }
 
     private void TurnRight()
     {
@@ -93,16 +109,6 @@ public class Movement : MonoBehaviour
     private void TurnLeft()
     {
         rightWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(-10f * Time.time, -20f, 0f));
-    }
-    
-    public void ShouldMoveForward()
-    {
-        _direction = Direction.Forward;
-    }
-    
-    public void ShouldMoveBackward()
-    {
-        _direction = Direction.Backward;
     }
 
     private void MoveForward()
