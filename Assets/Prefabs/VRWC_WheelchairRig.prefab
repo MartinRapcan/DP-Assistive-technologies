@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6779387910686430142}
   - component: {fileID: 1617820392696383888}
   - component: {fileID: 3361081678896710835}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5336550189109520357}
   - component: {fileID: 5289938624193806482}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 7937984587809248692}
   - component: {fileID: 3254959536661204314}
   - component: {fileID: 8481861869650206272}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: caster_fork_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 4475187555014851436}
   - component: {fileID: 4960916705110249835}
   - component: {fileID: 2004110274212210308}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: backrest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5839494477182816913}
   - component: {fileID: 2742789025898427123}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 6950273099113403631}
   - component: {fileID: 3916606569304742455}
   - component: {fileID: 5353090042584597169}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: caster_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -527,7 +527,7 @@ GameObject:
   - component: {fileID: 632946275749928149}
   - component: {fileID: 5770027663761616032}
   - component: {fileID: 8344737303138093961}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cloth_guards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 3730960043490520067}
   - component: {fileID: 9207534693945322795}
   - component: {fileID: 5385611714559617457}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 600336844375883551}
   - component: {fileID: 3330210730943690184}
   - component: {fileID: 6049703178157892378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Monitor Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -885,7 +885,7 @@ GameObject:
   - component: {fileID: 7889959482630839900}
   - component: {fileID: 4566817801249667262}
   - component: {fileID: 445261869917274280}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Turn Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 3355997933681941813}
   - component: {fileID: 3355997933681941814}
   - component: {fileID: 3355997933681941769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CasterL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1250,7 +1250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3355997933788464944}
   - component: {fileID: 3355997933788464945}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera Offset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1304,7 +1304,7 @@ GameObject:
   - component: {fileID: 3355997933869472953}
   - component: {fileID: 3355997933869472955}
   - component: {fileID: 3355997933869472934}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1707,7 +1707,7 @@ GameObject:
   - component: {fileID: 3355997934018186046}
   - component: {fileID: 3355997934018186047}
   - component: {fileID: 8746967792463520715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Frame
   m_TagString: Frame
   m_Icon: {fileID: 0}
@@ -1811,7 +1811,7 @@ GameObject:
   - component: {fileID: 3355997934027076927}
   - component: {fileID: 3355997934027076913}
   - component: {fileID: 3355997934027076924}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WheelR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2213,7 +2213,7 @@ GameObject:
   - component: {fileID: 3355997934270379108}
   - component: {fileID: 3355997934270379110}
   - component: {fileID: 2507353941691126117}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VRWC_WheelchairRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2281,7 +2281,7 @@ GameObject:
   - component: {fileID: 3355997934338465201}
   - component: {fileID: 3355997934338465215}
   - component: {fileID: 3355997934338465214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: caster_fork_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2365,7 +2365,7 @@ GameObject:
   - component: {fileID: 3355997934494170541}
   - component: {fileID: 3355997934494170539}
   - component: {fileID: 3355997934494170538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spokes_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2448,7 +2448,7 @@ GameObject:
   - component: {fileID: 3355997934532550461}
   - component: {fileID: 3355997934532550459}
   - component: {fileID: 3355997934532550458}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handrim_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2532,7 +2532,7 @@ GameObject:
   - component: {fileID: 2509194037368928884}
   - component: {fileID: 8560235806738170872}
   - component: {fileID: 4851356455354707581}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PhysicsModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2585,18 +2585,18 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997934737179409}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 99
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 0.81
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2607,7 +2607,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997934737179409}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
   m_Name: 
@@ -2624,7 +2624,7 @@ GameObject:
   - component: {fileID: 3355997934884636544}
   - component: {fileID: 3355997934884636558}
   - component: {fileID: 3355997934884636545}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: caster_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2710,7 +2710,7 @@ GameObject:
   - component: {fileID: 3355997934936558554}
   - component: {fileID: 757930520499766642}
   - component: {fileID: 7372444232844678683}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -2940,7 +2940,7 @@ GameObject:
   - component: {fileID: 3355997935213568943}
   - component: {fileID: 3355997935213568928}
   - component: {fileID: 3355997935213568931}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CasterR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3139,7 +3139,7 @@ GameObject:
   - component: {fileID: 3355997935316256370}
   - component: {fileID: 3355997935316256368}
   - component: {fileID: 3355997935316256371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handrim_brackets_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3225,7 +3225,7 @@ GameObject:
   - component: {fileID: 3355997935585448725}
   - component: {fileID: 3355997935585448724}
   - component: {fileID: 3355997935585448722}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3610,7 +3610,7 @@ GameObject:
   - component: {fileID: 3355997935591170774}
   - component: {fileID: 3355997935591170729}
   - component: {fileID: 3355997935591170775}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3993,7 +3993,7 @@ GameObject:
   - component: {fileID: 3355997935681772790}
   - component: {fileID: 3355997935681772788}
   - component: {fileID: 3355997935681772791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wheel_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4078,7 +4078,7 @@ GameObject:
   - component: {fileID: 3355997935766689060}
   - component: {fileID: 3355997935766689056}
   - component: {fileID: 3355997935766689059}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4152,7 +4152,7 @@ GameObject:
   - component: {fileID: 790794402382467880}
   - component: {fileID: 5572752078073326112}
   - component: {fileID: 4353993052959452737}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wheel_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4238,7 +4238,7 @@ GameObject:
   - component: {fileID: 5120006657009377139}
   - component: {fileID: 6347557321540522751}
   - component: {fileID: 7325266611070738090}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Monitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4343,7 +4343,7 @@ GameObject:
   - component: {fileID: 5493766196628791464}
   - component: {fileID: 2545518119335877322}
   - component: {fileID: 789225877074676694}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4477,7 +4477,7 @@ GameObject:
   - component: {fileID: 3669368386044477332}
   - component: {fileID: 5213927782831844590}
   - component: {fileID: 4666443737346321601}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spokes_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4560,7 +4560,7 @@ GameObject:
   - component: {fileID: 7442230376981202565}
   - component: {fileID: 3635472129777991076}
   - component: {fileID: 932195759804993791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera Ray
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4888,7 +4888,7 @@ GameObject:
   - component: {fileID: 6986349999406640803}
   - component: {fileID: 1668824855125237778}
   - component: {fileID: 3645049450067193378}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handrim_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4971,7 +4971,7 @@ GameObject:
   - component: {fileID: 3171809478946421720}
   - component: {fileID: 8607028264500161703}
   - component: {fileID: 4540472136657068922}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: seat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5054,7 +5054,7 @@ GameObject:
   - component: {fileID: 952822245874996722}
   - component: {fileID: 1144442436258122473}
   - component: {fileID: 1114269486458924351}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5141,7 +5141,7 @@ GameObject:
   - component: {fileID: 740400749535795371}
   - component: {fileID: 6465707694748226775}
   - component: {fileID: 2372383619126175613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: foot_plate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5226,7 +5226,7 @@ GameObject:
   - component: {fileID: 7221499483914397957}
   - component: {fileID: 4317788140094409616}
   - component: {fileID: 758981780157828093}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Backward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5391,7 +5391,7 @@ GameObject:
   - component: {fileID: 2469786298944808256}
   - component: {fileID: 5113841132115878861}
   - component: {fileID: 2580533157158547048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: handrim_brackets_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5473,7 +5473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6059600013374712616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dummy Wheelchair Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5508,7 +5508,7 @@ GameObject:
   - component: {fileID: 2034318607209425989}
   - component: {fileID: 3526437458940679695}
   - component: {fileID: 1799188606627650207}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5629,7 +5629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7683950516018303332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Dummy Camera Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5664,7 +5664,7 @@ GameObject:
   - component: {fileID: 7666434906879794628}
   - component: {fileID: 8786125387576025456}
   - component: {fileID: 8828073877493745172}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Turn Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5828,7 +5828,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6585976541312674771}
   - component: {fileID: 199360780600936861}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5860,7 +5860,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5912,7 +5912,7 @@ GameObject:
   - component: {fileID: 6785637821106474545}
   - component: {fileID: 3838027996285320525}
   - component: {fileID: 4167000909178964082}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6048,7 +6048,7 @@ GameObject:
   - component: {fileID: 6833269981455031018}
   - component: {fileID: 1922198691140538314}
   - component: {fileID: 449943042488041015}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
