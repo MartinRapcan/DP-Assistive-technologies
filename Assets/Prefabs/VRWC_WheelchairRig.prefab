@@ -1150,7 +1150,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: -1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.21599998, y: 0.050800003, z: 0.437}
+  m_ConnectedAnchor: {x: 0.21599996, y: 0.050800003, z: 0.43699998}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -1605,7 +1605,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0.30480006, y: 0.3048, z: -0.000000026077032}
+  m_ConnectedAnchor: {x: 0.30480006, y: 0.3048, z: -0.0000000037252903}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2112,7 +2112,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.30480006, y: 0.3048, z: 0.000000026077032}
+  m_ConnectedAnchor: {x: -0.30480018, y: 0.3048, z: 0.000000011175871}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -2213,6 +2213,8 @@ GameObject:
   - component: {fileID: 3355997934270379108}
   - component: {fileID: 3355997934270379110}
   - component: {fileID: 2507353941691126117}
+  - component: {fileID: 4543366628220679528}
+  - component: {fileID: 4520732077196373823}
   m_Layer: 8
   m_Name: VRWC_WheelchairRig
   m_TagString: Untagged
@@ -2270,6 +2272,40 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 3355997933788464947}
   m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 0
+--- !u!195 &4543366628220679528
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355997934270379128}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &4520732077196373823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355997934270379128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3355997934338465200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,8 +2566,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3355997934737179422}
   - component: {fileID: 2509194037368928884}
-  - component: {fileID: 8560235806738170872}
-  - component: {fileID: 4851356455354707581}
   m_Layer: 8
   m_Name: PhysicsModel
   m_TagString: Untagged
@@ -2578,41 +2612,6 @@ MonoBehaviour:
   cameraBack: {fileID: 199360780600936861}
   renderTexture: {fileID: 8400000, guid: 77fba2f7adf38c14ebda31a8a39b3c81, type: 2}
   maxForce: 10
---- !u!195 &8560235806738170872
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3355997934737179409}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 99
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.81
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &4851356455354707581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3355997934737179409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!1 &3355997934884636547
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,7 +3037,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.21599998, y: 0.050800003, z: 0.437}
+  m_ConnectedAnchor: {x: -0.21600005, y: 0.050800003, z: 0.43699998}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
