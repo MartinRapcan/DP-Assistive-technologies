@@ -6,25 +6,28 @@ using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
-    // [SerializeField]
-    Vector3 destination;
-    NavMeshAgent agent;
-    private Vector3 target = new Vector3(3, 0, 2);
-
-    void Start()
-    {
-        // Cache agent component and destination
-        agent = GetComponent<NavMeshAgent>();
-        destination = agent.destination;
-    }
+    [SerializeField]
+    private Camera mainCamera;
+    [SerializeField]
+    private NavMeshAgent agent;
+    
     
     void Update()
     {
-        // If the target has moved, update the destination
-        if (Vector3.Distance(destination, target) > 1.0f)
+        // Perform a raycast from the camera to the mouse position
+        if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
         {
-            destination = target;
-            agent.destination = new Vector3(destination.x, destination.y, destination.z);
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            {
+                // Check if the object hit has the tag "Floor"
+                if (hitInfo.collider.CompareTag("Floor"))
+                {
+                    Vector3 hitPoint = hitInfo.point;
+                    Debug.Log($"Ray hit Floor at {hitPoint}");
+                    agent.SetDestination(hitPoint); // Move the agent to the hit point
+                }
+            }
         }
     }
 }

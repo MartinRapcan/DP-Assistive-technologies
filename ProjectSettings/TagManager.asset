@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wheelchair
   - Frame
+  - Floor
   layers:
   - Default
   - TransparentFX

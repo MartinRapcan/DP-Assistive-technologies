@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TriggerScript : MonoBehaviour
@@ -7,6 +8,9 @@ public class TriggerScript : MonoBehaviour
     
     private DisplayOrigin _displayOrigin;
     
+    [SerializeField]
+    private bool registerCollision = false;
+    
     private void Start()
     {
         _displayOrigin = displayPosition.GetComponent<DisplayOrigin>();
@@ -14,7 +18,7 @@ public class TriggerScript : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Frame"))
+        if (other.CompareTag("Frame") && registerCollision)
         {
             _displayOrigin.CurrentOriginType = OriginType.Wheelchair;
         }
@@ -22,7 +26,7 @@ public class TriggerScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Frame"))
+        if (other.CompareTag("Frame") && registerCollision)
         {
             _displayOrigin.CurrentOriginType = OriginType.Camera;
         }

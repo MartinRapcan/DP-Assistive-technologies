@@ -47,7 +47,6 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(_direction);
         // Call movement logic based on current direction
         switch (_direction)
         {

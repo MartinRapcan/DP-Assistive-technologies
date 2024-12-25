@@ -15,14 +15,18 @@ public class DisplayOrigin : MonoBehaviour
     [SerializeField]
     private Transform wheelChairPosition;
 
+    [SerializeField]
+    private OriginType defaultOriginType = OriginType.Wheelchair;
+    
     private Transform _transform;
 
     private void Awake()
     {
         _transform = transform;
+        CurrentOriginType = defaultOriginType;
     }
 
-    public OriginType CurrentOriginType { get; set; } = OriginType.Wheelchair;
+    public OriginType CurrentOriginType { get; set; }
 
     private void Update() 
     {
