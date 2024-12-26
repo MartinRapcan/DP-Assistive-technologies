@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3196696556663387176}
   - component: {fileID: 2720323816329648961}
   - component: {fileID: 5899296377238880043}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 234815585265329621}
   - component: {fileID: 1438120234562828377}
   - component: {fileID: 5721751240604148676}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Display
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 3494037584377963601}
   - component: {fileID: 7728541485318803981}
   - component: {fileID: 5939952858642350423}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Forward Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -608,7 +608,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5839494477182816913}
   - component: {fileID: 2742789025898427123}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Display - Arrows and Cameras
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 7683950516018303332}
   wheelChairPosition: {fileID: 6059600013374712616}
-  defaultOriginType: 1
+  defaultOriginType: 0
 --- !u!1 &1677208465550606199
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +673,7 @@ Transform:
   m_GameObject: {fileID: 1677208465550606199}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.393, z: 0.074}
+  m_LocalPosition: {x: 0, y: 1.57, z: 0.074}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -718,7 +718,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -909,7 +909,7 @@ GameObject:
   - component: {fileID: 3730960043490520067}
   - component: {fileID: 9207534693945322795}
   - component: {fileID: 5385611714559617457}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1074,7 +1074,7 @@ GameObject:
   - component: {fileID: 339192701988807745}
   - component: {fileID: 5711666392185316392}
   - component: {fileID: 4740116524758311433}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1149,7 +1149,7 @@ GameObject:
   - component: {fileID: 9106987452288387286}
   - component: {fileID: 5089037895264362355}
   - component: {fileID: 5842779392319691370}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1224,7 @@ GameObject:
   - component: {fileID: 4256604352333393818}
   - component: {fileID: 6927976173222276590}
   - component: {fileID: 651601907891552447}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1301,7 +1301,7 @@ GameObject:
   - component: {fileID: 7889959482630839900}
   - component: {fileID: 4566817801249667262}
   - component: {fileID: 445261869917274280}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3034,7 +3034,7 @@ MonoBehaviour:
   maxForce: 15
   maxTorque: 20
   stopTime: 2
-  interfaceType: 3
+  interfaceType: 2
   monitor: {fileID: 4298441157251988583}
 --- !u!1 &3355997934884636547
 GameObject:
@@ -4661,7 +4661,7 @@ GameObject:
   - component: {fileID: 8498046170285855524}
   - component: {fileID: 8430704533225830356}
   - component: {fileID: 6930720015991204592}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4738,7 +4738,7 @@ GameObject:
   - component: {fileID: 6029937242898119436}
   - component: {fileID: 7245717059458982046}
   - component: {fileID: 1593619018682464921}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Stop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4888,7 +4888,7 @@ GameObject:
   - component: {fileID: 6677517847316271020}
   - component: {fileID: 4574686519239231422}
   - component: {fileID: 5535085000537736994}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Monitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4993,7 +4993,7 @@ GameObject:
   - component: {fileID: 6187025976573592145}
   - component: {fileID: 3832248199496223251}
   - component: {fileID: 6821874760727654781}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5153,7 +5153,7 @@ GameObject:
   - component: {fileID: 793854692415136733}
   - component: {fileID: 738674648724190757}
   - component: {fileID: 4634860363594168237}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Backward Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5731,7 +5731,7 @@ GameObject:
   - component: {fileID: 6254134364588682906}
   - component: {fileID: 6324085406227479241}
   - component: {fileID: 2927334929364138988}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Backward Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5898,7 +5898,7 @@ GameObject:
   - component: {fileID: 4165188621072051999}
   - component: {fileID: 1553974499530671587}
   - component: {fileID: 2762097631193441707}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Forward Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6318,7 +6318,7 @@ GameObject:
   - component: {fileID: 7221499483914397957}
   - component: {fileID: 4317788140094409616}
   - component: {fileID: 758981780157828093}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Backward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6483,7 +6483,7 @@ GameObject:
   - component: {fileID: 4851627470943428354}
   - component: {fileID: 3033067661916087686}
   - component: {fileID: 1730724048395316311}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6558,7 +6558,7 @@ GameObject:
   - component: {fileID: 7809977203869907944}
   - component: {fileID: 3269573071529286400}
   - component: {fileID: 5715785435793514923}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6717,7 +6717,7 @@ GameObject:
   - component: {fileID: 8825836546536918922}
   - component: {fileID: 1422398624777387771}
   - component: {fileID: 8168439562209960766}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6825,7 +6825,7 @@ GameObject:
   - component: {fileID: 2034318607209425989}
   - component: {fileID: 3526437458940679695}
   - component: {fileID: 1799188606627650207}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6986,7 +6986,7 @@ GameObject:
   - component: {fileID: 7666434906879794628}
   - component: {fileID: 8786125387576025456}
   - component: {fileID: 8828073877493745172}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Turn Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7211,7 +7211,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 383
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
