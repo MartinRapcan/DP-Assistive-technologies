@@ -18,26 +18,73 @@ public class Movement : MonoBehaviour
         BackwardRight
     }
 
+    public enum InterfaceType
+    {
+        DoubleCamera,
+        SingleCamera,
+        TopCamera,
+        None
+    }
+
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Transform frameTransform;
     [SerializeField] private Camera cameraFront;
     [SerializeField] private Camera cameraBack;
+    [SerializeField] private Camera cameraTop;
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private float maxForce = 10f;
     [SerializeField] private float maxTorque = 20f;
     [SerializeField] private float stopTime = 2f;
-
+    [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
+    [SerializeField] private GameObject monitor;
+    
     private Direction _direction = Direction.None;
     private Coroutine _decelerationCoroutine;
     private float _time;
 
     private void Start()
     {
+        CameraSetup(); // Set up cameras
+    }
+
+    private void CameraSetup()
+    {
+        if (interfaceType == InterfaceType.None)
+        {
+            monitor.SetActive(false);
+            return;
+        }
         cameraFront.targetTexture = renderTexture;
         cameraBack.targetTexture = renderTexture;
-        cameraFront.enabled = true;
-        cameraBack.enabled = false;
+        cameraTop.targetTexture = renderTexture;
+        HandleCameraChange(true);
+    }
+    
+    private void HandleCameraChange(bool isMovingForward)
+    {
+        switch (interfaceType)
+        {
+            case InterfaceType.DoubleCamera:
+                cameraFront.enabled = isMovingForward;
+                cameraBack.enabled = !isMovingForward;
+                cameraTop.enabled = false;
+                break;
+            case InterfaceType.SingleCamera:
+                cameraFront.enabled = true;
+                cameraBack.enabled = false;
+                cameraTop.enabled = false;
+                break;
+            case InterfaceType.TopCamera:
+                cameraFront.enabled = false;
+                cameraBack.enabled = false;
+                cameraTop.enabled = true;
+                break;
+            case InterfaceType.None:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     private void Update()
@@ -84,43 +131,37 @@ public class Movement : MonoBehaviour
     public void ShouldMoveForward()
     {
         StartMovement(Direction.Forward);
-        cameraFront.enabled = true;
-        cameraBack.enabled = false;
+        HandleCameraChange(true);
     }
 
     public void ShouldMoveBackward()
     {
         StartMovement(Direction.Backward);
-        cameraFront.enabled = false;
-        cameraBack.enabled = true;
+        HandleCameraChange(false);
     }
 
     public void ShouldMoveForwardRight()
     {
         StartMovement(Direction.ForwardRight);
-        cameraFront.enabled = true;
-        cameraBack.enabled = false;
+        HandleCameraChange(true);
     }
     
     public void ShouldMoveForwardLeft()
     {
         StartMovement(Direction.ForwardLeft);
-        cameraFront.enabled = true;
-        cameraBack.enabled = false;
+        HandleCameraChange(true);
     }
     
     public void ShouldMoveBackwardLeft()
     {
         StartMovement(Direction.BackwardLeft);
-        cameraFront.enabled = false;
-        cameraBack.enabled = true;
+        HandleCameraChange(false);
     }
     
     public void ShouldMoveBackwardRight()
     {
         StartMovement(Direction.BackwardRight);
-        cameraFront.enabled = false;
-        cameraBack.enabled = true;
+        HandleCameraChange(false);
     }
 
     private void StartMovement(Direction newDirection)
