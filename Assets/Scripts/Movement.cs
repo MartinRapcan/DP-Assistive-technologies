@@ -36,6 +36,8 @@ public class Movement : MonoBehaviour
     {
         cameraFront.targetTexture = renderTexture;
         cameraBack.targetTexture = renderTexture;
+        cameraFront.enabled = true;
+        cameraBack.enabled = false;
     }
 
     private void Update()
