@@ -11,33 +11,26 @@ public class Movement : MonoBehaviour
         Left,
         Right,
         Stop,
-        None
+        None,
+        ForwardRight,
+        ForwardLeft,
+        BackwardLeft,
+        BackwardRight
     }
 
-    [SerializeField]
-    private Rigidbody leftWheelRigidbody;
-    [SerializeField]
-    private Rigidbody rightWheelRigidbody;
-
-    [SerializeField]
-    private Transform frameTransform;
-
-    [SerializeField]
-    private Camera cameraFront;
-    [SerializeField]
-    private Camera cameraBack;
-
-    [SerializeField]
-    private RenderTexture renderTexture;
-
-    private Direction _direction = Direction.None;
-    private Coroutine _decelerationCoroutine;
-
+    [SerializeField] private Rigidbody leftWheelRigidbody;
+    [SerializeField] private Rigidbody rightWheelRigidbody;
+    [SerializeField] private Transform frameTransform;
+    [SerializeField] private Camera cameraFront;
+    [SerializeField] private Camera cameraBack;
+    [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private float maxForce = 10f;
     [SerializeField] private float maxTorque = 20f;
     [SerializeField] private float stopTime = 2f;
-    [SerializeField] private float decelerationRate = 0.95f; // The rate at which velocity decreases
-    [SerializeField] private float stopThreshold = 0.1f; // Minimum velocity to consider as stopped
+
+    private Direction _direction = Direction.None;
+    private Coroutine _decelerationCoroutine;
+    private float _time;
 
     private void Start()
     {
@@ -65,6 +58,18 @@ public class Movement : MonoBehaviour
             case Direction.Stop:
                 StopMoving();
                 break;
+            case Direction.ForwardRight:
+                MoveForwardRight();
+                break;
+            case Direction.ForwardLeft:
+                MoveForwardLeft();
+                break;
+            case Direction.BackwardLeft:
+                MoveBackwardLeft();
+                break;
+            case Direction.BackwardRight:
+                MoveBackwardRight();
+                break;
             case Direction.None:
                 break;
         }
@@ -88,6 +93,34 @@ public class Movement : MonoBehaviour
         cameraBack.enabled = true;
     }
 
+    public void ShouldMoveForwardRight()
+    {
+        StartMovement(Direction.ForwardRight);
+        cameraFront.enabled = true;
+        cameraBack.enabled = false;
+    }
+    
+    public void ShouldMoveForwardLeft()
+    {
+        StartMovement(Direction.ForwardLeft);
+        cameraFront.enabled = true;
+        cameraBack.enabled = false;
+    }
+    
+    public void ShouldMoveBackwardLeft()
+    {
+        StartMovement(Direction.BackwardLeft);
+        cameraFront.enabled = false;
+        cameraBack.enabled = true;
+    }
+    
+    public void ShouldMoveBackwardRight()
+    {
+        StartMovement(Direction.BackwardRight);
+        cameraFront.enabled = false;
+        cameraBack.enabled = true;
+    }
+
     private void StartMovement(Direction newDirection)
     {
         // Stop any ongoing deceleration when a new movement is initiated
@@ -97,6 +130,7 @@ public class Movement : MonoBehaviour
             _decelerationCoroutine = null;
         }
 
+        _time = Time.deltaTime;
         _direction = newDirection; // Set new direction
     }
 
@@ -138,28 +172,67 @@ public class Movement : MonoBehaviour
         _direction = Direction.None;
     }
 
+    private float TrackTime()
+    {
+        _time += Time.deltaTime;
+        return _time;
+    }
 
     private void TurnRight()
     {
-        leftWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(10f * Time.time, 0f, maxTorque));
+        leftWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(5f * TrackTime(), 0f, maxTorque));
     }
 
     private void TurnLeft()
     {
-        rightWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(-10f * Time.time, -maxTorque, 0f));
+        rightWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(-5f * TrackTime(), -maxTorque, 0f));
     }
 
     private void MoveForward()
     {
-        var force = frameTransform.forward * Mathf.Clamp(10f * Time.time, 0f, maxForce);
+        var force = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        var force2 = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
         leftWheelRigidbody.AddForce(force);
         rightWheelRigidbody.AddForce(force);
     }
 
     private void MoveBackward()
     {
-        var force = -frameTransform.forward * Mathf.Clamp(10f * Time.time, 0f, maxForce);
+        var force = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        var force2 = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
         leftWheelRigidbody.AddForce(force);
         rightWheelRigidbody.AddForce(force);
+    }
+
+    private void MoveForwardRight()
+    {
+        var forceLeft = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
+        var forceRight = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        leftWheelRigidbody.AddForce(forceLeft);
+        rightWheelRigidbody.AddForce(forceRight);
+    }
+    
+    private void MoveForwardLeft()
+    {
+        var forceLeft = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        var forceRight = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
+        leftWheelRigidbody.AddForce(forceLeft);
+        rightWheelRigidbody.AddForce(forceRight);
+    }
+    
+    private void MoveBackwardLeft()
+    {
+        var forceLeft = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        var forceRight = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
+        leftWheelRigidbody.AddForce(forceLeft);
+        rightWheelRigidbody.AddForce(forceRight);
+    }
+    
+    public void MoveBackwardRight()
+    {
+        var forceLeft = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
+        var forceRight = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
+        leftWheelRigidbody.AddForce(forceLeft);
+        rightWheelRigidbody.AddForce(forceRight);
     }
 }
