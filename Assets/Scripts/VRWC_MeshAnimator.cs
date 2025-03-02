@@ -25,18 +25,15 @@ public class VRWC_MeshAnimator : MonoBehaviour
 
     void Update()
     {
-        if (frame.velocity.magnitude > 0.05f)
-        {
-            RotateWheels();
-            RotateFork();
-            RotateCaster();
-        }
+        RotateWheels();
+        RotateFork();
+        RotateCaster();
     }
 
     void RotateWheels()
     {
         wheelLeftMesh.rotation = wheelLeft.rotation;
-        wheelRightMesh.rotation = wheelRight.rotation;
+        wheelRightMesh.rotation = wheelRight.rotation * Quaternion.Euler(0, 180, 0);
     }
 
     void RotateFork()

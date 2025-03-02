@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 3254959536661204314}
   - component: {fileID: 8481861869650206272}
   m_Layer: 8
-  m_Name: caster_fork_R
+  m_Name: caster_fork_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -646,7 +646,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraPosition: {fileID: 7683950516018303332}
   wheelChairPosition: {fileID: 6059600013374712616}
-  defaultOriginType: 0
+  defaultOriginType: 1
 --- !u!1 &1677208465550606199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1469,7 +1469,7 @@ GameObject:
   - component: {fileID: 3355997933681941814}
   - component: {fileID: 3355997933681941769}
   m_Layer: 8
-  m_Name: CasterL
+  m_Name: CasterR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1721,7 +1721,7 @@ GameObject:
   - component: {fileID: 3355997933869472955}
   - component: {fileID: 3355997933869472934}
   m_Layer: 8
-  m_Name: WheelL
+  m_Name: WheelR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1735,13 +1735,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997933869472956}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.30480003, y: 0.3048, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3355997934737179422}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3355997933869472933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1875,7 +1875,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!114 &3355997933869472930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2229,7 +2229,7 @@ GameObject:
   - component: {fileID: 3355997934027076913}
   - component: {fileID: 3355997934027076924}
   m_Layer: 8
-  m_Name: WheelR
+  m_Name: WheelL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2383,7 +2383,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 3
+  m_CollisionDetection: 0
 --- !u!114 &3355997934027076920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2725,6 +2725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 3355997934936558552}
   agent: {fileID: 4543366628220679528}
+  waypointPrefab: {fileID: 5682725569931978553, guid: 998151706998ec94daa032777401a596, type: 3}
 --- !u!1 &3355997934338465200
 GameObject:
   m_ObjectHideFlags: 0
@@ -2737,7 +2738,7 @@ GameObject:
   - component: {fileID: 3355997934338465215}
   - component: {fileID: 3355997934338465214}
   m_Layer: 8
-  m_Name: caster_fork_L
+  m_Name: caster_fork_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3024,8 +3025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd95707e5a74c5488388dcc7dfcab4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftWheelRigidbody: {fileID: 3355997933869472932}
-  rightWheelRigidbody: {fileID: 3355997934027076922}
+  leftWheelRigidbody: {fileID: 3355997934027076922}
+  rightWheelRigidbody: {fileID: 3355997933869472932}
   frameTransform: {fileID: 3355997934018186044}
   cameraFront: {fileID: 5289938624193806482}
   cameraBack: {fileID: 199360780600936861}
@@ -3034,7 +3035,7 @@ MonoBehaviour:
   maxForce: 15
   maxTorque: 20
   stopTime: 2
-  interfaceType: 2
+  interfaceType: 3
   monitor: {fileID: 4298441157251988583}
 --- !u!1 &3355997934884636547
 GameObject:
@@ -3365,7 +3366,7 @@ GameObject:
   - component: {fileID: 3355997935213568928}
   - component: {fileID: 3355997935213568931}
   m_Layer: 8
-  m_Name: CasterR
+  m_Name: CasterL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4418,7 +4419,7 @@ GameObject:
   - component: {fileID: 3355997935681772788}
   - component: {fileID: 3355997935681772791}
   m_Layer: 8
-  m_Name: wheel_L
+  m_Name: wheel_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4432,7 +4433,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997935681772745}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.24188502, y: 0.30499104, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4440,7 +4441,7 @@ Transform:
   - {fileID: 3355997934494170541}
   - {fileID: 3355997935316256370}
   m_Father: {fileID: 3355997935766689060}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3355997935681772788
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4555,14 +4556,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: {fileID: 3355997934018186046}
-  wheelLeft: {fileID: 3355997933869472957}
-  wheelRight: {fileID: 3355997934027076915}
+  wheelLeft: {fileID: 3355997934027076915}
+  wheelRight: {fileID: 3355997933869472957}
   casterLeftRB: {fileID: 3355997933681941812}
   casterRightRB: {fileID: 3355997935213568942}
-  wheelLeftMesh: {fileID: 3355997935681772790}
-  wheelRightMesh: {fileID: 790794402382467880}
-  forkLeftMesh: {fileID: 3355997934338465201}
-  forkRightMesh: {fileID: 7937984587809248692}
+  wheelLeftMesh: {fileID: 790794402382467880}
+  wheelRightMesh: {fileID: 3355997935681772790}
+  forkLeftMesh: {fileID: 7937984587809248692}
+  forkRightMesh: {fileID: 3355997934338465201}
   casterLeftMesh: {fileID: 6950273099113403631}
   casterRightMesh: {fileID: 3355997934884636544}
 --- !u!1 &3492721371227086453
@@ -4577,7 +4578,7 @@ GameObject:
   - component: {fileID: 5572752078073326112}
   - component: {fileID: 4353993052959452737}
   m_Layer: 8
-  m_Name: wheel_R
+  m_Name: wheel_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4887,7 +4888,6 @@ GameObject:
   - component: {fileID: 9193207950536433958}
   - component: {fileID: 6677517847316271020}
   - component: {fileID: 4574686519239231422}
-  - component: {fileID: 5535085000537736994}
   m_Layer: 7
   m_Name: Monitor
   m_TagString: Untagged
@@ -4961,27 +4961,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5535085000537736994
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4298441157251988583}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4304421266468344474
 GameObject:
   m_ObjectHideFlags: 0

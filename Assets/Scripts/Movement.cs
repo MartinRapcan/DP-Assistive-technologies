@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Configuration;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
@@ -25,7 +26,7 @@ public class Movement : MonoBehaviour
         TopCamera,
         None
     }
-
+    
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Transform frameTransform;
@@ -45,7 +46,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        CameraSetup(); // Set up cameras
+        CameraSetup(); // Set up cameras based on interface type
     }
 
     private void CameraSetup()
@@ -87,7 +88,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         // Call movement logic based on current direction
         switch (_direction)
@@ -223,59 +224,78 @@ public class Movement : MonoBehaviour
 
     private void TurnRight()
     {
-        leftWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(5f * TrackTime(), 0f, maxTorque));
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
     }
 
     private void TurnLeft()
     {
-        rightWheelRigidbody.AddTorque(Vector3.up * Mathf.Clamp(-5f * TrackTime(), -maxTorque, 0f));
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
     }
-
+    
     private void MoveForward()
     {
-        var force = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        var force2 = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        leftWheelRigidbody.AddForce(force);
-        rightWheelRigidbody.AddForce(force);
-    }
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
 
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
+    }
+    
     private void MoveBackward()
     {
-        var force = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        var force2 = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        leftWheelRigidbody.AddForce(force);
-        rightWheelRigidbody.AddForce(force);
-    }
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
 
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torque);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torque);
+    }
+    
     private void MoveForwardRight()
     {
-        var forceLeft = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        var forceRight = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        leftWheelRigidbody.AddForce(forceLeft);
-        rightWheelRigidbody.AddForce(forceRight);
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
+        float torqueRight = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torqueRight);
     }
     
     private void MoveForwardLeft()
     {
-        var forceLeft = frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        var forceRight = frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        leftWheelRigidbody.AddForce(forceLeft);
-        rightWheelRigidbody.AddForce(forceRight);
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
+        float torqueLeft = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torqueLeft);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
     }
     
     private void MoveBackwardLeft()
     {
-        var forceLeft = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        var forceRight = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        leftWheelRigidbody.AddForce(forceLeft);
-        rightWheelRigidbody.AddForce(forceRight);
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
+        float torqueLeft = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torqueLeft);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torque);
     }
     
     public void MoveBackwardRight()
     {
-        var forceLeft = -frameTransform.forward * Mathf.Clamp(TrackTime(), 0f, maxForce / 2);
-        var forceRight = -frameTransform.forward * Mathf.Clamp(5f * TrackTime(), 0f, maxForce);
-        leftWheelRigidbody.AddForce(forceLeft);
-        rightWheelRigidbody.AddForce(forceRight);
+        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
+        float torqueRight = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
+
+        // Apply torque to rotate wheels around their local right axis
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torque);
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torqueRight);
+    }
+    
+    private void RotateWheels(float angle)
+    {
+        // Rotate the wheels by the specified angle around the Y-axis
+        leftWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
+        rightWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 }
