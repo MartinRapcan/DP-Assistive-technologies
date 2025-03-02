@@ -1,10 +1,15 @@
 using System;
 using System.Collections;
-using System.Configuration;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
+    public enum NavigationType
+    {
+        Auto,
+        Manual
+    }
     public enum Direction
     {
         Forward,
@@ -39,6 +44,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
     [SerializeField] private GameObject monitor;
+    [SerializeField] private NavigationType navigation = NavigationType.Manual;
     
     private Direction _direction = Direction.None;
     private Coroutine _decelerationCoroutine;
@@ -46,7 +52,41 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
+        
         CameraSetup(); // Set up cameras based on interface type
+        
+        // Find the child object named "Frame"
+        Transform frameTransform = transform.Find("Frame");
+
+        if (frameTransform != null)
+        {
+            Rigidbody frameRigidbody = frameTransform.GetComponent<Rigidbody>();
+            NavMeshAgent frameAgent = frameTransform.GetComponent<NavMeshAgent>();
+
+            if (frameRigidbody != null)
+            {
+                // Set Rigidbody to kinematic or not based on navigation type
+                frameRigidbody.isKinematic = (navigation == NavigationType.Auto);
+            }
+            else
+            {
+                Debug.LogWarning("Rigidbody not found on child object 'Frame'.");
+            }
+            
+            if (frameAgent != null)
+            {
+                // Set NavMeshAgent to enabled or not based on navigation type
+                frameAgent.enabled = (navigation == NavigationType.Auto);
+            }
+            else
+            {
+                Debug.LogWarning("NavMeshAgent not found on child object 'Frame'.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Child object 'Frame' not found.");
+        }
     }
 
     private void CameraSetup()
