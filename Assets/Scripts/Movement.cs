@@ -41,10 +41,15 @@ public class Movement : MonoBehaviour
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private float maxForce = 10f;
     [SerializeField] private float maxTorque = 20f;
-    [SerializeField] private float stopTime = 2f;
+    [SerializeField] private float stopTime = 0.5f;
     [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
     [SerializeField] private GameObject monitor;
     [SerializeField] private NavigationType navigation = NavigationType.Manual;
+    [SerializeField] private Rigidbody casterLeftRb;
+    [SerializeField] private Rigidbody casterRightRb;
+    [SerializeField] private Transform casterLeftMesh;
+    [SerializeField] private Transform casterRightMesh;
+    
     
     private Direction _direction = Direction.None;
     private Coroutine _decelerationCoroutine;
@@ -62,6 +67,7 @@ public class Movement : MonoBehaviour
         {
             Rigidbody frameRigidbody = frameTransform.GetComponent<Rigidbody>();
             NavMeshAgent frameAgent = frameTransform.GetComponent<NavMeshAgent>();
+            Navigation navigationScript = frameTransform.GetComponent<Navigation>();
 
             if (frameRigidbody != null)
             {
@@ -77,10 +83,18 @@ public class Movement : MonoBehaviour
             {
                 // Set NavMeshAgent to enabled or not based on navigation type
                 frameAgent.enabled = (navigation == NavigationType.Auto);
+                
             }
             else
             {
                 Debug.LogWarning("NavMeshAgent not found on child object 'Frame'.");
+            }
+            
+            // Remove the Navigation script if navigation is manual
+            if (navigation == NavigationType.Manual && navigationScript != null)
+            {
+                Destroy(navigationScript);
+                Debug.Log("Navigation script removed from 'Frame' due to manual navigation mode.");
             }
         }
         else
@@ -214,7 +228,7 @@ public class Movement : MonoBehaviour
             _decelerationCoroutine = null;
         }
 
-        _time = Time.deltaTime;
+        _time = 0f; // Reset time
         _direction = newDirection; // Set new direction
     }
 
@@ -300,6 +314,8 @@ public class Movement : MonoBehaviour
         // Apply torque to rotate wheels around their local right axis
         leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
         rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torqueRight);
+        Debug.DrawRay(transform.position, leftWheelRigidbody.transform.right * torque, Color.red);
+        Debug.DrawRay(transform.position, rightWheelRigidbody.transform.right * torqueRight, Color.red);
     }
     
     private void MoveForwardLeft()
@@ -330,6 +346,8 @@ public class Movement : MonoBehaviour
         // Apply torque to rotate wheels around their local right axis
         leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torque);
         rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torqueRight);
+        Debug.DrawRay(transform.position, leftWheelRigidbody.transform.right * torque, Color.red);
+        Debug.DrawRay(transform.position, rightWheelRigidbody.transform.right * torqueRight, Color.red);
     }
     
     private void RotateWheels(float angle)
@@ -337,5 +355,11 @@ public class Movement : MonoBehaviour
         // Rotate the wheels by the specified angle around the Y-axis
         leftWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
         rightWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+    
+    void RotateCaster()
+    {
+        casterLeftMesh.Rotate(-Vector3.right, casterLeftRb.angularVelocity.magnitude);
+        casterRightMesh.Rotate(Vector3.right, casterRightRb.angularVelocity.magnitude);
     }
 }

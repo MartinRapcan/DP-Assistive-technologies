@@ -38,11 +38,14 @@ public class Navigation : MonoBehaviour
                     Vector3 waypointPosition = hitPoint + new Vector3(0, 0.5f, 0);
                     _currentWaypoint = Instantiate(waypointPrefab, waypointPosition, Quaternion.identity);
 
-                    // Start a coroutine to make the waypoint move up and down
-                    StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
+                    // hitpoint is the position where the raycast hit the floor
+                    Debug.Log("Hit point: " + hitPoint);
+                    
+                    // // Start a coroutine to make the waypoint move up and down
+                    // StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
 
-                    // Start rotation to face the target immediately
-                    StartCoroutine(RotateToFace(hitPoint));
+                    // // Start rotation to face the target immediately
+                    // StartCoroutine(RotateToFace(hitPoint));
                 }
             }
         }
