@@ -7,6 +7,8 @@ TagManager:
   - Wheelchair
   - Frame
   - Floor
+  - StartTrigger
+  - EndTrigger
   layers:
   - Default
   - TransparentFX
@@ -17,9 +19,9 @@ TagManager:
   - Enviroment
   - Display
   - Player
-  - 
-  - 
-  - 
+  - Frame
+  - LeftWheel
+  - RightWheel
   - 
   - 
   - 

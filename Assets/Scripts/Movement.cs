@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,7 @@ public class Movement : MonoBehaviour
         Auto,
         Manual
     }
+
     public enum Direction
     {
         Forward,
@@ -31,7 +33,7 @@ public class Movement : MonoBehaviour
         TopCamera,
         None
     }
-    
+
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Transform frameTransform;
@@ -41,65 +43,49 @@ public class Movement : MonoBehaviour
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private float maxForce = 10f;
     [SerializeField] private float maxTorque = 20f;
-    [SerializeField] private float stopTime = 0.5f;
+    [SerializeField] private float stopTime = 2f;
     [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
     [SerializeField] private GameObject monitor;
     [SerializeField] private NavigationType navigation = NavigationType.Manual;
-    [SerializeField] private Rigidbody casterLeftRb;
-    [SerializeField] private Rigidbody casterRightRb;
-    [SerializeField] private Transform casterLeftMesh;
-    [SerializeField] private Transform casterRightMesh;
     
-    
+    [SerializeField] private InteractionsCounter interactionsCounter;
+
     private Direction _direction = Direction.None;
     private Coroutine _decelerationCoroutine;
     private float _time;
-
+    
+    private void Awake() // Or use Start()
+    {
+        interactionsCounter.InitializeInteractionTypes();
+    }
+    
     private void Start()
     {
-        
-        CameraSetup(); // Set up cameras based on interface type
-        
-        // Find the child object named "Frame"
-        Transform frameTransform = transform.Find("Frame");
+        CameraSetup();
+        SetupFrame();
+    }
 
-        if (frameTransform != null)
-        {
-            Rigidbody frameRigidbody = frameTransform.GetComponent<Rigidbody>();
-            NavMeshAgent frameAgent = frameTransform.GetComponent<NavMeshAgent>();
-            Navigation navigationScript = frameTransform.GetComponent<Navigation>();
-
-            if (frameRigidbody != null)
-            {
-                // Set Rigidbody to kinematic or not based on navigation type
-                frameRigidbody.isKinematic = (navigation == NavigationType.Auto);
-            }
-            else
-            {
-                Debug.LogWarning("Rigidbody not found on child object 'Frame'.");
-            }
-            
-            if (frameAgent != null)
-            {
-                // Set NavMeshAgent to enabled or not based on navigation type
-                frameAgent.enabled = (navigation == NavigationType.Auto);
-                
-            }
-            else
-            {
-                Debug.LogWarning("NavMeshAgent not found on child object 'Frame'.");
-            }
-            
-            // Remove the Navigation script if navigation is manual
-            if (navigation == NavigationType.Manual && navigationScript != null)
-            {
-                Destroy(navigationScript);
-                Debug.Log("Navigation script removed from 'Frame' due to manual navigation mode.");
-            }
-        }
-        else
+    private void SetupFrame()
+    {
+        Transform frame = transform.Find("Frame");
+        if (frame == null)
         {
             Debug.LogWarning("Child object 'Frame' not found.");
+            return;
+        }
+
+        Rigidbody frameRigidbody = frame.GetComponent<Rigidbody>();
+        NavMeshAgent frameAgent = frame.GetComponent<NavMeshAgent>();
+        Navigation navigationScript = frame.GetComponent<Navigation>();
+
+        if (frameRigidbody != null)
+            frameRigidbody.isKinematic = (navigation == NavigationType.Auto);
+        if (frameAgent != null)
+            frameAgent.enabled = (navigation == NavigationType.Auto);
+        if (navigation == NavigationType.Manual && navigationScript != null)
+        {
+            Destroy(navigationScript);
+            Debug.Log("Navigation script removed from 'Frame' due to manual navigation mode.");
         }
     }
 
@@ -110,135 +96,102 @@ public class Movement : MonoBehaviour
             monitor.SetActive(false);
             return;
         }
+
         cameraFront.targetTexture = renderTexture;
         cameraBack.targetTexture = renderTexture;
         cameraTop.targetTexture = renderTexture;
         HandleCameraChange(true);
     }
-    
+
     private void HandleCameraChange(bool isMovingForward)
     {
-        switch (interfaceType)
-        {
-            case InterfaceType.DoubleCamera:
-                cameraFront.enabled = isMovingForward;
-                cameraBack.enabled = !isMovingForward;
-                cameraTop.enabled = false;
-                break;
-            case InterfaceType.SingleCamera:
-                cameraFront.enabled = true;
-                cameraBack.enabled = false;
-                cameraTop.enabled = false;
-                break;
-            case InterfaceType.TopCamera:
-                cameraFront.enabled = false;
-                cameraBack.enabled = false;
-                cameraTop.enabled = true;
-                break;
-            case InterfaceType.None:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
+        cameraFront.enabled = interfaceType == InterfaceType.SingleCamera ||
+                              (interfaceType == InterfaceType.DoubleCamera && isMovingForward);
+        cameraBack.enabled = interfaceType == InterfaceType.DoubleCamera && !isMovingForward;
+        cameraTop.enabled = interfaceType == InterfaceType.TopCamera;
     }
 
     private void FixedUpdate()
     {
-        // Call movement logic based on current direction
         switch (_direction)
         {
             case Direction.Forward:
-                MoveForward();
+                Move(Direction.Forward);
                 break;
             case Direction.Backward:
-                MoveBackward();
+                Move(Direction.Backward);
                 break;
             case Direction.Left:
-                TurnLeft();
+                MoveLeftOrRight(Direction.Left);
                 break;
             case Direction.Right:
-                TurnRight();
+                MoveLeftOrRight(Direction.Right);
                 break;
             case Direction.Stop:
                 StopMoving();
                 break;
             case Direction.ForwardRight:
-                MoveForwardRight();
+                Move(Direction.ForwardRight);
                 break;
             case Direction.ForwardLeft:
-                MoveForwardLeft();
+                Move(Direction.ForwardLeft);
                 break;
             case Direction.BackwardLeft:
-                MoveBackwardLeft();
+                Move(Direction.BackwardLeft);
                 break;
             case Direction.BackwardRight:
-                MoveBackwardRight();
+                Move(Direction.BackwardRight);
                 break;
             case Direction.None:
                 break;
         }
     }
-
-    // Public methods to change direction
-    public void ShouldTurnRight() => StartMovement(Direction.Right);
-    public void ShouldStopMoving() => StartMovement(Direction.Stop);
-    public void ShouldTurnLeft() => StartMovement(Direction.Left);
-    public void ShouldMoveForward()
-    {
-        StartMovement(Direction.Forward);
-        HandleCameraChange(true);
-    }
-
-    public void ShouldMoveBackward()
-    {
-        StartMovement(Direction.Backward);
-        HandleCameraChange(false);
-    }
-
-    public void ShouldMoveForwardRight()
-    {
-        StartMovement(Direction.ForwardRight);
-        HandleCameraChange(true);
-    }
     
-    public void ShouldMoveForwardLeft()
+    private void HandleMovementAndInteraction(Direction direction)
     {
-        StartMovement(Direction.ForwardLeft);
-        HandleCameraChange(true);
-    }
-    
-    public void ShouldMoveBackwardLeft()
-    {
-        StartMovement(Direction.BackwardLeft);
-        HandleCameraChange(false);
-    }
-    
-    public void ShouldMoveBackwardRight()
-    {
-        StartMovement(Direction.BackwardRight);
-        HandleCameraChange(false);
+        if (interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
+        {
+            interactionsCounter.SetInteractionType(direction);
+        }
+        StartMovement(direction);
     }
 
-    private void StartMovement(Direction newDirection)
+    public void ShouldMoveForward() => HandleMovementAndInteraction(Direction.Forward);
+    public void ShouldMoveBackward() => HandleMovementAndInteraction(Direction.Backward);
+    public void ShouldTurnLeft() => HandleMovementAndInteraction(Direction.Left);
+    public void ShouldTurnRight() => HandleMovementAndInteraction(Direction.Right);
+    public void ShouldStopMoving(bool isClicked = false)
     {
-        // Stop any ongoing deceleration when a new movement is initiated
+        if (isClicked)
+        {
+            interactionsCounter.SetInteractionType(Direction.Stop);
+        }
+        StopMoving();
+    }
+
+    public void ShouldMoveForwardRight() => HandleMovementAndInteraction(Direction.ForwardRight);
+    public void ShouldMoveForwardLeft() => HandleMovementAndInteraction(Direction.ForwardLeft);
+    public void ShouldMoveBackwardLeft() => HandleMovementAndInteraction(Direction.BackwardLeft);
+    public void ShouldMoveBackwardRight() => HandleMovementAndInteraction(Direction.BackwardRight);
+
+    public void StartMovement(Direction newDirection)
+    {
         if (_decelerationCoroutine != null)
         {
             StopCoroutine(_decelerationCoroutine);
             _decelerationCoroutine = null;
         }
 
-        _time = 0f; // Reset time
-        _direction = newDirection; // Set new direction
+        _time = 0f;
+        _direction = newDirection;
+        HandleCameraChange(newDirection == Direction.Forward || newDirection == Direction.ForwardRight ||
+                           newDirection == Direction.ForwardLeft);
     }
 
-    private void StopMoving()
+    public void StopMoving()
     {
-        // Start deceleration coroutine if not already running
         if (_decelerationCoroutine == null)
-        {
             _decelerationCoroutine = StartCoroutine(DecelerateWheels());
-        }
     }
 
     private IEnumerator DecelerateWheels()
@@ -250,116 +203,58 @@ public class Movement : MonoBehaviour
         while (Time.time - startTime < stopTime)
         {
             float lerpFactor = (Time.time - startTime) / stopTime;
-
-            // Lerp between current velocity and zero over stopTime duration
             leftWheelRigidbody.velocity = Vector3.Lerp(initialVelocityLeft, Vector3.zero, lerpFactor);
             rightWheelRigidbody.velocity = Vector3.Lerp(initialVelocityRight, Vector3.zero, lerpFactor);
-
-            leftWheelRigidbody.angularVelocity = Vector3.Lerp(leftWheelRigidbody.angularVelocity, Vector3.zero, lerpFactor);
-            rightWheelRigidbody.angularVelocity = Vector3.Lerp(rightWheelRigidbody.angularVelocity, Vector3.zero, lerpFactor);
-
+            leftWheelRigidbody.angularVelocity =
+                Vector3.Lerp(leftWheelRigidbody.angularVelocity, Vector3.zero, lerpFactor);
+            rightWheelRigidbody.angularVelocity =
+                Vector3.Lerp(rightWheelRigidbody.angularVelocity, Vector3.zero, lerpFactor);
             yield return null;
         }
 
-        // Ensure we stop completely after lerp finishes
         leftWheelRigidbody.velocity = Vector3.zero;
         rightWheelRigidbody.velocity = Vector3.zero;
         leftWheelRigidbody.angularVelocity = Vector3.zero;
         rightWheelRigidbody.angularVelocity = Vector3.zero;
-
         _direction = Direction.None;
     }
 
-    private float TrackTime()
+    private void Move(Direction direction)
     {
-        _time += Time.deltaTime;
-        return _time;
+        var reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
+        var torque = Mathf.Clamp(2f * (_time += Time.deltaTime), 0f, reverse ? maxTorque / 2 : maxTorque);
+
+        // Adjust torque multipliers for diagonal movements
+        const float torqueMultiplier = 1.1f;
+
+        var rightTorque = torque * (direction is Direction.ForwardLeft or Direction.BackwardLeft
+            ? torqueMultiplier
+            : 1);
+        var leftTorque = torque * (direction is Direction.ForwardRight or Direction.BackwardRight
+            ? torqueMultiplier
+            : 1);
+
+        // Apply torque correctly
+        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right *
+                                     (reverse ? -leftTorque : leftTorque)); // Flipped sign
+        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right *
+                                      (reverse ? -rightTorque : rightTorque)); // Flipped sign
     }
 
-    private void TurnRight()
+    // Dedicated function for pure left/right movement
+    private void MoveLeftOrRight(Direction direction)
     {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
-    }
+        float torque = Mathf.Clamp(3f * (_time += Time.deltaTime), 0f, maxTorque);
 
-    private void TurnLeft()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
-    }
-    
-    private void MoveForward()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
-    }
-    
-    private void MoveBackward()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torque);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torque);
-    }
-    
-    private void MoveForwardRight()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
-        float torqueRight = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torqueRight);
-        Debug.DrawRay(transform.position, leftWheelRigidbody.transform.right * torque, Color.red);
-        Debug.DrawRay(transform.position, rightWheelRigidbody.transform.right * torqueRight, Color.red);
-    }
-    
-    private void MoveForwardLeft()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
-        float torqueLeft = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torqueLeft);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
-    }
-    
-    private void MoveBackwardLeft()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
-        float torqueLeft = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torqueLeft);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torque);
-    }
-    
-    public void MoveBackwardRight()
-    {
-        float torque = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque * 1.6f);
-        float torqueRight = Mathf.Clamp(3f * TrackTime(), 0f, maxTorque);
-
-        // Apply torque to rotate wheels around their local right axis
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * -torque);
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * -torqueRight);
-        Debug.DrawRay(transform.position, leftWheelRigidbody.transform.right * torque, Color.red);
-        Debug.DrawRay(transform.position, rightWheelRigidbody.transform.right * torqueRight, Color.red);
-    }
-    
-    private void RotateWheels(float angle)
-    {
-        // Rotate the wheels by the specified angle around the Y-axis
-        leftWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
-        rightWheelRigidbody.transform.rotation = Quaternion.Euler(0, angle, 0);
-    }
-    
-    void RotateCaster()
-    {
-        casterLeftMesh.Rotate(-Vector3.right, casterLeftRb.angularVelocity.magnitude);
-        casterRightMesh.Rotate(Vector3.right, casterRightRb.angularVelocity.magnitude);
+        if (direction == Direction.Left)
+        {
+            rightWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque); // Flipped sign
+            leftWheelRigidbody.AddTorque(Vector3.zero); // Right wheel stays still
+        }
+        else if (direction == Direction.Right)
+        {
+            leftWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque); // Flipped sign
+            rightWheelRigidbody.AddTorque(Vector3.zero); // Left wheel stays still
+        }
     }
 }

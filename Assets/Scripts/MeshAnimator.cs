@@ -2,34 +2,25 @@ using UnityEngine;
 
 public class MeshAnimator : MonoBehaviour
 {
-    [SerializeField] private Transform target;
-    
-    [SerializeField] private Rigidbody casterLeftRb;
-    [SerializeField] private Rigidbody casterRightRb;
+    [SerializeField] private Rigidbody wheelLeftRb;
+    [SerializeField] private Rigidbody wheelRightRb;   
 
     [SerializeField] private Transform casterLeftMesh;
     [SerializeField] private Transform casterRightMesh;
-
-    private Vector3 _offset;
-
-    private void Start()
-    {
-        _offset = transform.localPosition - target.localPosition;
-    }
-
+    
     private void Update()
-    {
-            RotateCaster();
-            
-            Vector3 rotatedOffset = target.localRotation * _offset;
-            transform.localPosition = target.localPosition + rotatedOffset;
-
-            transform.rotation = target.rotation;
+    { 
+        RotateCaster();
     }
     
     private void RotateCaster()
     {
-        casterLeftMesh.Rotate(-Vector3.right, casterLeftRb.angularVelocity.magnitude);
-        casterRightMesh.Rotate(Vector3.right, casterRightRb.angularVelocity.magnitude);
+        // Use the direction of rotation to determine the correct rotation direction
+        var leftRotationDirection = Mathf.Sign(Vector3.Dot(wheelLeftRb.angularVelocity, wheelLeftRb.transform.right));
+        var rightRotationDirection = Mathf.Sign(Vector3.Dot(wheelRightRb.angularVelocity, wheelRightRb.transform.right));
+
+        // Apply rotation in the correct direction
+        casterLeftMesh.Rotate(Vector3.right, leftRotationDirection * wheelLeftRb.angularVelocity.magnitude * 10);
+        casterRightMesh.Rotate(Vector3.right, rightRotationDirection * wheelRightRb.angularVelocity.magnitude * 10);
     }
 }

@@ -1,0 +1,155 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+public class InteractionsCounter : MonoBehaviour
+{
+    [System.Serializable] // Make serializable for JsonUtility
+    public class InteractionData
+    {
+        public string direction;
+        public int amount;
+    }
+    
+    [System.Serializable] // Make serializable for JsonUtility
+    public class OutputData
+    {
+        public int numberOfCollisions;
+        public List<InteractionData> interactionTypes;
+    }
+    public struct InteractionType
+    {
+        public Movement.Direction Type;
+        public int Amount;
+    }
+    
+    public bool hasStarted
+    {
+        get;
+        // Getter for _hasStarted
+        set;
+        // Setter for _hasStarted
+    } = false;
+    
+    private bool _hasEnded = false;
+
+    public bool hasEnded
+    {
+        get { return _hasEnded; }
+        set
+        {
+            if (_hasEnded == value) return;
+            _hasEnded = value;
+            if (_hasEnded)
+            {
+                OnEndTriggered?.Invoke();
+            }
+        }
+    }
+    
+    // Event to notify when the process ends
+    public event Action OnEndTriggered;
+
+    private int _numberOfCollisions = 0;
+    private Dictionary<string, InteractionType> _interactionTypes;
+    
+    public void InitializeInteractionTypes()
+    {
+        _interactionTypes = new Dictionary<string, InteractionType>();
+
+        foreach (Movement.Direction dir in Enum.GetValues(typeof(Movement.Direction)))
+        {
+            if (dir == Movement.Direction.None) continue; // Skip "None" if needed
+            _interactionTypes[dir.ToString()] = new InteractionType { Type = dir, Amount = 0 };
+        }
+    }
+    
+    public void SetInteractionType(Movement.Direction direction)
+    {
+        var key = direction.ToString();
+        _interactionTypes[key] = new InteractionType 
+        { 
+            Type = _interactionTypes[key].Type, 
+            Amount = _interactionTypes[key].Amount + 1 
+        };
+    }
+
+    public void IncrementNumberOfCollisions()
+    {
+        _numberOfCollisions++;
+    }
+    
+    // Method to output data to a JSON file
+    private void OutputJsonAndStop()
+    {
+        try
+        {
+            // Create a serializable output data structure
+            OutputData outputData = new OutputData
+            {
+                numberOfCollisions = _numberOfCollisions,
+                interactionTypes = new List<InteractionData>()
+            };
+
+            // Convert dictionary to list for serialization
+            foreach (var kvp in _interactionTypes)
+            {
+                outputData.interactionTypes.Add(new InteractionData 
+                { 
+                    direction = kvp.Key, 
+                    amount = kvp.Value.Amount 
+                });
+            }
+
+            // Convert to JSON
+            string json = JsonUtility.ToJson(outputData, true);
+
+            // Get the desktop path for the current user
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            // Set the path where the file will be saved on the Desktop
+            string filePath = Path.Combine(desktopPath, "interactionData.json");
+
+            // Write the JSON string to a file
+            File.WriteAllText(filePath, json);
+
+            // Output message to the console
+            Debug.Log("JSON file saved at: " + filePath);
+            
+            // Make sure to call this on the main thread
+            StartCoroutine(QuitAfterDelay());
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("Error saving JSON: " + e.Message);
+        }
+    }
+
+    private System.Collections.IEnumerator QuitAfterDelay()
+    {
+        // Wait for a frame to ensure logging happens
+        yield return null;
+        
+        // Exit Unity
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
+
+    // Subscribe to the event when the script is enabled
+    private void OnEnable()
+    {
+        // Subscribe to the OnEndTriggered event to call OutputJsonAndStop when the end is triggered
+        OnEndTriggered += OutputJsonAndStop;
+    }
+
+    // Unsubscribe to the event when the script is disabled
+    private void OnDisable()
+    {
+        OnEndTriggered -= OutputJsonAndStop;
+    }
+}
