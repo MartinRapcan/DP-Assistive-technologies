@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
-    public enum NavigationType
+    private enum NavigationType
     {
         Auto,
         Manual
@@ -26,7 +26,7 @@ public class Movement : MonoBehaviour
         BackwardRight
     }
 
-    public enum InterfaceType
+    private enum InterfaceType
     {
         DoubleCamera,
         SingleCamera,
@@ -41,7 +41,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private Camera cameraBack;
     [SerializeField] private Camera cameraTop;
     [SerializeField] private RenderTexture renderTexture;
-    [SerializeField] private float maxForce = 10f;
     [SerializeField] private float maxTorque = 20f;
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
@@ -188,21 +187,26 @@ public class Movement : MonoBehaviour
                            newDirection == Direction.ForwardLeft);
     }
 
-    public void StopMoving()
+    private void StopMoving()
     {
-        if (_decelerationCoroutine == null)
-            _decelerationCoroutine = StartCoroutine(DecelerateWheels());
+        _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
     }
 
     private IEnumerator DecelerateWheels()
     {
-        float startTime = Time.time;
-        Vector3 initialVelocityLeft = leftWheelRigidbody.velocity;
-        Vector3 initialVelocityRight = rightWheelRigidbody.velocity;
+        var startTime = Time.time;
+        var initialVelocityLeft = leftWheelRigidbody.velocity;
+        var initialVelocityRight = rightWheelRigidbody.velocity;
+        
+        // Get the frame's rigidbody
+        var frameRb = frameTransform.GetComponent<Rigidbody>();
+        var initialFrameVelocity = frameRb ? frameRb.velocity : Vector3.zero;
+        var initialFrameAngularVelocity = frameRb ? frameRb.angularVelocity : Vector3.zero;
 
         while (Time.time - startTime < stopTime)
         {
-            float lerpFactor = (Time.time - startTime) / stopTime;
+            Debug.Log("Decelerating");
+            var lerpFactor = (Time.time - startTime) / stopTime;
             leftWheelRigidbody.velocity = Vector3.Lerp(initialVelocityLeft, Vector3.zero, lerpFactor);
             rightWheelRigidbody.velocity = Vector3.Lerp(initialVelocityRight, Vector3.zero, lerpFactor);
             leftWheelRigidbody.angularVelocity =
@@ -216,6 +220,13 @@ public class Movement : MonoBehaviour
         rightWheelRigidbody.velocity = Vector3.zero;
         leftWheelRigidbody.angularVelocity = Vector3.zero;
         rightWheelRigidbody.angularVelocity = Vector3.zero;
+        
+        if (frameRb && !frameRb.isKinematic)
+        {
+            frameRb.velocity = Vector3.zero;
+            frameRb.angularVelocity = Vector3.zero;
+        }
+        
         _direction = Direction.None;
     }
 
@@ -244,7 +255,7 @@ public class Movement : MonoBehaviour
     // Dedicated function for pure left/right movement
     private void MoveLeftOrRight(Direction direction)
     {
-        float torque = Mathf.Clamp(3f * (_time += Time.deltaTime), 0f, maxTorque);
+        var torque = Mathf.Clamp(3f * (_time += Time.deltaTime), 0f, maxTorque);
 
         if (direction == Direction.Left)
         {
