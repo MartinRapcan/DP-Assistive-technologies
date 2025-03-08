@@ -60,7 +60,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         CameraSetup();
-        SetupFrame();
+        // SetupFrame();
     }
 
     private void SetupFrame()

@@ -42,16 +42,16 @@ public class Navigation : MonoBehaviour
                     Debug.Log("Hit point: " + hitPoint);
                     
                     // // Start a coroutine to make the waypoint move up and down
-                    // StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
+                    StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
 
                     // // Start rotation to face the target immediately
-                    // StartCoroutine(RotateToFace(hitPoint));
+                    StartCoroutine(RotateToFace(hitPoint));
                 }
             }
         }
 
         // Check if the agent is close to its destination and remove the waypoint
-        if (_currentWaypoint != null && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (_currentWaypoint && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             Destroy(_currentWaypoint);
         }

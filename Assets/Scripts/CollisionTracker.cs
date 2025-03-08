@@ -18,13 +18,21 @@ public class CollisionTracker : MonoBehaviour
         if (other.CompareTag("StartTrigger") && !interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
         {
             Debug.Log("Start trigger");
-            interactionsCounter.SetInteractionType(movement.direction);
+            // Set the interaction type based on the current direction only if direction is not None
+            if (movement.direction != Movement.Direction.None)
+            {
+                interactionsCounter.SetInteractionType(movement.direction);
+            }
             interactionsCounter.hasStarted = true;  // Set hasStarted via property
         }
         else if (other.CompareTag("EndTrigger") && interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
         {
             Debug.Log("End trigger");
-            interactionsCounter.SetInteractionType(movement.direction);
+            // Set the interaction type based on the current direction only if direction is not None
+            if (movement.direction != Movement.Direction.None)
+            {
+                interactionsCounter.SetInteractionType(movement.direction);
+            }
             interactionsCounter.hasEnded = true;  // Set hasEnded via property
         }
     }

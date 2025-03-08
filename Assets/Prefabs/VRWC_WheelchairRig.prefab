@@ -2667,7 +2667,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -2707,7 +2707,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.65, y: 1.2, z: 0.82}
-  m_Center: {x: 0, y: 0.65, z: 0.1}
+  m_Center: {x: 0, y: 0.65, z: 0}
 --- !u!195 &4966649543647584307
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2715,18 +2715,18 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997934018186033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Radius: 0.52
+  m_Speed: 1
+  m_Acceleration: 2
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.2
   m_BaseOffset: -0.06
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2737,7 +2737,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997934018186033}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
   m_Name: 
@@ -3178,6 +3178,8 @@ GameObject:
   - component: {fileID: 3355997934270379108}
   - component: {fileID: 3355997934270379110}
   - component: {fileID: 2507353941691126117}
+  - component: {fileID: 657802013573547318}
+  - component: {fileID: 6506477455306764438}
   m_Layer: 8
   m_Name: VRWC_WheelchairRig
   m_TagString: Untagged
@@ -3235,6 +3237,44 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 3355997933788464947}
   m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 0
+--- !u!195 &657802013573547318
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355997934270379128}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: -0.06
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &6506477455306764438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355997934270379128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 3355997934936558552}
+  agent: {fileID: 657802013573547318}
+  waypointPrefab: {fileID: 5682725569931978553, guid: 998151706998ec94daa032777401a596, type: 3}
+  maxRotationTime: 2
 --- !u!1 &3355997934338465200
 GameObject:
   m_ObjectHideFlags: 0
