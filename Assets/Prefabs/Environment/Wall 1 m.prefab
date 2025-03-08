@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6464074582984789132}
   - component: {fileID: 315756868735091216}
   - component: {fileID: 941337702870594661}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Wall 1 m
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

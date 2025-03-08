@@ -46,10 +46,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
     [SerializeField] private GameObject monitor;
     [SerializeField] private NavigationType navigation = NavigationType.Manual;
-    
     [SerializeField] private InteractionsCounter interactionsCounter;
-
-    private Direction _direction = Direction.None;
+    
+    public Direction direction { get; set; } = Direction.None;
     private Coroutine _decelerationCoroutine;
     private float _time;
     
@@ -112,7 +111,7 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch (_direction)
+        switch (direction)
         {
             case Direction.Forward:
                 Move(Direction.Forward);
@@ -182,7 +181,7 @@ public class Movement : MonoBehaviour
         }
 
         _time = 0f;
-        _direction = newDirection;
+        direction = newDirection;
         HandleCameraChange(newDirection == Direction.Forward || newDirection == Direction.ForwardRight ||
                            newDirection == Direction.ForwardLeft);
     }
@@ -191,7 +190,7 @@ public class Movement : MonoBehaviour
     {
         _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
     }
-
+    
     private IEnumerator DecelerateWheels()
     {
         var startTime = Time.time;
@@ -227,13 +226,13 @@ public class Movement : MonoBehaviour
             frameRb.angularVelocity = Vector3.zero;
         }
         
-        _direction = Direction.None;
+        direction = Direction.None;
     }
 
     private void Move(Direction direction)
     {
         var reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
-        var torque = Mathf.Clamp(2f * (_time += Time.deltaTime), 0f, reverse ? maxTorque / 2 : maxTorque);
+        var torque = Mathf.Clamp(10f * (_time += Time.deltaTime), 0f, reverse ? maxTorque / 2 : maxTorque);
 
         // Adjust torque multipliers for diagonal movements
         const float torqueMultiplier = 1.1f;
@@ -247,25 +246,25 @@ public class Movement : MonoBehaviour
 
         // Apply torque correctly
         leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right *
-                                     (reverse ? -leftTorque : leftTorque)); // Flipped sign
+                                     (reverse ? -leftTorque : leftTorque));
         rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right *
-                                      (reverse ? -rightTorque : rightTorque)); // Flipped sign
+                                      (reverse ? -rightTorque : rightTorque));
     }
 
     // Dedicated function for pure left/right movement
     private void MoveLeftOrRight(Direction direction)
     {
-        var torque = Mathf.Clamp(3f * (_time += Time.deltaTime), 0f, maxTorque);
+        var torque = Mathf.Clamp(5f * (_time += Time.deltaTime), 0f, maxTorque);
 
         if (direction == Direction.Left)
         {
-            rightWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque); // Flipped sign
-            leftWheelRigidbody.AddTorque(Vector3.zero); // Right wheel stays still
+            rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
+            leftWheelRigidbody.AddTorque(-leftWheelRigidbody.transform.right * torque);
         }
         else if (direction == Direction.Right)
         {
-            leftWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque); // Flipped sign
-            rightWheelRigidbody.AddTorque(Vector3.zero); // Left wheel stays still
+            leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
+            rightWheelRigidbody.AddTorque(-rightWheelRigidbody.transform.right * torque);
         }
     }
 }

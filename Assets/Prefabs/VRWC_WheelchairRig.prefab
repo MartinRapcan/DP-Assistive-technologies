@@ -1109,6 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed811118211e4445ae521b8e3348c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactionsCounter: {fileID: 1474220663579919304}
   targetTransform: {fileID: 3355997934018186044}
   updateInterval: 1
   lineRenderer: {fileID: 3016788062487176510}
@@ -2356,7 +2357,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2393,7 +2394,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -2613,6 +2614,7 @@ GameObject:
   - component: {fileID: 8746967792463520715}
   - component: {fileID: 4966649543647584307}
   - component: {fileID: 7682566290119836172}
+  - component: {fileID: 3549618307742638796}
   m_Layer: 9
   m_Name: Frame
   m_TagString: Frame
@@ -2652,7 +2654,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 250
   m_Drag: 0
-  m_AngularDrag: 25
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2661,7 +2663,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3072
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -2692,7 +2694,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3355997934018186033}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: f73c4fb9fad7c604e921e2d0103d7265, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2700,7 +2702,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 3072
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2744,6 +2746,20 @@ MonoBehaviour:
   agent: {fileID: 4966649543647584307}
   waypointPrefab: {fileID: 5682725569931978553, guid: 998151706998ec94daa032777401a596, type: 3}
   maxRotationTime: 2
+--- !u!114 &3549618307742638796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3355997934018186033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903ebcae1642de645ad15de094d01e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionsCounter: {fileID: 1474220663579919304}
+  movement: {fileID: 2509194037368928884}
 --- !u!1 &3355997934027076914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2908,7 +2924,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2945,7 +2961,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 576
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 1
@@ -3397,6 +3413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 725265e3f626fbb46b1f0b5f2b016914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentCamera: {fileID: 0}
 --- !u!1 &3355997934884636547
 GameObject:
   m_ObjectHideFlags: 0
@@ -6375,13 +6392,14 @@ GameObject:
   - component: {fileID: 8869255607178778322}
   - component: {fileID: 4615168790322662669}
   - component: {fileID: 5872847256565905746}
-  m_Layer: 9
+  - component: {fileID: 5050826978392885838}
+  m_Layer: 12
   m_Name: Collisions Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8869255607178778322
 Transform:
   m_ObjectHideFlags: 0
@@ -6407,10 +6425,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 3976
+    m_Bits: 3072
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -6431,7 +6449,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionsCounter: {fileID: 1474220663579919304}
-  followTransform: {fileID: 3355997934018186044}
+  movement: {fileID: 2509194037368928884}
+--- !u!54 &5050826978392885838
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5884557465307069929}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 3584
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!1 &5968333574612384926
 GameObject:
   m_ObjectHideFlags: 0

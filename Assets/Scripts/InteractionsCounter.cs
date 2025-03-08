@@ -53,6 +53,7 @@ public class InteractionsCounter : MonoBehaviour
 
     private int _numberOfCollisions = 0;
     private Dictionary<string, InteractionType> _interactionTypes;
+    [SerializeField] private Camera environmentCamera;
     
     public void InitializeInteractionTypes()
     {
@@ -117,6 +118,9 @@ public class InteractionsCounter : MonoBehaviour
             // Output message to the console
             Debug.Log("JSON file saved at: " + filePath);
             
+            // Save a screenshot
+            SaveCameraImage();
+            
             // Make sure to call this on the main thread
             StartCoroutine(QuitAfterDelay());
         }
@@ -124,6 +128,44 @@ public class InteractionsCounter : MonoBehaviour
         {
             Debug.LogError("Error saving JSON: " + e.Message);
         }
+    }
+    
+    private void SaveCameraImage()
+    {
+        if (environmentCamera == null)
+        {
+            Debug.LogError("Camera is not assigned!");
+            return;
+        }
+
+        // Set up RenderTexture
+        int width = Screen.width;
+        int height = Screen.height;
+        RenderTexture renderTexture = new RenderTexture(width, height, 24);
+        environmentCamera.targetTexture = renderTexture;
+        environmentCamera.Render();
+
+        // Convert to Texture2D
+        Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
+        RenderTexture.active = renderTexture;
+        texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        texture.Apply();
+
+        // Reset Camera targetTexture
+        environmentCamera.targetTexture = null;
+        RenderTexture.active = null;
+        Destroy(renderTexture);
+
+        // Convert to PNG
+        byte[] bytes = texture.EncodeToPNG();
+        Destroy(texture);
+
+        // Save to Desktop
+        string desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        string filePath = Path.Combine(desktopPath, "Screenshot.png");
+        File.WriteAllBytes(filePath, bytes);
+
+        Debug.Log($"Screenshot saved to: {filePath}");
     }
 
     private System.Collections.IEnumerator QuitAfterDelay()

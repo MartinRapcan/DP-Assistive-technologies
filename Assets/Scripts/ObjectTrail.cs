@@ -6,6 +6,7 @@ public class ObjectTrail : MonoBehaviour
 {
     private readonly List<Vector3> _points = new List<Vector3>();
     
+    [SerializeField] private InteractionsCounter interactionsCounter; // Reference to InteractionsCounter script
     [SerializeField] private Transform targetTransform;       // The transform to track
     [SerializeField] private float updateInterval = 1.0f;     // Time in seconds between points
     [SerializeField] private LineRenderer lineRenderer;
@@ -29,12 +30,6 @@ public class ObjectTrail : MonoBehaviour
         lineRenderer.numCornerVertices = 8; // Controls how rounded the corners are
         lineRenderer.numCapVertices = 8;    // Controls how rounded the ends are
         lineRenderer.alignment = LineAlignment.View; // Makes the line face the camera
-        
-        // Add first point at start
-        if (targetTransform != null)
-        {
-            AddPoint(targetTransform.position + offset);
-        }
     }
     
     private void Update()
@@ -50,7 +45,7 @@ public class ObjectTrail : MonoBehaviour
         timeSinceLastPoint += Time.deltaTime;
         
         // Add a new point every updateInterval seconds
-        if (!(timeSinceLastPoint >= updateInterval)) return;
+        if (!(timeSinceLastPoint >= updateInterval) || !interactionsCounter.hasStarted || interactionsCounter.hasEnded) return;
         AddPoint(targetTransform.position + offset);
         timeSinceLastPoint = 0f;
     }
@@ -71,7 +66,7 @@ public class ObjectTrail : MonoBehaviour
     // Update all positions in LateUpdate to ensure newest position is used
     private void LateUpdate()
     {
-        if (_points.Count > 0 && targetTransform != null)
+        if (_points.Count > 0 && targetTransform && interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
         {
             // Always update the latest point to follow the transform with the offset
             _points[_points.Count - 1] = targetTransform.position + offset;
