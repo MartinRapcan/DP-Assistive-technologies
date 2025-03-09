@@ -6,34 +6,6 @@ using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
-    private enum NavigationType
-    {
-        Auto,
-        Manual
-    }
-
-    public enum Direction
-    {
-        Forward,
-        Backward,
-        Left,
-        Right,
-        Stop,
-        None,
-        ForwardRight,
-        ForwardLeft,
-        BackwardLeft,
-        BackwardRight
-    }
-
-    private enum InterfaceType
-    {
-        DoubleCamera,
-        SingleCamera,
-        TopCamera,
-        None
-    }
-
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Transform frameTransform;
@@ -43,48 +15,22 @@ public class Movement : MonoBehaviour
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private float maxTorque = 20f;
     [SerializeField] private float stopTime = 2f;
-    [SerializeField] private InterfaceType interfaceType = InterfaceType.None;
     [SerializeField] private GameObject monitor;
-    [SerializeField] private NavigationType navigation = NavigationType.Manual;
     [SerializeField] private InteractionsCounter interactionsCounter;
+    
+    // GlobalConfig
+    [SerializeField] private GlobalConfig globalConfig;
+    private NavigationType navigation => globalConfig.navigationType;
+    private InterfaceType interfaceType => globalConfig.interfaceType;
     
     public Direction direction { get; set; } = Direction.None;
     private Coroutine _decelerationCoroutine;
     private float _time;
     
-    private void Awake() // Or use Start()
-    {
-        interactionsCounter.InitializeInteractionTypes();
-    }
-    
     private void Start()
     {
+        interactionsCounter.InitializeInteractionTypes();
         CameraSetup();
-        // SetupFrame();
-    }
-
-    private void SetupFrame()
-    {
-        Transform frame = transform.Find("Frame");
-        if (frame == null)
-        {
-            Debug.LogWarning("Child object 'Frame' not found.");
-            return;
-        }
-
-        Rigidbody frameRigidbody = frame.GetComponent<Rigidbody>();
-        NavMeshAgent frameAgent = frame.GetComponent<NavMeshAgent>();
-        Navigation navigationScript = frame.GetComponent<Navigation>();
-
-        if (frameRigidbody != null)
-            frameRigidbody.isKinematic = (navigation == NavigationType.Auto);
-        if (frameAgent != null)
-            frameAgent.enabled = (navigation == NavigationType.Auto);
-        if (navigation == NavigationType.Manual && navigationScript != null)
-        {
-            Destroy(navigationScript);
-            Debug.Log("Navigation script removed from 'Frame' due to manual navigation mode.");
-        }
     }
 
     private void CameraSetup()

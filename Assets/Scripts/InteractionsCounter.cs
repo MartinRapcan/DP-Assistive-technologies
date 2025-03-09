@@ -18,9 +18,10 @@ public class InteractionsCounter : MonoBehaviour
         public int numberOfCollisions;
         public List<InteractionData> interactionTypes;
     }
+    
     public struct InteractionType
     {
-        public Movement.Direction Type;
+        public Direction Type;
         public int Amount;
     }
     
@@ -59,14 +60,14 @@ public class InteractionsCounter : MonoBehaviour
     {
         _interactionTypes = new Dictionary<string, InteractionType>();
 
-        foreach (Movement.Direction dir in Enum.GetValues(typeof(Movement.Direction)))
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
-            if (dir == Movement.Direction.None) continue; // Skip "None" if needed
+            if (dir == Direction.None) continue; // Skip "None" if needed
             _interactionTypes[dir.ToString()] = new InteractionType { Type = dir, Amount = 0 };
         }
     }
     
-    public void SetInteractionType(Movement.Direction direction)
+    public void SetInteractionType(Direction direction)
     {
         var key = direction.ToString();
         _interactionTypes[key] = new InteractionType 

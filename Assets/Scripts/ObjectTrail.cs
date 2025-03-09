@@ -12,7 +12,9 @@ public class ObjectTrail : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private float timeSinceLastPoint = 0f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0.2f, 0); // Offset for the line
+
     private const float PipeRadius = 0.01f; // Controls the thickness of your pipe
+    
     
     private void Start()
     {

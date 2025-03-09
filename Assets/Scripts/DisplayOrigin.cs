@@ -9,14 +9,9 @@ public enum OriginType
 
 public class DisplayOrigin : MonoBehaviour
 {
-    [SerializeField]
-    private Transform cameraPosition;
-
-    [SerializeField]
-    private Transform wheelChairPosition;
-
-    [SerializeField]
-    private OriginType defaultOriginType = OriginType.Wheelchair;
+    [SerializeField] private Transform cameraPosition;
+    [SerializeField] private Transform wheelChairPosition;
+    [SerializeField] private OriginType defaultOriginType = OriginType.Wheelchair;
     
     private Transform _transform;
 

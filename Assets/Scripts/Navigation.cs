@@ -5,55 +5,63 @@ using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
-    [SerializeField]
-    private Camera mainCamera;
-
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agent;
-
     [SerializeField] private GameObject waypointPrefab;
-    private GameObject _currentWaypoint = null; // Reference to the current waypoint
-
     [SerializeField] private float maxRotationTime = 2f; // Maximum rotation time (in seconds)
-
-    void Update()
+    [SerializeField] private Transform casterLeftMesh;
+    [SerializeField] private Transform casterRightMesh;
+    [SerializeField] private Transform rightWheelTransform;
+    [SerializeField] private Transform leftWheelTransform;
+    
+    private GameObject _currentWaypoint = null; // Reference to the current waypoint
+    private bool _isMoving = false; // Flag to check if the agent is moving
+    
+    private void Update()
     {
         // Perform a raycast from the camera to the mouse position
         if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo))
+            RaycastHit[] hits = Physics.RaycastAll(ray);
+
+            foreach (RaycastHit hit in hits)
             {
-                // Check if the object hit has the tag "Floor"
-                if (hitInfo.collider.CompareTag("Floor"))
+                if (!hit.collider.CompareTag("MainCamera")) // Skip the camera collider
                 {
-                    Vector3 hitPoint = hitInfo.point;
-
-                    // Remove any existing waypoint
-                    if (_currentWaypoint != null)
+                    if (hit.collider.CompareTag("Floor"))
                     {
-                        Destroy(_currentWaypoint);
-                    }
+                        Vector3 hitPoint = hit.point;
 
-                    // Instantiate a new waypoint at the hit point, offset by 0.5 on the Y-axis
-                    Vector3 waypointPosition = hitPoint + new Vector3(0, 0.5f, 0);
-                    _currentWaypoint = Instantiate(waypointPrefab, waypointPosition, Quaternion.identity);
+                        // Remove any existing waypoint
+                        if (_currentWaypoint != null)
+                        {
+                            Destroy(_currentWaypoint);
+                        }
 
-                    // hitpoint is the position where the raycast hit the floor
-                    Debug.Log("Hit point: " + hitPoint);
+                        // Instantiate a new waypoint at the hit point, offset by 0.5 on the Y-axis
+                        Vector3 waypointPosition = hitPoint + new Vector3(0, 0.5f, 0);
+                        _currentWaypoint = Instantiate(waypointPrefab, waypointPosition, Quaternion.identity);
+
+                        // hitpoint is the position where the raycast hit the floor
+                        Debug.Log("Hit point: " + hitPoint);
                     
-                    // // Start a coroutine to make the waypoint move up and down
-                    StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
+                        // // Start a coroutine to make the waypoint move up and down
+                        StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
 
-                    // // Start rotation to face the target immediately
-                    StartCoroutine(RotateToFace(hitPoint));
+                        // // Start rotation to face the target immediately
+                        StartCoroutine(RotateToFace(hitPoint));
+                    }
+                    break; // Exit loop after first valid hit
                 }
             }
         }
 
         // Check if the agent is close to its destination and remove the waypoint
-        if (_currentWaypoint && !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        if (_currentWaypoint && agent.remainingDistance <= agent.stoppingDistance && _isMoving)
         {
             Destroy(_currentWaypoint);
+            _isMoving = false;
         }
     }
 
@@ -83,6 +91,9 @@ public class Navigation : MonoBehaviour
 
         // Ensure the final rotation is exact (optional)
         transform.rotation = targetRotation;
+        
+        // Set the flag to indicate that the agent is moving
+        _isMoving = true;
         
         // Set the agent's destination (this starts moving the agent immediately)
         agent.SetDestination(targetPosition);

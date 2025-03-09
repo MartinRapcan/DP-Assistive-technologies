@@ -5,6 +5,16 @@ public class CollisionTracker : MonoBehaviour
 {
     [SerializeField] private InteractionsCounter interactionsCounter; // Reference to InteractionsCounter script
     [SerializeField] private Movement movement; // Reference to Movement script
+    [SerializeField] private GlobalConfig globalConfig; // Reference to GlobalConfig script
+    [SerializeField] private BoxCollider boxCollider; // Reference to BoxCollider component
+
+    private void Start()
+    {
+        if(globalConfig.navigationType == NavigationType.Manual)
+        {
+            boxCollider.center = boxCollider.center + new Vector3(0, 0, 0.1f);
+        }
+    }
 
     private void OnCollisionEnter(Collision other)
     {
@@ -19,7 +29,7 @@ public class CollisionTracker : MonoBehaviour
         {
             Debug.Log("Start trigger");
             // Set the interaction type based on the current direction only if direction is not None
-            if (movement.direction != Movement.Direction.None)
+            if (movement.direction != Direction.None)
             {
                 interactionsCounter.SetInteractionType(movement.direction);
             }
@@ -29,7 +39,7 @@ public class CollisionTracker : MonoBehaviour
         {
             Debug.Log("End trigger");
             // Set the interaction type based on the current direction only if direction is not None
-            if (movement.direction != Movement.Direction.None)
+            if (movement.direction != Direction.None)
             {
                 interactionsCounter.SetInteractionType(movement.direction);
             }
