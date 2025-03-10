@@ -71,11 +71,6 @@ public class Movement : MonoBehaviour
         cameraTop.enabled = interfaceType == InterfaceType.TopCamera;
     }
 
-    private void Update()
-    {
-        LogVelocityInKmh();
-    }
-
     private void FixedUpdate()
     {
         switch (direction)
@@ -112,23 +107,16 @@ public class Movement : MonoBehaviour
         }
     }
     
-    private void LogVelocityInKmh()
+    public float GetSpeed()
     {
-        if (frameRb != null)
-        {
-            // Velocity magnitude in meters per second
-            float velocityMs = frameRb.velocity.magnitude;
-        
-            // Convert to kilometers per hour (m/s * 3.6 = km/h)
-            float velocityKmh = velocityMs * 3.6f;
-        
-            // Log the result
-            Debug.Log($"Frame velocity: {velocityKmh:F2} km/h : {Time.time}");
-        }
-        else
-        {
-            Debug.LogWarning("Frame Rigidbody not found!");
-        }
+        // Velocity magnitude in meters per second
+        float velocityMs = frameRb.velocity.magnitude;
+    
+        // Convert to kilometers per hour (m/s * 3.6 = km/h)
+        float velocityKmh = Mathf.Round(velocityMs * 3.6f * 10f) / 10f;
+    
+        // Log the result
+        return velocityKmh;
     }
     
     private void HandleMovementAndInteraction(Direction direction)
