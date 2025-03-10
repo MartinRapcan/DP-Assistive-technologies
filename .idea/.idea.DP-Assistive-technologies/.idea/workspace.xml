@@ -6,17 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/PhysicMaterials/VRWC_WheelRubber.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/PhysicMaterials/VRWC_WheelRubber.physicMaterial" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/VRWC_WheelchairRig.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/VRWC_WheelchairRig.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment/NavMesh-Plane.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment/NavMesh-Plane.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GlobalConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GlobalConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MeshAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MeshAnimator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/NavMeshAreas.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +31,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -189,7 +183,8 @@
       <workItem from="1741393489931" duration="8984000" />
       <workItem from="1741458074138" duration="4596000" />
       <workItem from="1741479261035" duration="7216000" />
-      <workItem from="1741549451244" duration="10341000" />
+      <workItem from="1741549451244" duration="11090000" />
+      <workItem from="1741608256505" duration="3515000" />
     </task>
     <servers />
   </component>
