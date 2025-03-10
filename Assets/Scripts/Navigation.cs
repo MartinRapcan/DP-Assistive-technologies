@@ -49,8 +49,12 @@ public class Navigation : MonoBehaviour
                         // // Start a coroutine to make the waypoint move up and down
                         StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
 
+                        _isMoving = true;
+                        
+                        agent.SetDestination(hitPoint);
+                        
                         // // Start rotation to face the target immediately
-                        StartCoroutine(RotateToFace(hitPoint));
+                        // StartCoroutine(RotateToFace(hitPoint));
                     }
                     break; // Exit loop after first valid hit
                 }

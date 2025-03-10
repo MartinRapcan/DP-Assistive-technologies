@@ -8,13 +8,12 @@ public class ObjectTrail : MonoBehaviour
     
     [SerializeField] private InteractionsCounter interactionsCounter; // Reference to InteractionsCounter script
     [SerializeField] private Transform targetTransform;       // The transform to track
-    [SerializeField] private float updateInterval = 1.0f;     // Time in seconds between points
+    // [SerializeField] private float updateInterval = 1.0f;     // Time in seconds between points
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private float timeSinceLastPoint = 0f;
     [SerializeField] private Vector3 offset = new Vector3(0, 0.2f, 0); // Offset for the line
 
     private const float PipeRadius = 0.01f; // Controls the thickness of your pipe
-    
+    private float _timeSinceLastPoint = 0f;
     
     private void Start()
     {
@@ -44,12 +43,13 @@ public class ObjectTrail : MonoBehaviour
         }
         
         // Update timer
-        timeSinceLastPoint += Time.deltaTime;
+        _timeSinceLastPoint += Time.deltaTime;
         
         // Add a new point every updateInterval seconds
-        if (!(timeSinceLastPoint >= updateInterval) || !interactionsCounter.hasStarted || interactionsCounter.hasEnded) return;
+        if (!interactionsCounter.hasStarted || interactionsCounter.hasEnded) return;
+        
         AddPoint(targetTransform.position + offset);
-        timeSinceLastPoint = 0f;
+        _timeSinceLastPoint = 0f;
     }
     
     private void AddPoint(Vector3 position)

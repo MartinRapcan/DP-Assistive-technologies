@@ -17,6 +17,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private GameObject monitor;
     [SerializeField] private InteractionsCounter interactionsCounter;
+    [SerializeField] private HingeJoint leftHinge;
+    [SerializeField] private HingeJoint rightHinge;
     
     // GlobalConfig
     [SerializeField] private GlobalConfig globalConfig;
@@ -174,15 +176,19 @@ public class Movement : MonoBehaviour
         
         direction = Direction.None;
     }
-
+    
     private void Move(Direction direction)
     {
+        // Determine if moving in reverse
         var reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
+
+        // Calculate base torque (clamping as before)
         var torque = Mathf.Clamp(10f * (_time += Time.deltaTime), 0f, reverse ? maxTorque / 2 : maxTorque);
 
         // Adjust torque multipliers for diagonal movements
-        const float torqueMultiplier = 1.1f;
+        const float torqueMultiplier = 1.2f;
 
+        // Calculate torque for each wheel based on direction
         var rightTorque = torque * (direction is Direction.ForwardLeft or Direction.BackwardLeft
             ? torqueMultiplier
             : 1);
@@ -190,27 +196,71 @@ public class Movement : MonoBehaviour
             ? torqueMultiplier
             : 1);
 
-        // Apply torque correctly
-        leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right *
-                                     (reverse ? -leftTorque : leftTorque));
-        rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right *
-                                      (reverse ? -rightTorque : rightTorque));
+        Debug.Log($"Left torque: {leftTorque}");
+        Debug.Log($"Right torque: {rightTorque}");
+
+        // Configure motors
+        JointMotor leftMotor = leftHinge.motor;
+        JointMotor rightMotor = rightHinge.motor;
+
+        // Convert torque to target velocity (degrees per second)
+        // Assuming torque correlates to rotational speed; adjust scaling as needed
+        float velocityScale = 100f; // Tune this to match your previous AddTorque feel
+        leftMotor.targetVelocity = (reverse ? -leftTorque : leftTorque) * velocityScale;
+        rightMotor.targetVelocity = (reverse ? -rightTorque : rightTorque) * velocityScale;
+
+        // Set motor force (similar to maxTorque in your original setup)
+        leftMotor.force = maxTorque;  // Use your existing maxTorque value
+        rightMotor.force = maxTorque;
+
+        // Apply motors to hinges
+        leftHinge.motor = leftMotor;
+        rightHinge.motor = rightMotor;
+
+        // Enable motor
+        leftHinge.useMotor = true;
+        rightHinge.useMotor = true;
     }
+
+    // private void Move(Direction direction)
+    // {
+    //     var reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
+    //     var torque = Mathf.Clamp(10f * (_time += Time.deltaTime), 0f, reverse ? maxTorque / 2 : maxTorque);
+    //
+    //     // Adjust torque multipliers for diagonal movements
+    //     const float torqueMultiplier = 1.2f;
+    //
+    //     var rightTorque = torque * (direction is Direction.ForwardLeft or Direction.BackwardLeft
+    //         ? torqueMultiplier
+    //         : 1);
+    //     var leftTorque = torque * (direction is Direction.ForwardRight or Direction.BackwardRight
+    //         ? torqueMultiplier
+    //         : 1);
+    //     
+    //     Debug.Log($"Left torque: {leftTorque}");
+    //     Debug.Log($"Right torque: {rightTorque}");
+    //
+    //     // Apply torque correctly
+    //     leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right *
+    //                                  (reverse ? -leftTorque : leftTorque));
+    //     rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right *
+    //                                   (reverse ? -rightTorque : rightTorque));
+    // }
 
     // Dedicated function for pure left/right movement
     private void MoveLeftOrRight(Direction direction)
     {
-        var torque = Mathf.Clamp(5f * (_time += Time.deltaTime), 0f, maxTorque);
+        var torque = Mathf.Clamp(10f * (_time += Time.deltaTime), 0f, maxTorque);
 
         if (direction == Direction.Left)
         {
             rightWheelRigidbody.AddTorque(rightWheelRigidbody.transform.right * torque);
-            leftWheelRigidbody.AddTorque(-leftWheelRigidbody.transform.right * torque);
+            leftWheelRigidbody.angularVelocity = Vector3.zero;
         }
         else if (direction == Direction.Right)
         {
             leftWheelRigidbody.AddTorque(leftWheelRigidbody.transform.right * torque);
-            rightWheelRigidbody.AddTorque(-rightWheelRigidbody.transform.right * torque);
+            rightWheelRigidbody.angularVelocity = Vector3.zero;
         }
     }
 }
