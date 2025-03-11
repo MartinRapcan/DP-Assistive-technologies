@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Movement : MonoBehaviour
 {
@@ -21,30 +19,29 @@ public class Movement : MonoBehaviour
     [SerializeField] private HingeJoint rightHinge;
     [SerializeField] private float maxVelocity = 300f;
     [SerializeField] private float maxRotation = 60f;
-    [SerializeField] private float force = 10f;
-    
+
     // GlobalConfig
     [SerializeField] private GlobalConfig globalConfig;
     private NavigationType navigation => globalConfig.navigationType;
     private InterfaceType interfaceType => globalConfig.interfaceType;
-    
+
     public Direction direction { get; set; } = Direction.None;
     private Coroutine _decelerationCoroutine;
     private float _time;
-    private float _currentLeftVelocity = 0f;
-    private float _currentRightVelocity = 0f;
+    private float _currentVelocity = 0f;
     private JointMotor _leftMotor;
     private JointMotor _rightMotor;
-    
+    private readonly float _force = 500f;
+
     private void Start()
     {
         interactionsCounter.InitializeInteractionTypes();
         CameraSetup();
-        
+
         // Configure and apply motors
         _leftMotor = leftHinge.motor;
         _rightMotor = leftHinge.motor;
-        
+
         leftHinge.useMotor = true;
         rightHinge.useMotor = true;
     }
@@ -106,25 +103,26 @@ public class Movement : MonoBehaviour
                 break;
         }
     }
-    
+
     public float GetSpeed()
     {
         // Velocity magnitude in meters per second
         float velocityMs = frameRb.velocity.magnitude;
-    
+
         // Convert to kilometers per hour (m/s * 3.6 = km/h)
         float velocityKmh = Mathf.Round(velocityMs * 3.6f * 10f) / 10f;
-    
+
         // Log the result
         return velocityKmh;
     }
-    
+
     private void HandleMovementAndInteraction(Direction direction)
     {
         if (interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
         {
             interactionsCounter.SetInteractionType(direction);
         }
+
         StartMovement(direction);
     }
 
@@ -132,12 +130,14 @@ public class Movement : MonoBehaviour
     public void ShouldMoveBackward() => HandleMovementAndInteraction(Direction.Backward);
     public void ShouldTurnLeft() => HandleMovementAndInteraction(Direction.Left);
     public void ShouldTurnRight() => HandleMovementAndInteraction(Direction.Right);
+
     public void ShouldStopMoving(bool isClicked = false)
     {
         if (isClicked)
         {
             interactionsCounter.SetInteractionType(Direction.Stop);
         }
+
         StopMoving();
     }
 
@@ -162,9 +162,19 @@ public class Movement : MonoBehaviour
 
     private void StopMoving()
     {
-        _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
+        // _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
+        _leftMotor.targetVelocity = 0f;
+        _rightMotor.targetVelocity = 0f;
+        leftHinge.motor = _leftMotor;
+        rightHinge.motor = _rightMotor;
+        
+        frameRb.velocity = Vector3.zero;
+        frameRb.angularVelocity = Vector3.zero;
+        
+        direction = Direction.None;
+        
     }
-    
+
     // private IEnumerator DecelerateWheels()
     // {
     //     var startTime = Time.time;
@@ -202,72 +212,148 @@ public class Movement : MonoBehaviour
     //     
     //     direction = Direction.None;
     // }
-    
-    private IEnumerator DecelerateWheels()
-    {
-        var startTime = Time.time;
 
-        // Get current motor velocities from the Hinge Joints
-        float initialLeftVelocity = leftHinge.motor.targetVelocity;
-        float initialRightVelocity = rightHinge.motor.targetVelocity;
+    // private IEnumerator DecelerateWheels()
+    // {
+    //     var startTime = Time.time;
+    //
+    //     // Get initial velocity
+    //     float initialVelocity = Math.Min(leftHinge.motor.targetVelocity, rightHinge.motor.targetVelocity);
+    //
+    //     // Apply to motors
+    //     JointMotor leftMotor = leftHinge.motor;
+    //     JointMotor rightMotor = rightHinge.motor;
+    //     leftMotor.targetVelocity = initialVelocity;
+    //     rightMotor.targetVelocity = initialVelocity;
+    //     leftHinge.motor = leftMotor;
+    //     rightHinge.motor = rightMotor;
+    //
+    //     // Get the frame's initial velocities
+    //     var initialFrameVelocity = frameRb ? frameRb.velocity : Vector3.zero;
+    //     var initialFrameAngularVelocity = frameRb ? frameRb.angularVelocity : Vector3.zero;
+    //
+    //     while (Time.time - startTime < stopTime)
+    //     {
+    //         Debug.Log("Decelerating");
+    //         var t = (Time.time - startTime) / stopTime; // 0 to 1 over stopTime
+    //         var smoothFactor = Mathf.SmoothStep(0f, 1f, t); // Smooth S-curve from 0 to 1
+    //
+    //         // Smoothly decelerate motor velocities to 0
+    //         float currentVelocity = Mathf.Lerp(initialVelocity, 0f, smoothFactor);
+    //
+    //         // Apply to motors
+    //         leftMotor = leftHinge.motor;
+    //         rightMotor = rightHinge.motor;
+    //         leftMotor.targetVelocity = currentVelocity;
+    //         rightMotor.targetVelocity = currentVelocity;
+    //         leftHinge.motor = leftMotor;
+    //         rightHinge.motor = rightMotor;
+    //
+    //         // Smoothly decelerate frame Rigidbody (if not kinematic)
+    //         if (frameRb && !frameRb.isKinematic)
+    //         {
+    //             // Reduce frame velocity and angular velocity with the same smooth curve
+    //             frameRb.velocity = Vector3.Lerp(initialFrameVelocity, Vector3.zero, smoothFactor);
+    //             frameRb.angularVelocity = Vector3.Lerp(initialFrameAngularVelocity, Vector3.zero, smoothFactor);
+    //         }
+    //
+    //         yield return null;
+    //     }
+    //
+    //     // Ensure everything stops completely
+    //     JointMotor finalLeftMotor = leftHinge.motor;
+    //     JointMotor finalRightMotor = rightHinge.motor;
+    //     finalLeftMotor.targetVelocity = 0f;
+    //     finalRightMotor.targetVelocity = 0f;
+    //     leftHinge.motor = finalLeftMotor;
+    //     rightHinge.motor = finalRightMotor;
+    //
+    //     _currentVelocity = 0f;
+    //     leftWheelRigidbody.velocity = Vector3.zero;
+    //     rightWheelRigidbody.velocity = Vector3.zero;
+    //
+    //     if (frameRb && !frameRb.isKinematic)
+    //     {
+    //         frameRb.velocity = Vector3.zero;
+    //         frameRb.angularVelocity = Vector3.zero;
+    //     }
+    //
+    //     direction = Direction.None;
+    // }
 
-        // Get the frame's Rigidbody
-        var initialFrameVelocity = frameRb ? frameRb.velocity : Vector3.zero;
-        var initialFrameAngularVelocity = frameRb ? frameRb.angularVelocity : Vector3.zero;
+    // private IEnumerator DecelerateWheels()
+    // {
+    //     var startTime = Time.time;
+    //
+    //     // Get initial velocity
+    //     float initialVelocity = Math.Min(leftHinge.motor.targetVelocity, rightHinge.motor.targetVelocity);
+    //     
+    //     // Apply to motors
+    //     JointMotor leftMotor = leftHinge.motor;
+    //     JointMotor rightMotor = rightHinge.motor;
+    //     leftMotor.targetVelocity = initialVelocity;
+    //     rightMotor.targetVelocity = initialVelocity;
+    //
+    //     leftHinge.motor = leftMotor;
+    //     rightHinge.motor = rightMotor;
+    //     
+    //     frameRb.angularVelocity = Vector3.zero;
+    //
+    //     // Get the frame's Rigidbody
+    //     var initialFrameVelocity = frameRb ? frameRb.velocity : Vector3.zero;
+    //     var initialFrameAngularVelocity = frameRb ? frameRb.angularVelocity : Vector3.zero;
+    //
+    //     while (Time.time - startTime < stopTime)
+    //     {
+    //         Debug.Log("Decelerating");
+    //         var t = (Time.time - startTime) / stopTime; // 0 to 1 over stopTime
+    //         var smoothFactor = Mathf.SmoothStep(0f, 1f, t); // Smooth S-curve from 0 to 1
+    //
+    //         // Smoothly decelerate motor velocities to 0
+    //         float currentVelocity = Mathf.Lerp(initialVelocity, 0f, smoothFactor);
+    //         
+    //         // Apply to motors
+    //         leftMotor = leftHinge.motor;
+    //         rightMotor = rightHinge.motor;
+    //         leftMotor.targetVelocity = currentVelocity;
+    //         rightMotor.targetVelocity = currentVelocity;
+    //
+    //         leftHinge.motor = leftMotor;
+    //         rightHinge.motor = rightMotor;
+    //         
+    //         // Smoothly decelerate frame Rigidbody (if not kinematic)
+    //         if (frameRb && !frameRb.isKinematic)
+    //         {
+    //             // Reduce frame velocity and angular velocity with the same smooth curve
+    //             frameRb.velocity = Vector3SmoothStep(initialFrameVelocity, Vector3.zero, t);
+    //             frameRb.angularVelocity = Vector3.zero; // No angular velocity
+    //         }
+    //
+    //         yield return null;
+    //     }
+    //
+    //     // Ensure everything stops completely
+    //     JointMotor finalLeftMotor = leftHinge.motor;
+    //     JointMotor finalRightMotor = rightHinge.motor;
+    //     finalLeftMotor.targetVelocity = 0f;
+    //     finalRightMotor.targetVelocity = 0f;
+    //     leftHinge.motor = finalLeftMotor;
+    //     rightHinge.motor = finalRightMotor;
+    //     
+    //     _currentVelocity = 0f;
+    //     
+    //     leftWheelRigidbody.velocity = Vector3.zero;
+    //     rightWheelRigidbody.velocity = Vector3.zero;
+    //
+    //     if (frameRb && !frameRb.isKinematic)
+    //     {
+    //         frameRb.velocity = Vector3.zero;
+    //         frameRb.angularVelocity = Vector3.zero;
+    //     }
+    //
+    //     direction = Direction.None;
+    // }
 
-        while (Time.time - startTime < stopTime)
-        {
-            Debug.Log("Decelerating");
-            var t = (Time.time - startTime) / stopTime; // 0 to 1 over stopTime
-            var smoothFactor = Mathf.SmoothStep(0f, 1f, t); // Smooth S-curve from 0 to 1
-
-            // Smoothly decelerate motor velocities to 0
-            float currentLeftVelocity = Mathf.Lerp(initialLeftVelocity, 0f, smoothFactor);
-            float currentRightVelocity = Mathf.Lerp(initialRightVelocity, 0f, smoothFactor);
-            
-            // Apply to motors
-            JointMotor leftMotor = leftHinge.motor;
-            JointMotor rightMotor = rightHinge.motor;
-            leftMotor.targetVelocity = currentLeftVelocity;
-            rightMotor.targetVelocity = currentRightVelocity;
-
-            leftHinge.motor = leftMotor;
-            rightHinge.motor = rightMotor;
-            
-            // Smoothly decelerate frame Rigidbody (if not kinematic)
-            if (frameRb && !frameRb.isKinematic)
-            {
-                // Reduce frame velocity and angular velocity with the same smooth curve
-                frameRb.velocity = Vector3SmoothStep(initialFrameVelocity, Vector3.zero, t);
-                frameRb.angularVelocity = Vector3SmoothStep(initialFrameAngularVelocity, Vector3.zero, t);
-            }
-
-            yield return null;
-        }
-
-        // Ensure everything stops completely
-        JointMotor finalLeftMotor = leftHinge.motor;
-        JointMotor finalRightMotor = rightHinge.motor;
-        finalLeftMotor.targetVelocity = 0f;
-        finalRightMotor.targetVelocity = 0f;
-        leftHinge.motor = finalLeftMotor;
-        rightHinge.motor = finalRightMotor;
-        
-        _currentLeftVelocity = 0f;
-        _currentRightVelocity = 0f;
-        
-        leftWheelRigidbody.velocity = Vector3.zero;
-        rightWheelRigidbody.velocity = Vector3.zero;
-
-        if (frameRb && !frameRb.isKinematic)
-        {
-            frameRb.velocity = Vector3.zero;
-            frameRb.angularVelocity = Vector3.zero;
-        }
-
-        direction = Direction.None;
-    }
-    
     // Custom Vector3 SmoothStep implementation (since Unity doesn't provide it natively)
     private Vector3 Vector3SmoothStep(Vector3 from, Vector3 to, float t)
     {
@@ -278,57 +364,37 @@ public class Movement : MonoBehaviour
             Mathf.Lerp(from.z, to.z, t)
         );
     }
-    
+
     private void Move(Direction direction)
     {
         // Determine if moving in reverse
         bool reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
 
         // Target velocities based on direction (degrees per second)
-        float targetLeftVelocity = 0f;
-        float targetRightVelocity = 0f;
-        
-        switch (direction)
-        {
-            case Direction.Forward:
-                targetLeftVelocity = maxVelocity;
-                targetRightVelocity = maxVelocity;
-                break;
-            case Direction.Backward:
-                targetLeftVelocity = -maxVelocity;
-                targetRightVelocity = -maxVelocity;
-                break;
-            case Direction.ForwardRight:
-                targetLeftVelocity = maxVelocity;      // Left full speed
-                targetRightVelocity = maxVelocity * 0.8f; // Right slower for turn
-                break;
-            case Direction.ForwardLeft:
-                targetLeftVelocity = maxVelocity * 0.8f; // Left slower for turn
-                targetRightVelocity = maxVelocity;     // Right full speed
-                break;
-            case Direction.BackwardRight:
-                targetLeftVelocity = -maxVelocity;      // Left full reverse
-                targetRightVelocity = -maxVelocity * 0.8f; // Right slower reverse
-                break;
-            case Direction.BackwardLeft:
-                targetLeftVelocity = -maxVelocity * 0.8f; // Left slower reverse
-                targetRightVelocity = -maxVelocity;     // Right full reverse
-                break;
-        }
+        float targetVelocity = maxVelocity * (reverse ? -1 : 1);
+
+        var forceRight = direction is Direction.BackwardRight or Direction.ForwardRight ? _force * 0.8f : _force;
+        var forceLeft = direction is Direction.BackwardLeft or Direction.ForwardLeft ? _force * 0.8f : _force;
 
         // Smoothly adjust current velocities toward targets
-        _currentLeftVelocity = Mathf.MoveTowards(_currentLeftVelocity, targetLeftVelocity, force * Time.deltaTime);
-        _currentRightVelocity = Mathf.MoveTowards(_currentRightVelocity, targetRightVelocity, force * Time.deltaTime);
+        _currentVelocity = Mathf.MoveTowards(_currentVelocity, targetVelocity, _force * Time.deltaTime);
 
-        _leftMotor.targetVelocity = _currentLeftVelocity;
-        _rightMotor.targetVelocity = _currentRightVelocity;
-        _leftMotor.force = 1000f;  // High enough to enforce velocity (tune if needed)
-        _rightMotor.force = 1000f;
-        
+        Debug.Log(
+            $"Left velocity: {_currentVelocity * (direction is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1)}");
+        Debug.Log(
+            $"Right velocity: {_currentVelocity * (direction is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1)}");
+
+        _leftMotor.targetVelocity =
+            _currentVelocity * (direction is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1);
+        _rightMotor.targetVelocity =
+            _currentVelocity * (direction is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1);
+        _leftMotor.force = forceLeft;
+        _rightMotor.force = forceRight;
+
         leftHinge.motor = _leftMotor;
         rightHinge.motor = _rightMotor;
     }
-    
+
     // private void Move(Direction direction)
     // {
     //     // Determine if moving in reverse
@@ -415,7 +481,7 @@ public class Movement : MonoBehaviour
     //         rightWheelRigidbody.angularVelocity = Vector3.zero;
     //     }
     // }
-    
+
     private void MoveLeftOrRight(Direction direction)
     {
         // Calculate base velocity (replacing torque)
@@ -428,18 +494,18 @@ public class Movement : MonoBehaviour
         if (direction == Direction.Left)
         {
             // Turn left: drive right wheel forward, left wheel stopped
-            rightMotor.targetVelocity = velocity;  // Right wheel moves forward
-            leftMotor.targetVelocity = -velocity;         // Left wheel moves backward
+            rightMotor.targetVelocity = velocity; // Right wheel moves forward
+            leftMotor.targetVelocity = -velocity; // Left wheel moves backward
         }
         else if (direction == Direction.Right)
         {
             // Turn right: drive left wheel forward, right wheel stopped
-            leftMotor.targetVelocity = velocity;   // Left wheel moves forward
-            rightMotor.targetVelocity = -velocity;        // Right wheel moves backward
+            leftMotor.targetVelocity = velocity; // Left wheel moves forward
+            rightMotor.targetVelocity = -velocity; // Right wheel moves backward
         }
 
         // Apply motor settings
-        leftMotor.force = 1000f;  // High force to enforce velocity (tune if needed)
+        leftMotor.force = 1000f; // High force to enforce velocity (tune if needed)
         rightMotor.force = 1000f;
         leftHinge.motor = leftMotor;
         rightHinge.motor = rightMotor;
