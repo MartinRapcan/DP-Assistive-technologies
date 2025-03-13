@@ -7,18 +7,24 @@ public class Movement : MonoBehaviour
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Rigidbody frameRb;
+    [SerializeField] private Rigidbody leftCasterRb;
+    [SerializeField] private Rigidbody rightCasterRb;
+    
     [SerializeField] private Camera cameraFront;
     [SerializeField] private Camera cameraBack;
     [SerializeField] private Camera cameraTop;
+
     [SerializeField] private RenderTexture renderTexture;
-    [SerializeField] private float maxTorque = 20f;
-    [SerializeField] private float stopTime = 2f;
     [SerializeField] private GameObject monitor;
     [SerializeField] private InteractionsCounter interactionsCounter;
-    [SerializeField] private HingeJoint leftHinge;
-    [SerializeField] private HingeJoint rightHinge;
-    [SerializeField] private float maxVelocity = 300f;
+    
+    [SerializeField] private float maxTorque = 20f;
+    [SerializeField] private float stopTime = 2f;
     [SerializeField] private float maxRotation = 60f;
+    [SerializeField] private float maxVelocity = 300f;
+    
+    [SerializeField] private HingeJoint rightHinge;
+    [SerializeField] private HingeJoint leftHinge;
 
     // GlobalConfig
     [SerializeField] private GlobalConfig globalConfig;
@@ -116,14 +122,14 @@ public class Movement : MonoBehaviour
         return velocityKmh;
     }
 
-    private void HandleMovementAndInteraction(Direction direction)
+    private void HandleMovementAndInteraction(Direction dir)
     {
         if (interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
         {
-            interactionsCounter.SetInteractionType(direction);
+            interactionsCounter.SetInteractionType(dir);
         }
 
-        StartMovement(direction);
+        StartMovement(dir);
     }
 
     public void ShouldMoveForward() => HandleMovementAndInteraction(Direction.Forward);
@@ -168,8 +174,13 @@ public class Movement : MonoBehaviour
         leftHinge.motor = _leftMotor;
         rightHinge.motor = _rightMotor;
         
+        _currentVelocity = 0f;
+        
         frameRb.velocity = Vector3.zero;
         frameRb.angularVelocity = Vector3.zero;
+        
+        leftCasterRb.velocity = Vector3.zero;
+        rightCasterRb.velocity = Vector3.zero;
         
         direction = Direction.None;
         
@@ -186,29 +197,29 @@ public class Movement : MonoBehaviour
         );
     }
 
-    private void Move(Direction direction)
+    private void Move(Direction dir)
     {
         // Determine if moving in reverse
-        bool reverse = direction is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
+        bool reverse = dir is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
 
         // Target velocities based on direction (degrees per second)
         float targetVelocity = maxVelocity * (reverse ? -1 : 1);
 
-        var forceRight = direction is Direction.BackwardRight or Direction.ForwardRight ? _force * 0.8f : _force;
-        var forceLeft = direction is Direction.BackwardLeft or Direction.ForwardLeft ? _force * 0.8f : _force;
+        var forceRight = dir is Direction.BackwardRight or Direction.ForwardRight ? _force * 0.8f : _force;
+        var forceLeft = dir is Direction.BackwardLeft or Direction.ForwardLeft ? _force * 0.8f : _force;
 
         // Smoothly adjust current velocities toward targets
         _currentVelocity = Mathf.MoveTowards(_currentVelocity, targetVelocity, _force * Time.deltaTime);
 
         Debug.Log(
-            $"Left velocity: {_currentVelocity * (direction is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1)}");
+            $"Left velocity: {_currentVelocity * (dir is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1)}");
         Debug.Log(
-            $"Right velocity: {_currentVelocity * (direction is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1)}");
+            $"Right velocity: {_currentVelocity * (dir is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1)}");
 
         _leftMotor.targetVelocity =
-            _currentVelocity * (direction is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1);
+            _currentVelocity * (dir is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1);
         _rightMotor.targetVelocity =
-            _currentVelocity * (direction is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1);
+            _currentVelocity * (dir is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1);
         _leftMotor.force = forceLeft;
         _rightMotor.force = forceRight;
 
@@ -216,7 +227,7 @@ public class Movement : MonoBehaviour
         rightHinge.motor = _rightMotor;
     }
 
-    private void MoveLeftOrRight(Direction direction)
+    private void MoveLeftOrRight(Direction dir)
     {
         // Calculate base velocity (replacing torque)
         var velocity = Mathf.Clamp(10f * (_time += Time.deltaTime), 0f, maxRotation);
@@ -225,13 +236,13 @@ public class Movement : MonoBehaviour
         JointMotor leftMotor = leftHinge.motor;
         JointMotor rightMotor = rightHinge.motor;
 
-        if (direction == Direction.Left)
+        if (dir == Direction.Left)
         {
             // Turn left: drive right wheel forward, left wheel stopped
             rightMotor.targetVelocity = velocity; // Right wheel moves forward
             leftMotor.targetVelocity = -velocity; // Left wheel moves backward
         }
-        else if (direction == Direction.Right)
+        else if (dir == Direction.Right)
         {
             // Turn right: drive left wheel forward, right wheel stopped
             leftMotor.targetVelocity = velocity; // Left wheel moves forward
