@@ -14,6 +14,13 @@ public enum NavigationType
     Manual
 }
 
+public enum NavigationState
+{
+    Rotating,
+    Moving,
+    Stationary
+}
+
 public enum Direction
 {
     Forward,
@@ -38,9 +45,11 @@ public enum InterfaceType
 
 public class GlobalConfig : MonoBehaviour
 {
+    [Header("Configuration")]
     public InterfaceType interfaceType = InterfaceType.None;
     public NavigationType navigationType = NavigationType.Manual;
     
+    [Header("Conditional Rendering")]
     [SerializeField] private Rigidbody frameRb;
     [SerializeField] private GameObject minimap;
     

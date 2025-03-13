@@ -14,6 +14,13 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        // if right click, return
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            navigation.ClearDestination();
+            return;
+        }
+        
         // Convert UI click to normalized position (0-1) on the minimap
         Vector2 clickPosition = eventData.position;
 
@@ -43,16 +50,14 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         Ray ray = environmentCamera.ViewportPointToRay(new Vector3(normalizedPosition.x, normalizedPosition.y, 0));
         
         // Raycast down from the camera
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        RaycastHit[] allHits = Physics.RaycastAll(ray);
+        foreach (RaycastHit hitInfo in allHits)
         {
-            Debug.Log($"Environment camera ray hit: {hit.collider.name} at point: {hit.point}");
+            if (!hitInfo.collider.CompareTag("Floor")) continue;
             
-            // if object hit tag is Floor then move the wheelchair to that position
-            if (hit.collider.CompareTag("Floor"))
-            {
-                navigation.SetDestination(hit.point);
-            }
+            Debug.Log($"Found floor in multiple hits at: {hitInfo.point}");
+            navigation.SetDestination(hitInfo.point);
+            break;
         }
     }
 }

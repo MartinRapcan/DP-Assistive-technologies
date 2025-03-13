@@ -1,17 +1,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent agent;
-    public Vector3 destination { get; private set; }
+    [Header("Rigidbody Components")] 
+    [SerializeField] private Rigidbody leftWheelRigidbody;
+    [SerializeField] private Rigidbody rightWheelRigidbody;
+    [SerializeField] private Rigidbody frameRb;
+    [SerializeField] private Rigidbody leftCasterRb;
+    [SerializeField] private Rigidbody rightCasterRb;
+
+    [Header("Navigation")] [SerializeField]
+    private NavMeshAgent navMeshAgent;
+
+    [Header("Wheelchair Motors")] [SerializeField]
+    private HingeJoint leftHinge;
+    [SerializeField] private HingeJoint rightHinge;
+
+    public NavigationState navigationState { get; set; } = NavigationState.Stationary;
+    private JointMotor _leftMotor;
+    private JointMotor _rightMotor;
+    private bool _hasPath = false;
     private LineRenderer _lineRenderer;
-    private NavMeshPath _path;
-    private bool _hasDestination = false;
     private readonly List<GameObject> _cornerMarkers = new List<GameObject>(); // Stores current markers
+    private List<Vector3> _pathPoints;
+    private float _currentVelocity = 0f;
+    private float? _brakingDistance = null;
 
     private void Start()
     {
@@ -21,54 +39,236 @@ public class Navigation : MonoBehaviour
         _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         _lineRenderer.startColor = Color.green;
         _lineRenderer.endColor = Color.green;
-        _path = new NavMeshPath();
+
+        // Configure and apply motors
+        _leftMotor = leftHinge.motor;
+        _rightMotor = leftHinge.motor;
+
+        leftHinge.useMotor = true;
+        rightHinge.useMotor = true;
     }
 
     private void Update()
     {
-        if (_hasDestination)
+        if (_hasPath)
         {
             DrawPath();
         }
+        
+        Debug.DrawRay(frameRb.position, frameRb.transform.forward * 20f, Color.red);
     }
+
+    private void FixedUpdate()
+    {
+        if (_hasPath && _pathPoints.Count > 0)
+        {
+            switch (navigationState)
+            {
+                case NavigationState.Rotating:
+                    RotateTowardsCurrentPoint();
+                    break;
+                case NavigationState.Moving:
+                    MoveTowardsCurrentPoint();
+                    break;
+                    
+                // case NavigationState.Stationary:
+                //     StopWheels();
+                //     break;
+            }
+        }
+    }
+    
+    private float _maxRotationSpeed = 20f; // Maximum wheel rotation speed
+    private float _rotationSpeed = 4.0f;
+    private float _rotationThreshold = 0.5f;
+
+    private void RotateTowardsCurrentPoint()
+    {
+        Vector3 targetPoint = _pathPoints.First();
+        Vector3 directionToTarget = targetPoint - frameRb.position;
+        directionToTarget.y = 0; // Ignore height difference
+
+        if (directionToTarget.magnitude < 0.1f)
+        {
+            navigationState = NavigationState.Moving;
+            return; // Already at the point
+        }
+
+        // Calculate the desired rotation
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        
+        // Calculate the angle between the current and target rotation
+        float angleToTarget = Quaternion.Angle(frameRb.rotation, targetRotation);
+        
+        // **Check if we need to rotate**
+        if (angleToTarget < _rotationThreshold)
+        {
+            // Stop rotation when facing the target
+            _leftMotor.targetVelocity = 0;
+            _rightMotor.targetVelocity = 0;
+            leftHinge.motor = _leftMotor;
+            rightHinge.motor = _rightMotor;
+            frameRb.angularVelocity = Vector3.zero;
+            _currentVelocity = 0f;
+            frameRb.transform.rotation = targetRotation;
+            
+            navigationState = NavigationState.Moving;  // Start moving
+            return;
+        }
+
+        // Determine turn direction (left or right)
+        Vector3 forward = transform.forward;
+        forward.y = 0;
+        forward.Normalize();
+        float signedAngle = Vector3.SignedAngle(forward, directionToTarget.normalized, Vector3.up);
+
+        // Adjust rotation speed dynamically based on angle
+        // float velocity = Mathf.Clamp(_rotationSpeed * (angleToTarget / 90f), 10f, _maxRotationSpeed);
+        _currentVelocity = Mathf.MoveTowards(_currentVelocity, _maxRotationSpeed, _rotationSpeed * Time.deltaTime);
+
+        Debug.Log($"Signed angle: {signedAngle}");
+        
+        if (signedAngle > 0)
+        {
+            // Rotate Right
+            _leftMotor.targetVelocity = _currentVelocity;
+            _rightMotor.targetVelocity = -_currentVelocity;
+        }
+        else
+        {
+            // Rotate Left
+            _rightMotor.targetVelocity = _currentVelocity;
+            _leftMotor.targetVelocity = -_currentVelocity;
+        }
+
+        // Apply motor force
+        _leftMotor.force = 1000f;
+        _rightMotor.force = 1000f;
+        leftHinge.motor = _leftMotor;
+        rightHinge.motor = _rightMotor;
+    }
+    
+    private float _moveSpeed = 40f; // Maximum move speed
+    private float _stopDistanceThreshold = 0.1f; // Distance to stop at
+    
+    private void MoveTowardsCurrentPoint()
+    {
+        Vector3 targetPoint = _pathPoints.First();
+        Vector3 directionToTarget = targetPoint - frameRb.position;
+        directionToTarget.y = 0; // Ignore height difference
+
+        float distanceToTarget = directionToTarget.magnitude;
+        Debug.Log($"Distance to target: {distanceToTarget}");
+
+        // **Stop if we reached the target**
+        if (distanceToTarget < _stopDistanceThreshold)
+        {
+            Debug.Log("Reached target point. Stopping.");
+        
+            _leftMotor.targetVelocity = 0;
+            _rightMotor.targetVelocity = 0;
+            leftHinge.motor = _leftMotor;
+            rightHinge.motor = _rightMotor;
+            _currentVelocity = 0f;
+            _brakingDistance = null;
+            frameRb.transform.position = new Vector3(targetPoint.x, frameRb.position.y, targetPoint.z);
+            
+            // Remove the first point from the list
+            _pathPoints.RemoveAt(0);
+            
+            // Stop moving or switch to next point
+            navigationState = _pathPoints.Count > 0
+                ? NavigationState.Rotating
+                : NavigationState.Stationary;
+            return;
+        }
+
+        // **Acceleration / Deceleration Logic**
+        _brakingDistance ??= distanceToTarget / 5;
+        
+        if (distanceToTarget > _brakingDistance)
+        {
+            // Accelerate until halfway
+            _currentVelocity = Mathf.MoveTowards(_currentVelocity, Mathf.Min((float)(_moveSpeed * _brakingDistance * 5f), 200f), 100 * Time.deltaTime);
+        }
+        else
+        {
+            // Decelerate smoothly after halfway point
+            _currentVelocity = Mathf.MoveTowards(_currentVelocity, _moveSpeed / 2f, 100 * Time.deltaTime);
+        }
+
+        // **Apply motor speeds**
+        _leftMotor.targetVelocity = _currentVelocity;
+        _rightMotor.targetVelocity = _currentVelocity;
+
+        // Apply motor force
+        _leftMotor.force = 1000f;
+        _rightMotor.force = 1000f;
+        leftHinge.motor = _leftMotor;
+        rightHinge.motor = _rightMotor;
+    }
+
+
 
     public void SetDestination(Vector3 newDestination)
     {
-        destination = newDestination;
-        _hasDestination = true;
+        // Extract path points from NavMeshPath
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(newDestination, path);
+
+        // Skip the first point (agent's current position)
+        if (path.corners.Length > 1)
+        {
+            // Create array without the first point
+            _pathPoints = new List<Vector3>();
+            for (int i = 1; i < path.corners.Length; i++)
+            {
+                _pathPoints.Add(new Vector3(path.corners[i].x, 0f, path.corners[i].z));
+            }
+            
+            _hasPath = true;
+            navigationState = NavigationState.Rotating;
+
+            // Debug visualization of path
+            Debug.Log($"Path calculated with {_pathPoints.Count} points (first point skipped)");
+        }
+        else
+        {
+            // Handle case where destination is very close and only has one point
+            Debug.Log("Destination is very close - no path points to follow");
+            _hasPath = false;
+            navigationState = NavigationState.Stationary;
+        }
     }
 
     private void DrawPath()
     {
-        if (agent.CalculatePath(destination, _path) && _path.corners.Length > 1)
+        _lineRenderer.positionCount = _pathPoints.Count;
+        _lineRenderer.SetPositions(_pathPoints.ToArray());
+
+        Debug.Log("Path: ");
+        ClearCornerMarkers(); // Remove old markers
+
+        for (int i = 0; i < _pathPoints.Count; i++)
         {
-            _lineRenderer.positionCount = _path.corners.Length;
-            _lineRenderer.SetPositions(_path.corners);
+            Debug.Log($"Point {i}: {_pathPoints[i]}");
 
-            Debug.Log("Path: ");
-            ClearCornerMarkers(); // Remove old markers
-
-            for (int i = 1; i < _path.corners.Length; i++)
+            // Only spawn a marker when the _path changes direction
+            if (i == 0 || i == _pathPoints.Count - 1 || IsDirectionChange(i))
             {
-                Debug.Log($"Point {i}: {_path.corners[i]}");
-
-                // Only spawn a marker when the _path changes direction
-                if (i == 0 || i == _path.corners.Length - 1 || IsDirectionChange(i))
-                {
-                    SpawnMarker(_path.corners[i]);
-                }
+                SpawnMarker(_pathPoints[i]);
             }
         }
     }
 
     private bool IsDirectionChange(int index)
     {
-        if (index <= 0 || index >= _path.corners.Length - 1)
+        if (index <= 0 || index >= _pathPoints.Count - 1)
             return false;
 
-        Vector3 previous = _path.corners[index - 1];
-        Vector3 current = _path.corners[index];
-        Vector3 next = _path.corners[index + 1];
+        Vector3 previous = _pathPoints[index - 1];
+        Vector3 current = _pathPoints[index];
+        Vector3 next = _pathPoints[index + 1];
 
         Vector3 dir1 = (current - previous).normalized;
         Vector3 dir2 = (next - current).normalized;
@@ -93,56 +293,15 @@ public class Navigation : MonoBehaviour
         {
             Destroy(marker);
         }
+
         _cornerMarkers.Clear();
     }
 
-    // Coroutine to rotate the wheelchair towards the target position
-    // private IEnumerator RotateToFace(Vector3 targetPosition)
-    // {
-    //     // Get the direction to the target
-    //     Vector3 targetDirection = targetPosition - transform.position;
-    //
-    //     // Calculate the desired rotation
-    //     Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-    //
-    //     // Calculate the angle between the current and target rotation
-    //     float angularDistance = Quaternion.Angle(transform.rotation, targetRotation);
-    //
-    //     // Calculate the rotation speed to complete the rotation in maxRotationTime seconds
-    //     float rotationSpeed = angularDistance / maxRotationTime;
-    //
-    //     // Rotate towards the target position at the calculated speed
-    //     float timeElapsed = 0f;
-    //     while (timeElapsed < maxRotationTime)
-    //     {
-    //         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    //         timeElapsed += Time.deltaTime;
-    //         yield return null;
-    //     }
-    //
-    //     // Ensure the final rotation is exact (optional)
-    //     transform.rotation = targetRotation;
-    //     
-    //     // Set the flag to indicate that the agent is moving
-    //     _isMoving = true;
-    //     
-    //     // Set the agent's destination (this starts moving the agent immediately)
-    //     agent.SetDestination(targetPosition);
-    // }
-
-    // Coroutine to make the waypoint move up and down over time
-    private IEnumerator MoveWaypointUpDown(GameObject waypoint)
+    public void ClearDestination()
     {
-        float amplitude = 0.1f; // The height of the up and down motion
-        float speed = 1.0f; // The speed of the motion
-        Vector3 initialPosition = waypoint.transform.position;
-
-        while (waypoint != null) // Ensure the waypoint still exists
-        {
-            float newY = initialPosition.y + Mathf.Sin(Time.time * speed) * amplitude;
-            waypoint.transform.position = new Vector3(initialPosition.x, newY, initialPosition.z);
-            yield return null;
-        }
+        _hasPath = false;
+        _lineRenderer.positionCount = 0;
+        ClearCornerMarkers();
     }
 
     private void OnCollisionEnter(Collision other)
@@ -150,3 +309,52 @@ public class Navigation : MonoBehaviour
         Debug.Log("Collision detected with: " + other.gameObject.name);
     }
 }
+
+// Coroutine to rotate the wheelchair towards the target position
+// private IEnumerator RotateToFace(Vector3 targetPosition)
+// {
+//     // Get the direction to the target
+//     Vector3 targetDirection = targetPosition - transform.position;
+//
+//     // Calculate the desired rotation
+//     Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+//
+//     // Calculate the angle between the current and target rotation
+//     float angularDistance = Quaternion.Angle(transform.rotation, targetRotation);
+//
+//     // Calculate the rotation speed to complete the rotation in maxRotationTime seconds
+//     float rotationSpeed = angularDistance / maxRotationTime;
+//
+//     // Rotate towards the target position at the calculated speed
+//     float timeElapsed = 0f;
+//     while (timeElapsed < maxRotationTime)
+//     {
+//         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+//         timeElapsed += Time.deltaTime;
+//         yield return null;
+//     }
+//
+//     // Ensure the final rotation is exact (optional)
+//     transform.rotation = targetRotation;
+//     
+//     // Set the flag to indicate that the agent is moving
+//     _isMoving = true;
+//     
+//     // Set the agent's destination (this starts moving the agent immediately)
+//     agent.SetDestination(targetPosition);
+// }
+
+// Coroutine to make the waypoint move up and down over time
+// private IEnumerator MoveWaypointUpDown(GameObject waypoint)
+// {
+//     float amplitude = 0.1f; // The height of the up and down motion
+//     float speed = 1.0f; // The speed of the motion
+//     Vector3 initialPosition = waypoint.transform.position;
+//
+//     while (waypoint != null) // Ensure the waypoint still exists
+//     {
+//         float newY = initialPosition.y + Mathf.Sin(Time.time * speed) * amplitude;
+//         waypoint.transform.position = new Vector3(initialPosition.x, newY, initialPosition.z);
+//         yield return null;
+//     }
+// }

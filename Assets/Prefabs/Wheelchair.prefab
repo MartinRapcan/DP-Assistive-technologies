@@ -2643,7 +2643,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3efe5dfd13ca454f8eb4a0355cc237f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 657802013573547318}
+  leftWheelRigidbody: {fileID: 6102284863602938903}
+  rightWheelRigidbody: {fileID: 5945568525357322526}
+  frameRb: {fileID: 3355997934018186046}
+  leftCasterRb: {fileID: 3536312159906819795}
+  rightCasterRb: {fileID: 5157190192393754657}
+  navMeshAgent: {fileID: 657802013573547318}
+  leftHinge: {fileID: 2249542551131145002}
+  rightHinge: {fileID: 3345595087783152595}
 --- !u!114 &1111305012706098293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2696,7 +2703,6 @@ MonoBehaviour:
   renderTexture: {fileID: 8400000, guid: 77fba2f7adf38c14ebda31a8a39b3c81, type: 2}
   monitor: {fileID: 4298441157251988583}
   interactionsCounter: {fileID: 6101551924633884750}
-  maxTorque: 20
   stopTime: 2
   maxRotation: 60
   maxVelocity: 300
@@ -2763,6 +2769,8 @@ MonoBehaviour:
   casterLeftRb: {fileID: 3536312159906819795}
   casterRightRb: {fileID: 5157190192393754657}
   movement: {fileID: 4047367768818745360}
+  navigation: {fileID: 6506477455306764438}
+  globalConfig: {fileID: 1111305012706098293}
 --- !u!1 &3355997934936558556
 GameObject:
   m_ObjectHideFlags: 0

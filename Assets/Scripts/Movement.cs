@@ -4,29 +4,33 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [Header("Rigidbody Components")]
     [SerializeField] private Rigidbody leftWheelRigidbody;
     [SerializeField] private Rigidbody rightWheelRigidbody;
     [SerializeField] private Rigidbody frameRb;
     [SerializeField] private Rigidbody leftCasterRb;
     [SerializeField] private Rigidbody rightCasterRb;
     
+    [Header("Camera Components")]
     [SerializeField] private Camera cameraFront;
     [SerializeField] private Camera cameraBack;
     [SerializeField] private Camera cameraTop;
 
+    [Header("UI Components")]
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private GameObject monitor;
     [SerializeField] private InteractionsCounter interactionsCounter;
     
-    [SerializeField] private float maxTorque = 20f;
+    [Header("Movement Settings")]
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private float maxRotation = 60f;
     [SerializeField] private float maxVelocity = 300f;
     
+    [Header("HingeJoint Components")]
     [SerializeField] private HingeJoint leftHinge;
     [SerializeField] private HingeJoint rightHinge;
 
-    // GlobalConfig
+    [Header("Global Configuration")]
     [SerializeField] private GlobalConfig globalConfig;
     private NavigationType navigation => globalConfig.navigationType;
     private InterfaceType interfaceType => globalConfig.interfaceType;

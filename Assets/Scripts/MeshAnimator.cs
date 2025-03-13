@@ -17,10 +17,14 @@ public class MeshAnimator : MonoBehaviour
     [SerializeField] private Rigidbody casterRightRb;
     
     [SerializeField] private Movement movement;
+    [SerializeField] private Navigation navigation;
+    [SerializeField] private GlobalConfig globalConfig;
     
     private void Update()
     {
-        if (movement.direction == Direction.None) return;
+        if ((movement.direction == Direction.None && globalConfig.navigationType == NavigationType.Manual) ||
+            (navigation.navigationState == NavigationState.Stationary && globalConfig.navigationType == NavigationType.Auto)) return;
+
         RotateHandle(casterLeftRb, casterHandleLeftMesh, 180f);
         RotateHandle(casterRightRb, casterHandleRightMesh);
         RotateCaster();

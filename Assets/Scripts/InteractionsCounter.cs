@@ -54,6 +54,8 @@ public class InteractionsCounter : MonoBehaviour
 
     private int _numberOfCollisions = 0;
     private Dictionary<string, InteractionType> _interactionTypes;
+    
+    [Header("Screenshot Camera")]
     [SerializeField] private Camera environmentCamera;
     
     public void InitializeInteractionTypes()
