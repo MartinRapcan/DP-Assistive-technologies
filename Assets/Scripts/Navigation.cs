@@ -1,107 +1,134 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Navigation : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
     [SerializeField] private NavMeshAgent agent;
-    [SerializeField] private GameObject waypointPrefab;
-    [SerializeField] private float maxRotationTime = 2f; // Maximum rotation time (in seconds)
-    [SerializeField] private Transform casterLeftMesh;
-    [SerializeField] private Transform casterRightMesh;
-    [SerializeField] private Transform rightWheelTransform;
-    [SerializeField] private Transform leftWheelTransform;
-    
-    private GameObject _currentWaypoint = null; // Reference to the current waypoint
-    private bool _isMoving = false; // Flag to check if the agent is moving
-    
+    public Vector3 destination { get; private set; }
+    private LineRenderer _lineRenderer;
+    private NavMeshPath _path;
+    private bool _hasDestination = false;
+    private readonly List<GameObject> _cornerMarkers = new List<GameObject>(); // Stores current markers
+
+    private void Start()
+    {
+        _lineRenderer = gameObject.AddComponent<LineRenderer>();
+        _lineRenderer.startWidth = 0.05f;
+        _lineRenderer.endWidth = 0.05f;
+        _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        _lineRenderer.startColor = Color.green;
+        _lineRenderer.endColor = Color.green;
+        _path = new NavMeshPath();
+    }
+
     private void Update()
     {
-        // Perform a raycast from the camera to the mouse position
-        if (Input.GetMouseButtonDown(0)) // Detect left mouse button click
+        if (_hasDestination)
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit[] hits = Physics.RaycastAll(ray);
+            DrawPath();
+        }
+    }
 
-            foreach (RaycastHit hit in hits)
+    public void SetDestination(Vector3 newDestination)
+    {
+        destination = newDestination;
+        _hasDestination = true;
+    }
+
+    private void DrawPath()
+    {
+        if (agent.CalculatePath(destination, _path) && _path.corners.Length > 1)
+        {
+            _lineRenderer.positionCount = _path.corners.Length;
+            _lineRenderer.SetPositions(_path.corners);
+
+            Debug.Log("Path: ");
+            ClearCornerMarkers(); // Remove old markers
+
+            for (int i = 1; i < _path.corners.Length; i++)
             {
-                if (!hit.collider.CompareTag("MainCamera")) // Skip the camera collider
+                Debug.Log($"Point {i}: {_path.corners[i]}");
+
+                // Only spawn a marker when the _path changes direction
+                if (i == 0 || i == _path.corners.Length - 1 || IsDirectionChange(i))
                 {
-                    if (hit.collider.CompareTag("Floor"))
-                    {
-                        Vector3 hitPoint = hit.point;
-
-                        // Remove any existing waypoint
-                        if (_currentWaypoint != null)
-                        {
-                            Destroy(_currentWaypoint);
-                        }
-
-                        // Instantiate a new waypoint at the hit point, offset by 0.5 on the Y-axis
-                        Vector3 waypointPosition = hitPoint + new Vector3(0, 0.5f, 0);
-                        _currentWaypoint = Instantiate(waypointPrefab, waypointPosition, Quaternion.identity);
-
-                        // hitpoint is the position where the raycast hit the floor
-                        Debug.Log("Hit point: " + hitPoint);
-                    
-                        // // Start a coroutine to make the waypoint move up and down
-                        StartCoroutine(MoveWaypointUpDown(_currentWaypoint));
-
-                        _isMoving = true;
-                        
-                        agent.SetDestination(hitPoint);
-                        
-                        // // Start rotation to face the target immediately
-                        // StartCoroutine(RotateToFace(hitPoint));
-                    }
-                    break; // Exit loop after first valid hit
+                    SpawnMarker(_path.corners[i]);
                 }
             }
         }
+    }
 
-        // Check if the agent is close to its destination and remove the waypoint
-        if (_currentWaypoint && agent.remainingDistance <= agent.stoppingDistance && _isMoving)
+    private bool IsDirectionChange(int index)
+    {
+        if (index <= 0 || index >= _path.corners.Length - 1)
+            return false;
+
+        Vector3 previous = _path.corners[index - 1];
+        Vector3 current = _path.corners[index];
+        Vector3 next = _path.corners[index + 1];
+
+        Vector3 dir1 = (current - previous).normalized;
+        Vector3 dir2 = (next - current).normalized;
+
+        // Check if there is a significant direction change
+        return Vector3.Dot(dir1, dir2) < 0.98f; // Adjust threshold if needed
+    }
+
+    private void SpawnMarker(Vector3 position)
+    {
+        GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        marker.transform.position = position;
+        marker.transform.localScale = Vector3.one * 0.2f; // Small sphere
+        marker.GetComponent<Renderer>().material.color = Color.red; // Red color
+        Destroy(marker.GetComponent<Collider>()); // Remove unnecessary collider
+        _cornerMarkers.Add(marker);
+    }
+
+    private void ClearCornerMarkers()
+    {
+        foreach (GameObject marker in _cornerMarkers)
         {
-            Destroy(_currentWaypoint);
-            _isMoving = false;
+            Destroy(marker);
         }
+        _cornerMarkers.Clear();
     }
 
     // Coroutine to rotate the wheelchair towards the target position
-    private IEnumerator RotateToFace(Vector3 targetPosition)
-    {
-        // Get the direction to the target
-        Vector3 targetDirection = targetPosition - transform.position;
-
-        // Calculate the desired rotation
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-        // Calculate the angle between the current and target rotation
-        float angularDistance = Quaternion.Angle(transform.rotation, targetRotation);
-
-        // Calculate the rotation speed to complete the rotation in maxRotationTime seconds
-        float rotationSpeed = angularDistance / maxRotationTime;
-
-        // Rotate towards the target position at the calculated speed
-        float timeElapsed = 0f;
-        while (timeElapsed < maxRotationTime)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            timeElapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        // Ensure the final rotation is exact (optional)
-        transform.rotation = targetRotation;
-        
-        // Set the flag to indicate that the agent is moving
-        _isMoving = true;
-        
-        // Set the agent's destination (this starts moving the agent immediately)
-        agent.SetDestination(targetPosition);
-    }
+    // private IEnumerator RotateToFace(Vector3 targetPosition)
+    // {
+    //     // Get the direction to the target
+    //     Vector3 targetDirection = targetPosition - transform.position;
+    //
+    //     // Calculate the desired rotation
+    //     Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+    //
+    //     // Calculate the angle between the current and target rotation
+    //     float angularDistance = Quaternion.Angle(transform.rotation, targetRotation);
+    //
+    //     // Calculate the rotation speed to complete the rotation in maxRotationTime seconds
+    //     float rotationSpeed = angularDistance / maxRotationTime;
+    //
+    //     // Rotate towards the target position at the calculated speed
+    //     float timeElapsed = 0f;
+    //     while (timeElapsed < maxRotationTime)
+    //     {
+    //         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    //         timeElapsed += Time.deltaTime;
+    //         yield return null;
+    //     }
+    //
+    //     // Ensure the final rotation is exact (optional)
+    //     transform.rotation = targetRotation;
+    //     
+    //     // Set the flag to indicate that the agent is moving
+    //     _isMoving = true;
+    //     
+    //     // Set the agent's destination (this starts moving the agent immediately)
+    //     agent.SetDestination(targetPosition);
+    // }
 
     // Coroutine to make the waypoint move up and down over time
     private IEnumerator MoveWaypointUpDown(GameObject waypoint)

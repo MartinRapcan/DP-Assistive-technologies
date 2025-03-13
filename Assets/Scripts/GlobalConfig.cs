@@ -40,32 +40,27 @@ public class GlobalConfig : MonoBehaviour
 {
     public InterfaceType interfaceType = InterfaceType.None;
     public NavigationType navigationType = NavigationType.Manual;
+    
     [SerializeField] private Rigidbody frameRb;
+    [SerializeField] private GameObject minimap;
     
     private void Awake()
     {
-        if (navigationType != NavigationType.Auto) return;
+        if (navigationType != NavigationType.Auto)
+        {
+            minimap.SetActive(false);
+            var navigationScript = GetComponent<Navigation>();
+            var navMeshAgent = GetComponent<NavMeshAgent>();
+            
+            navigationScript.enabled = false;
+            navMeshAgent.enabled = false;
+            return;
+        }
         
         var interfaceTransform = transform.Find("Interface");
         if (interfaceTransform != null)
         {
             interfaceTransform.gameObject.SetActive(false);
         }
-    }
-
-    private void Start()
-    {
-        if (navigationType != NavigationType.Auto)
-        {
-            var navigationScript = GetComponent<Navigation>();
-            var navMeshAgent = GetComponent<NavMeshAgent>();
-            
-            navigationScript.enabled = false;
-            navMeshAgent.enabled = false;
-            
-            return;
-        }
-        
-        frameRb.isKinematic = true;
     }
 }

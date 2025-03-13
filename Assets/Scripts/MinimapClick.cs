@@ -3,11 +3,9 @@ using UnityEngine.EventSystems;
 
 public class MinimapClick : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField]
-    private Camera environmentCamera; // Top-down camera above your scene
+    [SerializeField] private Camera environmentCamera; // Top-down camera above your scene
+    [SerializeField] private Navigation navigation; // Reference to Navigation script
     private RectTransform _buttonRect;
-
-    [SerializeField] private GameObject prefab;
 
     private void Start()
     {
@@ -18,13 +16,12 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
     {
         // Convert UI click to normalized position (0-1) on the minimap
         Vector2 clickPosition = eventData.position;
-        Vector2 localPosition;
-        
+
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _buttonRect,
             clickPosition,
             eventData.pressEventCamera,
-            out localPosition
+            out var localPosition
         );
 
         // Convert to normalized coordinates (0-1 range)
@@ -51,8 +48,11 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log($"Environment camera ray hit: {hit.collider.name} at point: {hit.point}");
             
-            // Instantiate a prefab at the hit point
-            Instantiate(prefab, hit.point + new Vector3(0, 0.5f, 0), Quaternion.identity);
+            // if object hit tag is Floor then move the wheelchair to that position
+            if (hit.collider.CompareTag("Floor"))
+            {
+                navigation.SetDestination(hit.point);
+            }
         }
     }
 }

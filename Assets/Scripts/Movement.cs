@@ -23,8 +23,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float maxRotation = 60f;
     [SerializeField] private float maxVelocity = 300f;
     
-    [SerializeField] private HingeJoint rightHinge;
     [SerializeField] private HingeJoint leftHinge;
+    [SerializeField] private HingeJoint rightHinge;
 
     // GlobalConfig
     [SerializeField] private GlobalConfig globalConfig;

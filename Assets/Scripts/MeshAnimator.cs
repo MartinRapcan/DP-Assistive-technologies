@@ -16,15 +16,7 @@ public class MeshAnimator : MonoBehaviour
     [SerializeField] private Rigidbody casterLeftRb;
     [SerializeField] private Rigidbody casterRightRb;
     
-    [Range(0.1f, 10f)][SerializeField] private float rotationSmoothness = 2f;
-    private float _currentAngle;
-    
     [SerializeField] private Movement movement;
-    
-    private void Start()
-    {
-        _currentAngle = transform.eulerAngles.y;
-    }
     
     private void Update()
     {
