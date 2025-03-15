@@ -411,9 +411,27 @@ public class Navigation : MonoBehaviour
         ClearCornerMarkers();
     }
 
-    private void OnCollisionEnter(Collision other)
+    public void StopNavigation()
     {
-        Debug.Log("Collision detected with: " + other.gameObject.name);
+        _leftMotor.targetVelocity = 0;
+        _rightMotor.targetVelocity = 0;
+        leftHinge.motor = _leftMotor;
+        rightHinge.motor = _rightMotor;
+        
+        frameRb.angularVelocity = Vector3.zero;
+        frameRb.velocity = Vector3.zero;
+        
+        leftCasterRb.angularVelocity = Vector3.zero;
+        rightCasterRb.angularVelocity = Vector3.zero;
+        
+        leftCasterRb.velocity = Vector3.zero;
+        rightCasterRb.velocity = Vector3.zero;
+        
+        _currentVelocity = 0f;
+        
+        navigationState = NavigationState.Stationary;
+        
+        ClearDestination();
     }
 }
 

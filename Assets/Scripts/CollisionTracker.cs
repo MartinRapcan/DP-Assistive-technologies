@@ -7,7 +7,8 @@ public class CollisionTracker : MonoBehaviour
     [SerializeField] private Movement movement; // Reference to Movement script
     [SerializeField] private GlobalConfig globalConfig; // Reference to GlobalConfig script
     [SerializeField] private BoxCollider boxCollider; // Reference to BoxCollider component
-
+    [SerializeField] private Navigation navigation; // Reference to Navigation script
+    
     private void Start()
     {
         if(globalConfig.navigationType == NavigationType.Manual)
@@ -18,6 +19,10 @@ public class CollisionTracker : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        if (globalConfig.navigationType == NavigationType.Auto)
+        {
+            navigation.StopNavigation();
+        }
         if (!other.gameObject.CompareTag("Obstacle") || !interactionsCounter.hasStarted ||
             interactionsCounter.hasEnded) return;
         interactionsCounter.IncrementNumberOfCollisions();

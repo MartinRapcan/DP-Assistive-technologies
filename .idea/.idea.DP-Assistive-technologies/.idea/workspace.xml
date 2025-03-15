@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/EndTrigger.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/EndTrigger.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/StartTrigger.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/StartTrigger.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment/NavMesh-Plane.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - environment/NavMesh-Plane.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GlobalConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GlobalConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractionsCounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InteractionsCounter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinimapClick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinimapClick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CollisionTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CollisionTracker.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -201,7 +194,8 @@
       <workItem from="1741864596496" duration="9445000" />
       <workItem from="1741896536467" duration="10306000" />
       <workItem from="1741908456230" duration="210000" />
-      <workItem from="1741992545127" duration="4800000" />
+      <workItem from="1741992545127" duration="5395000" />
+      <workItem from="1742002019479" duration="628000" />
     </task>
     <servers />
   </component>
