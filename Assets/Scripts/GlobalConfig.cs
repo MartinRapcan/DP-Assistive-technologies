@@ -52,6 +52,7 @@ public class GlobalConfig : MonoBehaviour
     [Header("Conditional Rendering")]
     [SerializeField] private Rigidbody frameRb;
     [SerializeField] private GameObject minimap;
+    [SerializeField] private GameObject navMeshAgent;
     
     private void Awake()
     {
@@ -59,10 +60,9 @@ public class GlobalConfig : MonoBehaviour
         {
             minimap.SetActive(false);
             var navigationScript = GetComponent<Navigation>();
-            var navMeshAgent = GetComponent<NavMeshAgent>();
             
             navigationScript.enabled = false;
-            navMeshAgent.enabled = false;
+            navMeshAgent.SetActive(false);
             return;
         }
         

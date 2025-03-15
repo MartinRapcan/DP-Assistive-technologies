@@ -23,8 +23,8 @@ TagManager:
   - Frame
   - LeftWheel
   - RightWheel
-  - 
-  - 
+  - NavMeshAgent
+  - StartEndTriggers
   - 
   - 
   - 

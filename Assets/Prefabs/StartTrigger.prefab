@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6788777177231181813}
   - component: {fileID: 7489536885804081614}
   - component: {fileID: 2338287588554712248}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: StartTrigger
   m_TagString: StartTrigger
   m_Icon: {fileID: 0}

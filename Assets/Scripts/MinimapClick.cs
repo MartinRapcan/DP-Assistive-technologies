@@ -37,7 +37,7 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
             (localPosition.y + _buttonRect.rect.height * 0.5f) / _buttonRect.rect.height
         );
         
-        Debug.Log($"Normalized Position: {normalizedPosition}");
+        // Debug.Log($"Normalized Position: {normalizedPosition}");
         
         // Cast ray from environment camera using this normalized position
         CastRayFromEnvironmentCamera(normalizedPosition);
@@ -55,7 +55,7 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         {
             if (!hitInfo.collider.CompareTag("Floor")) continue;
             
-            Debug.Log($"Found floor in multiple hits at: {hitInfo.point}");
+            // Debug.Log($"Found floor in multiple hits at: {hitInfo.point}");
             navigation.SetDestination(hitInfo.point);
             break;
         }

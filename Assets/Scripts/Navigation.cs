@@ -34,8 +34,8 @@ public class Navigation : MonoBehaviour
     private void Start()
     {
         _lineRenderer = gameObject.AddComponent<LineRenderer>();
-        _lineRenderer.startWidth = 0.05f;
-        _lineRenderer.endWidth = 0.05f;
+        _lineRenderer.startWidth = 0.02f;
+        _lineRenderer.endWidth = 0.02f;
         _lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
         _lineRenderer.startColor = Color.green;
         _lineRenderer.endColor = Color.green;
@@ -56,6 +56,8 @@ public class Navigation : MonoBehaviour
         }
         
         Debug.DrawRay(frameRb.position, frameRb.transform.forward * 20f, Color.red);
+        
+        navMeshAgent.Warp(frameRb.position);
     }
 
     private void FixedUpdate()
@@ -81,75 +83,175 @@ public class Navigation : MonoBehaviour
     private float _maxRotationSpeed = 20f; // Maximum wheel rotation speed
     private float _rotationSpeed = 4.0f;
     private float _rotationThreshold = 0.5f;
+    private float _initialRotationAngle = 0f;
 
+    // private void RotateTowardsCurrentPoint()
+    //  {
+    //      Vector3 targetPoint = _pathPoints.First();
+    //      Vector3 directionToTarget = targetPoint - frameRb.position;
+    //      directionToTarget.y = 0; // Ignore height difference
+    //
+    //      if (directionToTarget.magnitude < 0.1f)
+    //      {
+    //          navigationState = NavigationState.Moving;
+    //          return; // Already at the point
+    //      }
+    //
+    //      // Calculate the desired rotation
+    //      Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+    //      
+    //      // Calculate the angle between the current and target rotation
+    //      float angleToTarget = Quaternion.Angle(frameRb.rotation, targetRotation);
+    //      
+    //      // **Check if we need to rotate**
+    //      if (angleToTarget < _rotationThreshold)
+    //      {
+    //          // Stop rotation when facing the target
+    //          _leftMotor.targetVelocity = 0;
+    //          _rightMotor.targetVelocity = 0;
+    //          leftHinge.motor = _leftMotor;
+    //          rightHinge.motor = _rightMotor;
+    //          frameRb.angularVelocity = Vector3.zero;
+    //          _currentVelocity = 0f;
+    //          // frameRb.transform.rotation = targetRotation;
+    //          
+    //          navigationState = NavigationState.Moving;  // Start moving
+    //          return;
+    //      }
+    //
+    //      // Determine turn direction (left or right)
+    //      Vector3 forward = transform.forward;
+    //      forward.y = 0;
+    //      forward.Normalize();
+    //      float signedAngle = Vector3.SignedAngle(forward, directionToTarget.normalized, Vector3.up);
+    //
+    //      // Adjust rotation speed dynamically based on angle
+    //      // float velocity = Mathf.Clamp(_rotationSpeed * (angleToTarget / 90f), 10f, _maxRotationSpeed);
+    //      _currentVelocity = Mathf.MoveTowards(_currentVelocity, _maxRotationSpeed, _rotationSpeed * Time.deltaTime);
+    //
+    //      Debug.Log($"Signed angle: {signedAngle}");
+    //      
+    //      if (signedAngle > 0)
+    //      {
+    //          // Rotate Right
+    //          _leftMotor.targetVelocity = _currentVelocity;
+    //          _rightMotor.targetVelocity = -_currentVelocity;
+    //      }
+    //      else
+    //      {
+    //          // Rotate Left
+    //          _rightMotor.targetVelocity = _currentVelocity;
+    //          _leftMotor.targetVelocity = -_currentVelocity;
+    //      }
+    //
+    //      // Apply motor force
+    //      _leftMotor.force = 1000f;
+    //      _rightMotor.force = 1000f;
+    //      leftHinge.motor = _leftMotor;
+    //      rightHinge.motor = _rightMotor;
+    //  }
+    
     private void RotateTowardsCurrentPoint()
+{
+    Vector3 targetPoint = _pathPoints.First();
+    Vector3 directionToTarget = targetPoint - frameRb.position;
+    directionToTarget.y = 0; // Ignore height difference
+
+    if (directionToTarget.magnitude < 0.1f)
     {
-        Vector3 targetPoint = _pathPoints.First();
-        Vector3 directionToTarget = targetPoint - frameRb.position;
-        directionToTarget.y = 0; // Ignore height difference
+        navigationState = NavigationState.Moving;
+        return; // Already at the point
+    }
 
-        if (directionToTarget.magnitude < 0.1f)
-        {
-            navigationState = NavigationState.Moving;
-            return; // Already at the point
-        }
-
-        // Calculate the desired rotation
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-        
-        // Calculate the angle between the current and target rotation
-        float angleToTarget = Quaternion.Angle(frameRb.rotation, targetRotation);
-        
-        // **Check if we need to rotate**
-        if (angleToTarget < _rotationThreshold)
-        {
-            // Stop rotation when facing the target
-            _leftMotor.targetVelocity = 0;
-            _rightMotor.targetVelocity = 0;
-            leftHinge.motor = _leftMotor;
-            rightHinge.motor = _rightMotor;
-            frameRb.angularVelocity = Vector3.zero;
-            _currentVelocity = 0f;
-            frameRb.transform.rotation = targetRotation;
-            
-            navigationState = NavigationState.Moving;  // Start moving
-            return;
-        }
-
-        // Determine turn direction (left or right)
-        Vector3 forward = transform.forward;
-        forward.y = 0;
-        forward.Normalize();
-        float signedAngle = Vector3.SignedAngle(forward, directionToTarget.normalized, Vector3.up);
-
-        // Adjust rotation speed dynamically based on angle
-        // float velocity = Mathf.Clamp(_rotationSpeed * (angleToTarget / 90f), 10f, _maxRotationSpeed);
-        _currentVelocity = Mathf.MoveTowards(_currentVelocity, _maxRotationSpeed, _rotationSpeed * Time.deltaTime);
-
-        Debug.Log($"Signed angle: {signedAngle}");
-        
-        if (signedAngle > 0)
-        {
-            // Rotate Right
-            _leftMotor.targetVelocity = _currentVelocity;
-            _rightMotor.targetVelocity = -_currentVelocity;
-        }
-        else
-        {
-            // Rotate Left
-            _rightMotor.targetVelocity = _currentVelocity;
-            _leftMotor.targetVelocity = -_currentVelocity;
-        }
-
-        // Apply motor force
-        _leftMotor.force = 1000f;
-        _rightMotor.force = 1000f;
+    // Calculate the desired rotation
+    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+    
+    // Calculate the angle between the current and target rotation
+    float angleToTarget = Quaternion.Angle(frameRb.rotation, targetRotation);
+    
+    // Check if we need to rotate
+    if (angleToTarget < _rotationThreshold)
+    {
+        // Hard stop rotation when close enough
+        _leftMotor.targetVelocity = 0;
+        _rightMotor.targetVelocity = 0;
         leftHinge.motor = _leftMotor;
         rightHinge.motor = _rightMotor;
+        frameRb.angularVelocity = Vector3.zero;
+        _currentVelocity = 0f;
+        
+        navigationState = NavigationState.Moving;
+        return;
+    }
+
+    // Use quaternion math for determining rotation direction
+    Quaternion rotationDifference = targetRotation * Quaternion.Inverse(frameRb.rotation);
+    rotationDifference.ToAngleAxis(out float angle, out Vector3 axis);
+    
+    // Normalize to -180 to 180 range
+    if (angle > 180f)
+    {
+        angle -= 360f;
     }
     
+    float turnDirection = Mathf.Sign(angle) * Mathf.Sign(Vector3.Dot(axis, Vector3.up));
+    
+    // Remember the initial angle when we start rotating (if not already set)
+    if (_initialRotationAngle == 0 || angleToTarget > _initialRotationAngle)
+    {
+        _initialRotationAngle = angleToTarget;
+    }
+    
+    // Calculate what percentage of the total rotation we've completed
+    float rotationProgress = 1f - (angleToTarget / _initialRotationAngle);
+    
+    // Speed profile: maintain high speed for first 4/5, then decelerate in last 1/5
+    float speedMultiplier;
+    
+    if (rotationProgress < 0.8f)
+    {
+        // First 4/5 of rotation - maintain high speed
+        speedMultiplier = 1.0f;
+    }
+    else
+    {
+        // Last 1/5 of rotation - decelerate quickly
+        // Map 0.8-1.0 range to 1.0-0.0 for deceleration
+        float decelerationProgress = (rotationProgress - 0.8f) * 5f; // Rescale 0.8-1.0 to 0-1
+        speedMultiplier = 1.0f - (decelerationProgress * decelerationProgress); // Quadratic slowdown
+    }
+    
+    // Calculate target velocity with the new speed profile
+    float targetVelocity = _maxRotationSpeed * speedMultiplier;
+    
+    // Smooth velocity change
+    _currentVelocity = Mathf.MoveTowards(_currentVelocity, targetVelocity, _rotationSpeed * Time.deltaTime);
+    
+    Debug.Log($"Angle: {angleToTarget:F2}, Progress: {rotationProgress:F2}, Speed Mult: {speedMultiplier:F2}");
+    
+    // Apply motor forces based on calculated direction
+    if (turnDirection > 0)
+    {
+        // Rotate Right
+        _leftMotor.targetVelocity = _currentVelocity;
+        _rightMotor.targetVelocity = -_currentVelocity;
+    }
+    else
+    {
+        // Rotate Left
+        _rightMotor.targetVelocity = _currentVelocity;
+        _leftMotor.targetVelocity = -_currentVelocity;
+    }
+
+    // Apply motor force
+    _leftMotor.force = 1000f;
+    _rightMotor.force = 1000f;
+    leftHinge.motor = _leftMotor;
+    rightHinge.motor = _rightMotor;
+}
+     
     private float _moveSpeed = 40f; // Maximum move speed
-    private float _stopDistanceThreshold = 0.1f; // Distance to stop at
+    private float _stopDistanceThreshold = 0.08f; // Distance to stop at
     
     private void MoveTowardsCurrentPoint()
     {
@@ -171,7 +273,10 @@ public class Navigation : MonoBehaviour
             rightHinge.motor = _rightMotor;
             _currentVelocity = 0f;
             _brakingDistance = null;
-            frameRb.transform.position = new Vector3(targetPoint.x, frameRb.position.y, targetPoint.z);
+            
+            // Debug.Log($"Frame position before: {frameRb.position}, target point: {targetPoint}");
+            //
+            // frameRb.transform.position = new Vector3(targetPoint.x, frameRb.position.y, targetPoint.z);
             
             // Remove the first point from the list
             _pathPoints.RemoveAt(0);
@@ -188,12 +293,12 @@ public class Navigation : MonoBehaviour
         
         if (distanceToTarget > _brakingDistance)
         {
-            // Accelerate until halfway
+            // Accelerate
             _currentVelocity = Mathf.MoveTowards(_currentVelocity, Mathf.Min((float)(_moveSpeed * _brakingDistance * 5f), 200f), 100 * Time.deltaTime);
         }
         else
         {
-            // Decelerate smoothly after halfway point
+            // Decelerate
             _currentVelocity = Mathf.MoveTowards(_currentVelocity, _moveSpeed / 2f, 100 * Time.deltaTime);
         }
 
@@ -207,9 +312,7 @@ public class Navigation : MonoBehaviour
         leftHinge.motor = _leftMotor;
         rightHinge.motor = _rightMotor;
     }
-
-
-
+    
     public void SetDestination(Vector3 newDestination)
     {
         // Extract path points from NavMeshPath
@@ -244,14 +347,18 @@ public class Navigation : MonoBehaviour
     private void DrawPath()
     {
         _lineRenderer.positionCount = _pathPoints.Count;
-        _lineRenderer.SetPositions(_pathPoints.ToArray());
+        // Set the positions of the line renderer offset y-axis slightly
+        for (int i = 0; i < _pathPoints.Count; i++)
+        {
+            _lineRenderer.SetPosition(i, new Vector3(_pathPoints[i].x, 0.05f, _pathPoints[i].z));
+        }
 
         Debug.Log("Path: ");
         ClearCornerMarkers(); // Remove old markers
 
         for (int i = 0; i < _pathPoints.Count; i++)
         {
-            Debug.Log($"Point {i}: {_pathPoints[i]}");
+            // Debug.Log($"Point {i}: {_pathPoints[i]}");
 
             // Only spawn a marker when the _path changes direction
             if (i == 0 || i == _pathPoints.Count - 1 || IsDirectionChange(i))
@@ -280,8 +387,8 @@ public class Navigation : MonoBehaviour
     private void SpawnMarker(Vector3 position)
     {
         GameObject marker = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        marker.transform.position = position;
-        marker.transform.localScale = Vector3.one * 0.2f; // Small sphere
+        marker.transform.position = new Vector3(position.x, 0.05f, position.z); // Slightly above ground
+        marker.transform.localScale = Vector3.one * 0.05f; // Small sphere
         marker.GetComponent<Renderer>().material.color = Color.red; // Red color
         Destroy(marker.GetComponent<Collider>()); // Remove unnecessary collider
         _cornerMarkers.Add(marker);

@@ -142,8 +142,8 @@ public class InteractionsCounter : MonoBehaviour
         }
 
         // Set up RenderTexture
-        int width = Screen.width;
-        int height = Screen.height;
+        int width = 1024; //Screen.width;
+        int height = 1024; //Screen.height;
         RenderTexture renderTexture = new RenderTexture(width, height, 24);
         environmentCamera.targetTexture = renderTexture;
         environmentCamera.Render();
