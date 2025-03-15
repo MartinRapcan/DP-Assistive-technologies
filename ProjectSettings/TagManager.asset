@@ -25,9 +25,9 @@ TagManager:
   - RightWheel
   - NavMeshAgent
   - StartEndTriggers
-  - 
-  - 
-  - 
+  - Minimap
+  - SpeedInfo
+  - Trail
   - 
   - 
   - 
