@@ -11418,6 +11418,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wheelchair 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3272909773934980454, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_CameraYOffset
+      value: 1.36144
+      objectReference: {fileID: 0}
     - target: {fileID: 4851566893666509755, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Camera
       value: 
