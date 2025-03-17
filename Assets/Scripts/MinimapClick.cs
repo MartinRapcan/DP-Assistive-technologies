@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class MinimapClick : MonoBehaviour, IPointerClickHandler
+public class MinimapClick : MonoBehaviour
 {
     [SerializeField] private Camera environmentCamera; // Top-down camera above your scene
     [SerializeField] private Navigation navigation; // Reference to Navigation script
+    [SerializeField] private Camera mainCamera; // Main camera in the scene
     private RectTransform _buttonRect;
 
     private void Start()
@@ -12,8 +13,10 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         _buttonRect = GetComponent<RectTransform>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(BaseEventData baseEventData)
     {
+        PointerEventData eventData = (PointerEventData) baseEventData;
+        
         // if right click, return
         if (eventData.button == PointerEventData.InputButton.Right)
         {
@@ -23,21 +26,26 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         
         // Convert UI click to normalized position (0-1) on the minimap
         Vector2 clickPosition = eventData.position;
+        
+        Debug.Log($"Click position: {clickPosition}");
+        Debug.Log($"ButtonRect: {_buttonRect.position}, {_buttonRect.rect.width}, {_buttonRect.rect.height}");
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _buttonRect,
             clickPosition,
-            eventData.pressEventCamera,
+            mainCamera,
             out var localPosition
         );
 
+        Debug.Log(localPosition);
+        
         // Convert to normalized coordinates (0-1 range)
         Vector2 normalizedPosition = new Vector2(
             (localPosition.x + _buttonRect.rect.width * 0.5f) / _buttonRect.rect.width,
             (localPosition.y + _buttonRect.rect.height * 0.5f) / _buttonRect.rect.height
         );
         
-        // Debug.Log($"Normalized Position: {normalizedPosition}");
+        Debug.Log($"Normalized Position: {normalizedPosition}");
         
         // Cast ray from environment camera using this normalized position
         CastRayFromEnvironmentCamera(normalizedPosition);
@@ -53,6 +61,7 @@ public class MinimapClick : MonoBehaviour, IPointerClickHandler
         RaycastHit[] allHits = Physics.RaycastAll(ray);
         foreach (RaycastHit hitInfo in allHits)
         {
+            Debug.Log(hitInfo.point);
             if (!hitInfo.collider.CompareTag("Floor")) continue;
             
             // Debug.Log($"Found floor in multiple hits at: {hitInfo.point}");
