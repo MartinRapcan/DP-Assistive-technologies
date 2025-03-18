@@ -327,7 +327,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -335,15 +335,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 59
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Scripts
   m_LastFoldersGridSize: 59
   m_LastProjectPath: C:\Users\rapca\Documents\GitHub\DP-Assistive-technologies
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 120}
-    m_SelectedIDs: ee720000
-    m_LastClickedID: 29422
+    m_SelectedIDs: fc720000
+    m_LastClickedID: 29436
     m_ExpandedIDs: 00000000a4720000a6720000a8720000aa720000ac720000ae720000b0720000b2720000b4720000b672000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -465,9 +465,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 3cf8ffff
-      m_LastClickedID: -1988
-      m_ExpandedIDs: fce0ffffecf3ffff26fbffff
+      m_SelectedIDs: 66f5ffff
+      m_LastClickedID: -2714
+      m_ExpandedIDs: 1cf3ffff74f4ffff3cf5ffff40f5ffff4af5ffff66f5ffff40f9ffff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -899,9 +899,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.6632473, y: -0.8034429, z: -3.1420567}
+    m_Target: {x: 3.8063023, y: 0.9379545, z: -0.1576348}
     speed: 2
-    m_Value: {x: 1.6632473, y: -0.8034429, z: -3.1420567}
+    m_Value: {x: 3.8063023, y: 0.9379545, z: -0.1576348}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -947,9 +947,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.048732743, y: 0.95149714, z: -0.22120221, w: 0.21009068}
+    m_Target: {x: 0.006532243, y: 0.7193609, z: -0.0067611374, w: 0.6951523}
     speed: 2
-    m_Value: {x: 0.049155623, y: 0.9506995, z: -0.22101699, w: 0.21190952}
+    m_Value: {x: 0.007926378, y: 0.7183613, z: -0.008189735, w: 0.6955769}
   m_Size:
     m_Target: 2.7446344
     speed: 2
