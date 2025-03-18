@@ -11358,6 +11358,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1001320453}
+    - target: {fileID: 1583218713988207814, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 3935
+      objectReference: {fileID: 0}
     - target: {fileID: 1843500581895021895, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: movement
       value: 
@@ -11374,6 +11378,14 @@ PrefabInstance:
       propertyPath: interactionsCounter
       value: 
       objectReference: {fileID: 2025035299}
+    - target: {fileID: 2227584613739510265, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 351
+      objectReference: {fileID: 0}
+    - target: {fileID: 2359334660547623412, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979748, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -11418,9 +11430,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wheelchair 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3230990138036313430, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_Color.a
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230990138036313430, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 8400000, guid: 77fba2f7adf38c14ebda31a8a39b3c81, type: 2}
     - target: {fileID: 3272909773934980454, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_CameraYOffset
-      value: 1.36144
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170292024013026301, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: interfaceType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4409127995128883609, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4851566893666509755, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Camera
@@ -11430,6 +11458,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1001320453}
+    - target: {fileID: 7150168795042175214, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 351
+      objectReference: {fileID: 0}
     - target: {fileID: 7246936132017754948, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Camera
       value: 
