@@ -4,22 +4,28 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HoverConfirm : MonoBehaviour
+public class ButtonHoverConfirm : MonoBehaviour
 {
     [SerializeField] private GameObject sliderCanvas;
     [SerializeField] private Slider hoverTimeSlider;
     [SerializeField] private Camera mainCamera; // Main camera in the scene
-    [SerializeField] private float maxHoverDuration = 0.3f; // 300ms max duration
-    [SerializeField] private float distanceFromCamera = 0.72f;
+    [SerializeField] private ExpandUI expandUI;
     
     private float _hoverStartTime;
     private bool _isHovering = false;
     private bool _hasDurationCompleted = false;
     private RectTransform _buttonRect;
+    private string _buttonTag;
+    private float _maxHoverDuration;
+    private float _distanceFromCamera;
     
     private void Start()
     {
+        _maxHoverDuration = GlobalConfig.instance.maxHoverDuration;
+        _distanceFromCamera = GlobalConfig.instance.distanceFromCamera;
+        
         _buttonRect = GetComponent<RectTransform>();
+        _buttonTag = tag;
         
         // Disable the slider canvas initially
         if (sliderCanvas != null)
@@ -31,7 +37,7 @@ public class HoverConfirm : MonoBehaviour
             
         // Configure the slider max value
         if (hoverTimeSlider != null)
-            hoverTimeSlider.maxValue = maxHoverDuration;
+            hoverTimeSlider.maxValue = _maxHoverDuration;
     }
     
     private void Update()
@@ -42,12 +48,30 @@ public class HoverConfirm : MonoBehaviour
             float hoverDuration = Time.time - _hoverStartTime;
             
             if (hoverTimeSlider != null)
-                hoverTimeSlider.value = Mathf.Min(hoverDuration, maxHoverDuration);
+                hoverTimeSlider.value = Mathf.Min(hoverDuration, _maxHoverDuration);
                 
             // If we've reached max duration, hide the indicator
-            if (hoverDuration >= maxHoverDuration)
+            if (hoverDuration >= _maxHoverDuration)
             {
                 _hasDurationCompleted = true;
+                switch (_buttonTag)
+                {
+                    case "ExpandUpButton":
+                        expandUI.expandedButtonType = ExpandedButtonType.Up;
+                        break;
+                    case "ExpandDownButton":
+                        expandUI.expandedButtonType = ExpandedButtonType.Down;
+                        break;
+                    case "ExpandLeftButton":
+                        expandUI.expandedButtonType = ExpandedButtonType.Left;
+                        break;
+                    case "ExpandRightButton":
+                        expandUI.expandedButtonType = ExpandedButtonType.Right;
+                        break;
+                    default:
+                        expandUI.expandedButtonType = ExpandedButtonType.None;
+                        break;
+                }
                 HideSliderCanvas();
             }
         }
@@ -70,7 +94,7 @@ public class HoverConfirm : MonoBehaviour
             
             // Convert to world position at specified distance from camera
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(
-                new Vector3(screenPos.x, screenPos.y, distanceFromCamera)
+                new Vector3(screenPos.x, screenPos.y, _distanceFromCamera)
             );
             
             Debug.Log($"World position: {worldPos}");

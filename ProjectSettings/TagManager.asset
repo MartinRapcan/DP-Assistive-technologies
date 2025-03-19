@@ -10,6 +10,10 @@ TagManager:
   - StartTrigger
   - EndTrigger
   - Obstacle
+  - ExpandRightButton
+  - ExpandLeftButton
+  - ExpandUpButton
+  - ExpandDownButton
   layers:
   - Default
   - TransparentFX

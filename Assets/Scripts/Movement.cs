@@ -42,6 +42,11 @@ public class Movement : MonoBehaviour
     private JointMotor _leftMotor;
     private JointMotor _rightMotor;
     private readonly float _force = 500f;
+    
+    public void SetMaxVelocity(float velocity)
+    {
+        maxVelocity = velocity;
+    }
 
     private void Start()
     {

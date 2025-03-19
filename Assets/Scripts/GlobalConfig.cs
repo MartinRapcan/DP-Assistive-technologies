@@ -45,9 +45,13 @@ public enum InterfaceType
 
 public class GlobalConfig : MonoBehaviour
 {
+    public static GlobalConfig instance { get; private set; }
+    
     [Header("Configuration")]
     public InterfaceType interfaceType = InterfaceType.None;
     public NavigationType navigationType = NavigationType.Manual;
+    public float maxHoverDuration = 2.0f;
+    public float distanceFromCamera = 0.72f;
     
     [Header("Conditional Rendering")]
     [SerializeField] private Rigidbody frameRb;
@@ -56,6 +60,11 @@ public class GlobalConfig : MonoBehaviour
     
     private void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+        
         if (navigationType != NavigationType.Auto)
         {
             minimap.SetActive(false);
