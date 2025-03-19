@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,10 +18,19 @@ public class ButtonHoverConfirm : MonoBehaviour
     private float _maxHoverDuration;
     private float _distanceFromCamera;
     
+    // make key value pair for button tag and expandedButtonType
+    private readonly Dictionary<string, ExpandedButtonType> _buttonExpandedType = new Dictionary<string, ExpandedButtonType>();
+    
+    
     private void Start()
     {
         _maxHoverDuration = GlobalConfig.instance.maxHoverDuration;
         _distanceFromCamera = GlobalConfig.instance.distanceFromCamera;
+        
+        _buttonExpandedType.Add("ExpandUpButton", ExpandedButtonType.Up);
+        _buttonExpandedType.Add("ExpandDownButton", ExpandedButtonType.Down);
+        _buttonExpandedType.Add("ExpandLeftButton", ExpandedButtonType.Left);
+        _buttonExpandedType.Add("ExpandRightButton", ExpandedButtonType.Right);
         
         _buttonRect = GetComponent<RectTransform>();
         _buttonTag = tag;
@@ -80,6 +88,12 @@ public class ButtonHoverConfirm : MonoBehaviour
     // Called when the pointer enters the button
     public void OnPointerEnter(BaseEventData baseEventData)
     {
+        // check if the button tag is already expanded
+        if (_buttonExpandedType.ContainsKey(_buttonTag) && expandUI.expandedButtonType == _buttonExpandedType[_buttonTag])
+        {
+            return;
+        }
+        
         _isHovering = true;
         _hoverStartTime = Time.time;
         
@@ -121,7 +135,7 @@ public class ButtonHoverConfirm : MonoBehaviour
         _hasDurationCompleted = false; // Reset this flag when hiding
         _isHovering = false;
         
-            if (sliderCanvas != null)
+        if (sliderCanvas != null)
         {
             hoverTimeSlider.value = 0f;
             sliderCanvas.SetActive(false);
