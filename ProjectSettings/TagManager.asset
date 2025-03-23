@@ -14,6 +14,17 @@ TagManager:
   - ExpandLeftButton
   - ExpandUpButton
   - ExpandDownButton
+  - IdleButton
+  - ForwardRight
+  - TurnRight
+  - BackwardRight
+  - ForwardHigh
+  - ForwardLow
+  - BackwardHigh
+  - BackwardLow
+  - TurnLeft
+  - ForwardLeft
+  - BackwardLeft
   layers:
   - Default
   - TransparentFX

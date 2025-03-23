@@ -6940,6 +6940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interfaceType: 2
   navigationType: 1
+  maxHoverDuration: 2
+  distanceFromCamera: 0.72
   frameRb: {fileID: 2349149059336589883}
   minimap: {fileID: 6484884181527032043}
   navMeshAgent: {fileID: 7836978219601796229}

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ExpandedButtonType
@@ -9,6 +10,11 @@ public enum ExpandedButtonType
     None
 }
 
+public enum FunctionState
+{
+    Active,
+    Idle,
+}
 
 public class ExpandUI : MonoBehaviour
 {
@@ -16,13 +22,17 @@ public class ExpandUI : MonoBehaviour
     [SerializeField] private GameObject downButtonExpand;
     [SerializeField] private GameObject leftButtonExpand;
     [SerializeField] private GameObject rightButtonExpand;
+    public Movement movement;
     
     public ExpandedButtonType expandedButtonType { get; set; } = ExpandedButtonType.None;
     
+    // Static variable that can be accessed from anywhere
+    public FunctionState currentFunctionState = FunctionState.Idle;
+    
     private void Start()
     {
-        // upButtonExpand.SetActive(false);
-        // downButtonExpand.SetActive(false);
+        upButtonExpand.SetActive(false);
+        downButtonExpand.SetActive(false);
         leftButtonExpand.SetActive(false);
         rightButtonExpand.SetActive(false);
     }
