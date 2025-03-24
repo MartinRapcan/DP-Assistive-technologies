@@ -18,11 +18,20 @@ public class ButtonHoverConfirm : MonoBehaviour
     private float _maxHoverDuration;
     private float _distanceFromCamera;
 
+    // Static variable to track which button is currently active
+    private static string _currentActiveButtonTag = "";
+    private static ButtonHoverConfirm _currentActiveButton = null;
+
     // make key value pair for button tag and expandedButtonType
     private readonly Dictionary<string, ExpandedButtonType> _buttonExpandedType =
         new Dictionary<string, ExpandedButtonType>();
 
     private bool _isActive = false;
+    
+    // Add fields for button color control
+    [SerializeField] private Color activeColor = Color.green;
+    private Color _originalColor;
+    private Image _buttonImage;
 
     private void Start()
     {
@@ -36,6 +45,17 @@ public class ButtonHoverConfirm : MonoBehaviour
 
         _buttonRect = GetComponent<RectTransform>();
         _buttonTag = tag;
+
+        // Get the button image component
+        _buttonImage = GetComponent<Image>();
+        if (_buttonImage != null)
+        {
+            _originalColor = _buttonImage.color;
+        }
+        else
+        {
+            Debug.LogWarning("Button image component is missing on " + gameObject.name);
+        }
 
         // Disable the slider canvas initially
         if (sliderCanvas != null)
@@ -87,8 +107,15 @@ public class ButtonHoverConfirm : MonoBehaviour
                 }
 
                 HideSliderCanvas();
-                if (!_isActive && !_buttonExpandedType.ContainsKey(_buttonTag))
+                if (!_isActive && (IsMovementButton(_buttonTag) || _buttonTag == "IdleButton"))
                 {
+                    // Deactivate current active button if exists
+                    if (_currentActiveButton != null && _currentActiveButton != this)
+                    {
+                        _currentActiveButton.DeactivateButton();
+                    }
+                    
+                    // Activate this button
                     ButtonActive();
                 }
             }
@@ -98,9 +125,38 @@ public class ButtonHoverConfirm : MonoBehaviour
     // Called when the pointer enters the button
     public void OnPointerEnter(BaseEventData baseEventData)
     {
+        // Special handling for IdleButton - activate immediately on hover
+        if (_buttonTag == "IdleButton")
+        {
+            // Activate the idle button immediately
+            _isHovering = false;
+            _hasDurationCompleted = false;
+            HideSliderCanvas(); // Hide any slider that might be showing
+            
+            // Only activate if not already active
+            if (!_isActive)
+            {
+                // Deactivate current active button if exists
+                if (_currentActiveButton != null && _currentActiveButton != this)
+                {
+                    _currentActiveButton.DeactivateButton();
+                }
+                
+                // Activate idle button
+                ButtonActive();
+            }
+            return;
+        }
+        
         // check if the button tag is already expanded
         if (_buttonExpandedType.ContainsKey(_buttonTag) &&
             expandUI.expandedButtonType == _buttonExpandedType[_buttonTag])
+        {
+            return;
+        }
+        
+        // If this is the currently active button, no need to show loading effect
+        if (_currentActiveButton == this && _isActive)
         {
             return;
         }
@@ -138,18 +194,45 @@ public class ButtonHoverConfirm : MonoBehaviour
     {
         _hasDurationCompleted = false; // Reset this flag when hiding
         _isHovering = false;
-        if (_isActive)
-        {
-            _isActive = false;
-            expandUI.movement.ShouldStopMoving();
-        }
         
+        // We don't stop the movement here anymore
+        // Only hide the slider canvas
         HideSliderCanvas();
     }
 
     private void ButtonActive()
     {
         _isActive = true;
+        
+        // Change button color to indicate active state
+        if (_buttonImage != null)
+        {
+            _buttonImage.color = activeColor;
+        }
+        
+        // Handle the IdleButton specially
+        if (_buttonTag == "IdleButton")
+        {
+            // Stop any currently active button (except itself)
+            if (_currentActiveButton != null && _currentActiveButton != this)
+            {
+                _currentActiveButton.DeactivateButton();
+                _currentActiveButton = null;
+                _currentActiveButtonTag = "";
+            }
+            
+            // Set this as the current active button
+            _currentActiveButtonTag = _buttonTag;
+            _currentActiveButton = this;
+            
+            // Stop all movement
+            expandUI.movement.ShouldStopMoving();
+            return;
+        }
+        
+        _currentActiveButtonTag = _buttonTag;
+        _currentActiveButton = this;
+        
         expandUI.movement.SetMaxVelocity(_buttonTag is "ForwardHigh" or "BackwardHigh" ? 300f : 150f);
 
         switch (_buttonTag)
@@ -181,6 +264,47 @@ public class ButtonHoverConfirm : MonoBehaviour
             case "BackwardHigh" or "BackwardLow":
                 expandUI.movement.ShouldMoveBackward();
                 break;
+        }
+    }
+    
+    // New method to deactivate the button
+    private void DeactivateButton()
+    {
+        _isActive = false;
+        
+        // Restore original button color
+        if (_buttonImage != null)
+        {
+            _buttonImage.color = _originalColor;
+        }
+        
+        expandUI.movement.ShouldStopMoving();
+    }
+    
+    // Helper method to check if this is a movement button
+    private bool IsMovementButton(string tag)
+    {
+        // Return true if this is not an expand button and not the idle button
+        return !_buttonExpandedType.ContainsKey(tag) && tag != "IdleButton";
+    }
+
+    // Add a public method to stop all active buttons (useful for a stop button if needed)
+    public static void StopAllActiveButtons()
+    {
+        if (_currentActiveButton != null)
+        {
+            _currentActiveButton.DeactivateButton();
+            _currentActiveButton = null;
+            _currentActiveButtonTag = "";
+        }
+    }
+    
+    // Reset all button colors in case something goes wrong
+    private void OnDisable()
+    {
+        if (_isActive)
+        {
+            DeactivateButton();
         }
     }
 

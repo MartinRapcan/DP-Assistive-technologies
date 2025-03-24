@@ -2170,31 +2170,13 @@ GameObject:
   - component: {fileID: 500344877}
   - component: {fileID: 500344876}
   - component: {fileID: 500344875}
-  - component: {fileID: 500344874}
   m_Layer: 5
   m_Name: SliderCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &500344874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 500344873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_IsActive: 1
 --- !u!114 &500344875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3379,7 +3361,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &685280136
 MonoBehaviour:
@@ -3564,7 +3546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &734512804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5808,6 +5790,8 @@ GameObject:
   - component: {fileID: 1325990825}
   - component: {fileID: 1325990824}
   - component: {fileID: 1325990827}
+  - component: {fileID: 1325990828}
+  - component: {fileID: 1325990829}
   m_Layer: 5
   m_Name: Idle
   m_TagString: IdleButton
@@ -5874,7 +5858,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 1325990825}
   m_OnClick:
     m_PersistentCalls:
@@ -5893,7 +5877,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5930,6 +5914,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alphaThreshold: 0.1
+--- !u!114 &1325990828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325990822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bba3004e305504b85b2f5f73950bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sliderCanvas: {fileID: 500344873}
+  hoverTimeSlider: {fileID: 798704525}
+  mainCamera: {fileID: 3793022431362103914}
+  expandUI: {fileID: 734512809}
+--- !u!114 &1325990829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325990822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1325990828}
+          m_TargetAssemblyTypeName: ButtonHoverConfirm, Assembly-CSharp
+          m_MethodName: OnPointerEnter
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1325990828}
+          m_TargetAssemblyTypeName: ButtonHoverConfirm, Assembly-CSharp
+          m_MethodName: OnPointerExit
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1362295765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6091,7 +6132,7 @@ RectTransform:
   m_Father: {fileID: 798704524}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -10450,7 +10491,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 108431110966344198, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 466812327586233929, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Layer
@@ -10555,6 +10596,10 @@ PrefabInstance:
     - target: {fileID: 4170292024013026301, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: navigationType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4170292024013026301, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: maxHoverDuration
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4409127995128883609, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_LocalPosition.y

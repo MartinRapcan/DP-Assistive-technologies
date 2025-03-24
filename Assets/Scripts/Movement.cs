@@ -42,10 +42,12 @@ public class Movement : MonoBehaviour
     private JointMotor _leftMotor;
     private JointMotor _rightMotor;
     private readonly float _force = 500f;
+    private float _backwardMaxVelocity;
     
     public void SetMaxVelocity(float velocity)
     {
         maxVelocity = velocity;
+        _backwardMaxVelocity = -maxVelocity / 2f;
     }
 
     private void Start()
@@ -59,6 +61,8 @@ public class Movement : MonoBehaviour
 
         leftHinge.useMotor = true;
         rightHinge.useMotor = true;
+
+        _backwardMaxVelocity = -maxVelocity / 2f;
     }
 
     private void CameraSetup()
@@ -212,8 +216,8 @@ public class Movement : MonoBehaviour
         bool reverse = dir is Direction.BackwardLeft or Direction.BackwardRight or Direction.Backward;
 
         // Target velocities based on direction (degrees per second)
-        float targetVelocity = maxVelocity * (reverse ? -1 : 1);
-
+        float targetVelocity = reverse ? _backwardMaxVelocity : maxVelocity;
+        
         var forceRight = dir is Direction.BackwardRight or Direction.ForwardRight ? _force * 0.8f : _force;
         var forceLeft = dir is Direction.BackwardLeft or Direction.ForwardLeft ? _force * 0.8f : _force;
 
