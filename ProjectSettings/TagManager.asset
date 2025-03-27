@@ -25,6 +25,8 @@ TagManager:
   - TurnLeft
   - ForwardLeft
   - BackwardLeft
+  - Stop
+  - StopConfirm
   layers:
   - Default
   - TransparentFX

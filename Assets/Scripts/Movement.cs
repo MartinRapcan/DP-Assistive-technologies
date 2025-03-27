@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float stopTime = 2f;
     [SerializeField] private float maxRotation = 60f;
-    [SerializeField] private float maxVelocity = 300f;
+    [SerializeField] private float maxVelocity = 150f;
     
     [Header("HingeJoint Components")]
     [SerializeField] private HingeJoint leftHinge;

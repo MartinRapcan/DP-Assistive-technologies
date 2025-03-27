@@ -233,7 +233,7 @@ public class ButtonHoverConfirm : MonoBehaviour
         _currentActiveButtonTag = _buttonTag;
         _currentActiveButton = this;
         
-        expandUI.movement.SetMaxVelocity(_buttonTag is "ForwardHigh" or "BackwardHigh" ? 300f : 150f);
+        expandUI.movement.SetMaxVelocity(_buttonTag is "ForwardHigh" or "BackwardHigh" ? 150f : 75f);
 
         switch (_buttonTag)
         {
