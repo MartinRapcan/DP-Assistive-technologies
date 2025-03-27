@@ -22,6 +22,8 @@ public class MeshAnimator : MonoBehaviour
     
     private void Update()
     {
+        Debug.Log("Direction: " + movement.direction);
+        Debug.Log("Navigation State: " + navigation.navigationState);
         if ((movement.direction == Direction.None && globalConfig.navigationType == NavigationType.Manual) ||
             (navigation.navigationState == NavigationState.Stationary && globalConfig.navigationType == NavigationType.Auto)) return;
 

@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DemoScene.unity
     guid: e7dbb01ec2e9443cfbfef7db195b02d1
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/DP/DP - Nested UI.unity
     guid: cf6666f84c181c14fa7daf363f52c26b
+  - enabled: 1
+    path: Assets/Scenes/DP/DP - Nested UI simplified smaller.unity
+    guid: c815d1523adad9e4abb8fc8af0bf7485
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b250409d8d7e9d74ea099396e605dd9b, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 307cfdcfb20ee4845a26fce538999ccd, type: 2}

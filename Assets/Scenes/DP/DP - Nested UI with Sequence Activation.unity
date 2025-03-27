@@ -6250,11 +6250,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979748, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.727
+      value: 0.346
       objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979748, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.674
       objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979748, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -13918,7 +13918,7 @@ PrefabInstance:
       objectReference: {fileID: 1703061041}
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: simulationEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: gazeDataReady.m_PersistentCalls.m_Calls.Array.size

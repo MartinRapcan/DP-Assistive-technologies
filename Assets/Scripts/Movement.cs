@@ -49,6 +49,11 @@ public class Movement : MonoBehaviour
         maxVelocity = velocity;
         _backwardMaxVelocity = -maxVelocity / 2f;
     }
+    
+    public void SetMaxRotation(float rotation)
+    {
+        maxRotation = rotation;
+    }
 
     private void Start()
     {
@@ -181,33 +186,62 @@ public class Movement : MonoBehaviour
 
     private void StopMoving()
     {
-        // _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
+        // Start deceleration coroutine if not already running
+        _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
+    
+        // However, we still want to zero out physics velocities to prevent sliding
+        frameRb.velocity = Vector3.zero;
+        frameRb.angularVelocity = Vector3.zero;
+        leftCasterRb.velocity = Vector3.zero;
+        rightCasterRb.velocity = Vector3.zero;
+    }
+    
+    private IEnumerator DecelerateWheels()
+    {
+        // Store initial velocities when deceleration starts
+        float initialLeftVelocity = _leftMotor.targetVelocity;
+        float initialRightVelocity = _rightMotor.targetVelocity;
+    
+        // Calculate deceleration rate per second
+        float leftDecelerationRate = initialLeftVelocity / stopTime;
+        float rightDecelerationRate = initialRightVelocity / stopTime;
+    
+        float elapsedTime = 0f;
+    
+        while (elapsedTime < stopTime)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / stopTime; // Normalized time (0 to 1)
+        
+            // Apply smoothed deceleration
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+        
+            // Linearly interpolate from initial velocity to zero
+            _leftMotor.targetVelocity = Mathf.Lerp(initialLeftVelocity, 0f, smoothT);
+            _rightMotor.targetVelocity = Mathf.Lerp(initialRightVelocity, 0f, smoothT);
+        
+            // Apply the motor settings
+            leftHinge.motor = _leftMotor;
+            rightHinge.motor = _rightMotor;
+        
+            // Update current velocity for tracking
+            _currentVelocity = Mathf.Lerp(_currentVelocity, 0f, smoothT);
+        
+            yield return null; // Wait for next frame
+        }
+    
+        // Ensure final velocities are exactly zero
         _leftMotor.targetVelocity = 0f;
         _rightMotor.targetVelocity = 0f;
         leftHinge.motor = _leftMotor;
         rightHinge.motor = _rightMotor;
-        
         _currentVelocity = 0f;
-        
-        frameRb.velocity = Vector3.zero;
-        frameRb.angularVelocity = Vector3.zero;
-        
-        leftCasterRb.velocity = Vector3.zero;
-        rightCasterRb.velocity = Vector3.zero;
-        
+    
+        // Reset direction once fully stopped
         direction = Direction.None;
-        
-    }
-
-    // Custom Vector3 SmoothStep implementation (since Unity doesn't provide it natively)
-    private Vector3 Vector3SmoothStep(Vector3 from, Vector3 to, float t)
-    {
-        t = Mathf.SmoothStep(0f, 1f, t); // Apply smooth curve
-        return new Vector3(
-            Mathf.Lerp(from.x, to.x, t),
-            Mathf.Lerp(from.y, to.y, t),
-            Mathf.Lerp(from.z, to.z, t)
-        );
+    
+        // Clear the coroutine reference
+        _decelerationCoroutine = null;
     }
 
     private void Move(Direction dir)
