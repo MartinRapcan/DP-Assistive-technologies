@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1464
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -140,7 +140,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2031
+    width: 2032
     height: 1414
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
@@ -166,8 +166,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 2031
-    height: 902
+    width: 2032
+    height: 901
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 547
-    height: 902
+    height: 901
   m_MinSize: {x: 201, y: 221}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 13}
@@ -216,8 +216,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 547
     y: 0
-    width: 1484
-    height: 902
+    width: 1485
+    height: 901
   m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 14}
@@ -243,9 +243,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 902
-    width: 2031
-    height: 512
+    y: 901
+    width: 2032
+    height: 513
   m_MinSize: {x: 231, y: 271}
   m_MaxSize: {x: 10001, y: 10021}
   m_ActualView: {fileID: 12}
@@ -270,9 +270,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 2031
+    x: 2032
     y: 0
-    width: 529
+    width: 528
     height: 1414
   m_MinSize: {x: 276, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
@@ -303,9 +303,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 996
-    width: 2030
-    height: 491
+    y: 995
+    width: 2031
+    height: 492
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -327,7 +327,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes/DP
+    - Packages/com.pupil-labs.neon-xr.core/Runtime/Scritps
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -335,16 +335,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 59
   m_LastFolders:
-  - Assets/Scenes/DP
+  - Packages/com.pupil-labs.neon-xr.core/Runtime/Scritps
   m_LastFoldersGridSize: 59
   m_LastProjectPath: C:\Users\rapca\Documents\GitHub\DP-Assistive-technologies
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: ea750000
-    m_LastClickedID: 30186
-    m_ExpandedIDs: 0000000090750000927500009475000096750000987500009a7500009c7500009e750000a0750000a2750000a475000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 232}
+    m_SelectedIDs: f2040800
+    m_LastClickedID: 525554
+    m_ExpandedIDs: 0000000086770000887700008a7700008c7700008e77000090770000927700009477000096770000987700009a770000de770000f404080000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -372,7 +372,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090750000927500009475000096750000987500009a7500009c7500009e750000a0750000a2750000a4750000
+    m_ExpandedIDs: 0000000086770000887700008a7700008c7700008e77000090770000927700009477000096770000987700009a770000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -451,7 +451,7 @@ MonoBehaviour:
     x: 0
     y: 94
     width: 546
-    height: 881
+    height: 880
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -467,7 +467,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 60f3ffff70f3ffffc8f6ffffe4f9ffffeaf9fffff8f9ffff26fbffff
+      m_ExpandedIDs: 72a8feff7ca8feffb4a8feff5aa9feff64a9feff02aafeff28aafeff2caafeff3eaafeff40aafeff5eaafeff62aafeffe0abfeff8a5fffffd8b0fffff6b0ffff86b1ffffd4b2fffff6dbffff54e0ffff5ae0ffffc4ecfffff2f3ffff1afbffff06880000de880000528b0000d48b0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -513,8 +513,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 547
     y: 94
-    width: 1482
-    height: 881
+    width: 1483
+    height: 880
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -899,9 +899,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1.472723, y: 0.8170006, z: 0.04179988}
+    m_Target: {x: -1.7647467, y: 0.5763348, z: -0.04134259}
     speed: 2
-    m_Value: {x: 1.472723, y: 0.8170006, z: 0.04179988}
+    m_Value: {x: -1.7647467, y: 0.5763348, z: -0.04134259}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -947,13 +947,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.038651057, y: -0.7125823, z: 0.04249131, w: -0.7000258}
+    m_Target: {x: -0.009820938, y: -0.6992533, z: 0.011999848, w: -0.71564156}
     speed: 2
-    m_Value: {x: -0.039547082, y: -0.71421844, z: 0.043656, w: -0.6974398}
+    m_Value: {x: -0.009814372, y: -0.69878584, z: 0.011991826, w: -0.7151631}
   m_Size:
-    m_Target: 0.4777335
+    m_Target: 0.035355326
     speed: 2
-    m_Value: 0.4777335
+    m_Value: 0.035355326
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1070,8 +1070,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 547
     y: 94
-    width: 1482
-    height: 881
+    width: 1483
+    height: 880
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1088,7 +1088,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1482, y: 860}
+  m_TargetSize: {x: 1483, y: 859}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1103,10 +1103,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -741
-    m_HBaseRangeMax: 741
-    m_VBaseRangeMin: -430
-    m_VBaseRangeMax: 430
+    m_HBaseRangeMin: -741.5
+    m_HBaseRangeMax: 741.5
+    m_VBaseRangeMin: -429.5
+    m_VBaseRangeMax: 429.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1124,23 +1124,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1482
-      height: 860
+      width: 1483
+      height: 859
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 741, y: 430}
+    m_Translation: {x: 741.5, y: 429.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -741
-      y: -430
-      width: 1482
-      height: 860
+      x: -741.5
+      y: -429.5
+      width: 1483
+      height: 859
     m_MinimalGUI: 1
   m_defaultScale: 1
-  m_LastWindowPixelSize: {x: 1482, y: 881}
+  m_LastWindowPixelSize: {x: 1483, y: 880}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -1183,7 +1183,7 @@ MonoBehaviour:
     m_OverlaysVisible: 1
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: -3232
+  m_LastSelectedObjectID: -87752
 --- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1205,9 +1205,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 996
-    width: 2030
-    height: 491
+    y: 995
+    width: 2031
+    height: 492
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1238,9 +1238,9 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2031
+    x: 2032
     y: 94
-    width: 528
+    width: 527
     height: 1393
   m_SerializedDataModeController:
     m_DataMode: 0

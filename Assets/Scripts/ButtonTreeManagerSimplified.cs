@@ -35,9 +35,6 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
     private Button rightLow;
     [SerializeField] private Button rightHigh;
 
-    [Header("Third Layer Buttons - Stop Path")] [SerializeField]
-    private Button stopConfirm;
-
     [Header("Visual Settings")] [SerializeField]
     private Color validSequenceColor = Color.green;
 
@@ -136,9 +133,6 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Right path
         thirdLayerButtons.Add(rightLow);
         thirdLayerButtons.Add(rightHigh);
-
-        // Stop path
-        thirdLayerButtons.Add(stopConfirm);
     }
 
     private void SetupValidConnections()
@@ -148,7 +142,8 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         validConnections[backwardButton] = new List<Button> { backwardLow, backwardHigh };
         validConnections[leftButton] = new List<Button> { leftLow, leftHigh };
         validConnections[rightButton] = new List<Button> { rightLow, rightHigh };
-        validConnections[stopButton] = new List<Button> { stopConfirm };
+        // Stop button has no third layer connections
+        validConnections[stopButton] = new List<Button>();
     }
 
     private void SetupButtonActions()
@@ -182,7 +177,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Left path actions
         buttonActions[leftLow] = () =>
         {
-            SetRotation(30f);
+            SetRotation(20f);
             movement.ShouldTurnLeft();
         };
         buttonActions[leftHigh] = () =>
@@ -194,7 +189,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Right path actions
         buttonActions[rightLow] = () =>
         {
-            SetRotation(30f);
+            SetRotation(20f);
             movement.ShouldTurnRight();
         };
         buttonActions[rightHigh] = () =>
@@ -203,8 +198,11 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
             movement.ShouldTurnRight();
         };
 
-        // Stop path action
-        buttonActions[stopConfirm] = () => { movement.ShouldStopMoving(); };
+        // Stop action directly in second layer
+        buttonActions[stopButton] = () =>
+        {
+            movement.ShouldStopMoving();
+        };
     }
 
     private void SetVelocity(float velocity = 150f)
@@ -212,7 +210,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         movement.SetMaxVelocity(velocity);
     }
     
-    private void SetRotation(float rotation = 60f)
+    private void SetRotation(float rotation = 40f)
     {
         movement.SetMaxRotation(rotation);
     }
@@ -295,7 +293,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
     private void OnPointerEnter(Button button, PointerEventData eventData)
     {
-        Debug.Log("Pointer entered: " + button.name + " - Is interactable: " + IsButtonInteractable(button));
+        // Debug.Log("Pointer entered: " + button.name + " - Is interactable: " + IsButtonInteractable(button));
 
         // Check if this button should be interactive in the current state
         if (!IsButtonInteractable(button))
@@ -310,7 +308,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
         // You could add visual feedback here to show the button is being hovered
         // For example, a slight glow or outline
-        Debug.Log("Started hover processing for: " + button.name);
+        // Debug.Log("Started hover processing for: " + button.name);
     }
 
     private void OnPointerExit(Button button, PointerEventData eventData)
@@ -356,7 +354,15 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         }
         else if (secondLayerButtons.Contains(button))
         {
-            OnSecondLayerButtonActivated(button);
+            // Special case for Stop button - immediate action
+            if (button == stopButton)
+            {
+                OnStopButtonActivated();
+            }
+            else
+            {
+                OnSecondLayerButtonActivated(button);
+            }
         }
         else if (thirdLayerButtons.Contains(button))
         {
@@ -404,12 +410,53 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         }
     }
 
+    private void OnStopButtonActivated()
+    {
+        // Check if this is a valid sequence (middle button must be activated first)
+        if (!middleButtonActivated)
+        {
+            // Debug.LogWarning("Trying to activate stop button without activating middle button first.");
+            ResetSelectionCompletelyToInitial();
+            return;
+        }
+
+        // Execute the stop action immediately
+        if (buttonActions.ContainsKey(stopButton))
+        {
+            buttonActions[stopButton].Invoke();
+        }
+
+        // If there's an active movement button, change its color and opacity
+        if (activeMovementButton != null)
+        {
+            // Reset color of previously active button
+            SetButtonColor(activeMovementButton, originalColors[activeMovementButton]);
+            SetButtonOpacity(activeMovementButton, initialOpacity);
+            activeMovementButton = null;
+        }
+
+        // Briefly highlight the stop button to give feedback
+        SetButtonColor(stopButton, validSequenceColor);
+        SetButtonOpacity(stopButton, activeOpacity);
+
+        // Start a coroutine to reset after showing feedback
+        StartCoroutine(ResetAfterStopButtonFeedback(0.1f));
+    }
+
+    IEnumerator ResetAfterStopButtonFeedback(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        // Reset everything to initial state
+        ResetSelectionCompletelyToInitial();
+    }
+
     private void OnSecondLayerButtonActivated(Button activatedButton)
     {
         // Check if this is a valid sequence (middle button must be activated first)
         if (!middleButtonActivated)
         {
-            Debug.LogWarning("Trying to activate second layer without activating middle button first.");
+            // Debug.LogWarning("Trying to activate second layer without activating middle button first.");
             ResetSelectionCompletelyToInitial();
             return;
         }
@@ -417,7 +464,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // If we're switching from one second layer button to another, handle cleanup
         if (currentSecondLayerButton != null && currentSecondLayerButton != activatedButton)
         {
-            Debug.Log("Switching from " + currentSecondLayerButton.name + " to " + activatedButton.name);
+            // Debug.Log("Switching from " + currentSecondLayerButton.name + " to " + activatedButton.name);
 
             // Hide all third layer buttons from previous selection
             foreach (Button childButton in validConnections[currentSecondLayerButton])
@@ -522,7 +569,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
             isProcessingHover = false;
             currentHoverButton = null;
 
-            Debug.Log("Invalid sequence detected. Disabling hover temporarily.");
+            // Debug.Log("Invalid sequence detected. Disabling hover temporarily.");
 
             // Start a coroutine to show the red color briefly, then reset everything
             StartCoroutine(InvalidSequenceReset(activatedButton, 1.0f));
@@ -547,6 +594,14 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
             color.a = opacity;
             buttonImage.color = color;
         }
+        
+        // Text[] textComponents = button.GetComponentsInChildren<Text>();
+        // foreach (Text textComponent in textComponents)
+        // {
+        //     Color textColor = textComponent.color;
+        //     textColor.a = opacity;
+        //     textComponent.color = textColor;
+        // }
     }
 
     private void SetButtonColor(Button button, Color newColor)

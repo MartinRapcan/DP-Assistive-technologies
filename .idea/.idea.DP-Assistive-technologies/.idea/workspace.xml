@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="" />
+    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/NeonXR Group_BundledAssetGroupSchema.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/AssetGroups/Schemas/NeonXR Group_BundledAssetGroupSchema.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MeshAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MeshAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -207,6 +215,7 @@
       <workItem from="1743072704261" duration="5000" />
       <workItem from="1743072714506" duration="9554000" />
       <workItem from="1743106882565" duration="5510000" />
+      <workItem from="1743157820287" duration="3711000" />
     </task>
     <servers />
   </component>

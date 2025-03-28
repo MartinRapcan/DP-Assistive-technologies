@@ -23,7 +23,7 @@ public class Movement : MonoBehaviour
     
     [Header("Movement Settings")]
     [SerializeField] private float stopTime = 2f;
-    [SerializeField] private float maxRotation = 60f;
+    [SerializeField] private float maxRotation = 40f;
     [SerializeField] private float maxVelocity = 150f;
     
     [Header("HingeJoint Components")]
@@ -258,10 +258,10 @@ public class Movement : MonoBehaviour
         // Smoothly adjust current velocities toward targets
         _currentVelocity = Mathf.MoveTowards(_currentVelocity, targetVelocity, _force * Time.deltaTime);
 
-        Debug.Log(
-            $"Left velocity: {_currentVelocity * (dir is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1)}");
-        Debug.Log(
-            $"Right velocity: {_currentVelocity * (dir is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1)}");
+        // Debug.Log(
+        //    $"Left velocity: {_currentVelocity * (dir is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1)}");
+        // Debug.Log(
+        //    $"Right velocity: {_currentVelocity * (dir is Direction.ForwardRight or Direction.BackwardRight ? 0.8f : 1)}");
 
         _leftMotor.targetVelocity =
             _currentVelocity * (dir is Direction.ForwardLeft or Direction.BackwardLeft ? 0.8f : 1);
