@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -62,6 +63,8 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
     // Store original colors
     private Dictionary<Button, Color> originalColors = new Dictionary<Button, Color>();
+    // Store original text colors
+    private Dictionary<TMP_Text, Color> originalTextColors = new Dictionary<TMP_Text, Color>();
 
     // Keep track of the currently activated button (for movement)
     private static Button activeMovementButton = null;
@@ -220,22 +223,32 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Store middle button color
         Image middleImage = middleButton.GetComponent<Image>();
         originalColors[middleButton] = middleImage.color;
+        
+        // Store middle button text colors
+        TMP_Text[] middleTexts = middleButton.GetComponentsInChildren<TMP_Text>();
+        foreach (TMP_Text textComponent in middleTexts)
+        {
+            originalTextColors[textComponent] = textComponent.color;
+        }
 
         // Set middle button to low opacity initially
-        Color middleColor = middleImage.color;
-        middleColor.a = initialOpacity;
-        middleImage.color = middleColor;
+        SetButtonOpacity(middleButton, initialOpacity);
 
         // Store colors and set opacity for second layer
         foreach (Button button in secondLayerButtons)
         {
             Image buttonImage = button.GetComponent<Image>();
             originalColors[button] = buttonImage.color;
+            
+            // Store text colors
+            TMP_Text[] textComponents = button.GetComponentsInChildren<TMP_Text>();
+            foreach (TMP_Text textComponent in textComponents)
+            {
+                originalTextColors[textComponent] = textComponent.color;
+            }
 
             // Set low opacity
-            Color color = buttonImage.color;
-            color.a = initialOpacity;
-            buttonImage.color = color;
+            SetButtonOpacity(button, initialOpacity);
         }
 
         // Store colors and set opacity for third layer
@@ -243,11 +256,16 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         {
             Image buttonImage = button.GetComponent<Image>();
             originalColors[button] = buttonImage.color;
+            
+            // Store text colors
+            TMP_Text[] textComponents = button.GetComponentsInChildren<TMP_Text>();
+            foreach (TMP_Text textComponent in textComponents)
+            {
+                originalTextColors[textComponent] = textComponent.color;
+            }
 
             // Set low opacity
-            Color color = buttonImage.color;
-            color.a = initialOpacity;
-            buttonImage.color = color;
+            SetButtonOpacity(button, initialOpacity);
         }
     }
 
@@ -587,6 +605,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
     private void SetButtonOpacity(Button button, float opacity)
     {
+        // Set opacity for the main button image
         Image buttonImage = button.GetComponent<Image>();
         if (buttonImage != null)
         {
@@ -595,13 +614,27 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
             buttonImage.color = color;
         }
         
-        // Text[] textComponents = button.GetComponentsInChildren<Text>();
-        // foreach (Text textComponent in textComponents)
-        // {
-        //     Color textColor = textComponent.color;
-        //     textColor.a = opacity;
-        //     textComponent.color = textColor;
-        // }
+        // Set opacity for all child image components (like arrow images)
+        Image[] childImages = button.GetComponentsInChildren<Image>();
+        foreach (Image image in childImages)
+        {
+            // Skip the main button image as we already processed it
+            if (image != buttonImage)
+            {
+                Color imgColor = image.color;
+                imgColor.a = opacity * 5;
+                image.color = imgColor;
+            }
+        }
+        
+        // Set opacity for all text components
+        TMP_Text[] textComponents = button.GetComponentsInChildren<TMP_Text>();
+        foreach (TMP_Text textComponent in textComponents)
+        {
+            Color textColor = textComponent.color;
+            textColor.a = opacity * 5; // Text opacity is higher than button opacity for better visibility
+            textComponent.color = textColor;
+        }
     }
 
     private void SetButtonColor(Button button, Color newColor)
@@ -634,13 +667,14 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         foreach (var kvp in originalColors)
         {
             Button button = kvp.Key;
-            Color originalColor = kvp.Value;
-
+            SetButtonOpacity(button, initialOpacity);
+            
+            // Reset button color
             Image buttonImage = button.GetComponent<Image>();
             if (buttonImage != null)
             {
-                Color color = originalColor;
-                color.a = initialOpacity; // Reset to initial opacity
+                Color color = kvp.Value;
+                color.a = initialOpacity;
                 buttonImage.color = color;
             }
         }
@@ -673,13 +707,15 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
                 continue;
             }
 
-            Color originalColor = kvp.Value;
-
+            // Reset button opacity using our method (which handles text too)
+            SetButtonOpacity(button, initialOpacity);
+            
+            // Reset button color
             Image buttonImage = button.GetComponent<Image>();
             if (buttonImage != null)
             {
-                Color color = originalColor;
-                color.a = initialOpacity; // Reset to initial opacity
+                Color color = kvp.Value;
+                color.a = initialOpacity;
                 buttonImage.color = color;
             }
         }
