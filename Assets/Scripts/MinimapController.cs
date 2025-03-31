@@ -1,47 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class MinimapController : MonoBehaviour
 {
-    [SerializeField] private Canvas minimapCorner;
-    [SerializeField] private Canvas minimapPreview;
-    
-    private MinimapType _minimapType = MinimapType.Corner;
-    
-    private void Start()
-    {
-        minimapCorner.enabled = true;
-        minimapPreview.enabled = false;
-    }
-    
-    private void Update()
-    {
-        switch (_minimapType)
-        {
-            case MinimapType.Corner:
-                minimapCorner.enabled = true;
-                minimapPreview.enabled = false;
-                break;
-            case MinimapType.Preview:
-                minimapCorner.enabled = false;
-                minimapPreview.enabled = true;
-                break;
-            default:
-                throw new System.ArgumentOutOfRangeException();
-        }
-    }
-    
-    public void OpenMinimap()
-    {
-        _minimapType = MinimapType.Preview;
-    }
-    
-    public void CloseMinimap()
-    {
-        _minimapType = MinimapType.Corner;
-    }
+    [Header("Buttons and Cameras")] [SerializeField]
+    private Camera mainCamera;
+
+    [SerializeField] private Camera environmentCamera;
+    [SerializeField] private Button minimapMain;
+
+    [Header("Hover Settings")] [SerializeField]
+    private float hoverTimeToConfirm = 5f;
+
+    [SerializeField] private float hoverRadiusThreshold = 20f;
+
+    [Header("Navigation Script")] [SerializeField]
+    private Navigation navigation;
+
+    // Using external enum from another file
+    private int minimapTypeValue = 0; // 0 = Corner, 1 = Preview
+    private RectTransform mainButtonRect;
+
+    // For continuous pointer tracking
+    private Coroutine pointerTrackingCoroutine;
+
+    // Position tracking variables
+    private Vector2 lastHoverPosition;
+    private Vector2 confirmPosition;
+    private Vector2 lastNormalizedPosition;
+
+    // Hover timers
+    private float cornerHoverTimer = 0f;
+    private float mainHoverTimer = 0f;
+    private float closeHoverTimer = 0f;
+    private float confirmHoverTimer = 0f;
+
+
 }

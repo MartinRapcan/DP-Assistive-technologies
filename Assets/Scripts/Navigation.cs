@@ -318,7 +318,13 @@ public class Navigation : MonoBehaviour
         // Extract path points from NavMeshPath
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(newDestination, path);
-
+        
+        foreach (Vector3 corner in path.corners)
+        {
+            Debug.Log($"Corner: {corner}");
+        }
+        
+        
         // Skip the first point (agent's current position)
         if (path.corners.Length > 1)
         {

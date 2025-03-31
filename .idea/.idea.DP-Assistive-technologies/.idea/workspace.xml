@@ -6,9 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI/NavMesh-Plane.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI/NavMesh-Plane.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinimapClick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinimapClick.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinimapController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinimapController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/rounded-sprite 2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/rounded-sprite 2.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,6 +223,7 @@
       <workItem from="1743157820287" duration="3711000" />
       <workItem from="1743161811102" duration="92000" />
       <workItem from="1743367660399" duration="1071000" />
+      <workItem from="1743415796973" duration="8267000" />
     </task>
     <servers />
   </component>
