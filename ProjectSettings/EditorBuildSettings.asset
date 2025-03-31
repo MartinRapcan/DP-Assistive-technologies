@@ -5,21 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/DP/DP - Arrow UI 2.unity
-    guid: 5b2c6f1efa9673b4eb475183e62df478
-  - enabled: 0
-    path: Assets/Scenes/DP/DP.unity
-    guid: d1aa0518651f943b0b39a88dac1e83e1
-  - enabled: 0
-    path: Assets/Scenes/DemoScene.unity
-    guid: e7dbb01ec2e9443cfbfef7db195b02d1
-  - enabled: 0
-    path: Assets/Scenes/DP/DP - Nested UI.unity
-    guid: cf6666f84c181c14fa7daf363f52c26b
   - enabled: 1
-    path: Assets/Scenes/DP/DP - Nested UI simplified smaller.unity
+    path: Assets/Scenes/DP/SequenceScene.unity
     guid: c815d1523adad9e4abb8fc8af0bf7485
+  - enabled: 1
+    path: Assets/Scenes/DP/MainScene.unity
+    guid: 95f3db9cbe04fea4bbcf9aac27cf6712
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b250409d8d7e9d74ea099396e605dd9b, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 307cfdcfb20ee4845a26fce538999ccd, type: 2}

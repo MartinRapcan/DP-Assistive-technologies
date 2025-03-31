@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="" />
+    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI simplified smaller.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI with Sequence Activation.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/DP - Nested UI with Sequence Activation.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -213,6 +220,7 @@
       <workItem from="1743161811102" duration="92000" />
       <workItem from="1743367660399" duration="1071000" />
       <workItem from="1743415796973" duration="8301000" />
+      <workItem from="1743454581564" duration="875000" />
     </task>
     <servers />
   </component>
