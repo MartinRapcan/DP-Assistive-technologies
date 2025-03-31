@@ -19921,6 +19921,10 @@ PrefabInstance:
       propertyPath: m_CameraYOffset
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4005981992971655955, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4170292024013026301, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: interfaceType
       value: 1
@@ -19969,6 +19973,38 @@ PrefabInstance:
       propertyPath: maxVelocity
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_fontColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_characterSpacing
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832204400513078789, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5916189260738693513, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Camera
       value: 
@@ -19995,7 +20031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8172403995690287673, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9166206978016506619, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: environmentCamera
