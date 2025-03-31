@@ -5487,7 +5487,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &734512804
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5617,6 +5617,8 @@ MonoBehaviour:
   downButtonExpand: {fileID: 1063499450}
   leftButtonExpand: {fileID: 843154099}
   rightButtonExpand: {fileID: 1268608704}
+  movement: {fileID: 0}
+  currentFunctionState: 1
 --- !u!1001 &739466243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10182,6 +10184,7 @@ MonoBehaviour:
   hoverTimeSlider: {fileID: 798704525}
   mainCamera: {fileID: 3793022431362103914}
   expandUI: {fileID: 734512809}
+  activeColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1454604650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11323,6 +11326,7 @@ MonoBehaviour:
   hoverTimeSlider: {fileID: 798704525}
   mainCamera: {fileID: 3793022431362103914}
   expandUI: {fileID: 734512809}
+  activeColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1507226916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12091,6 +12095,7 @@ MonoBehaviour:
   hoverTimeSlider: {fileID: 798704525}
   mainCamera: {fileID: 3793022431362103914}
   expandUI: {fileID: 734512809}
+  activeColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1550721660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13186,6 +13191,7 @@ MonoBehaviour:
   hoverTimeSlider: {fileID: 798704525}
   mainCamera: {fileID: 3793022431362103914}
   expandUI: {fileID: 734512809}
+  activeColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1715581736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17142,7 +17148,7 @@ PrefabInstance:
       objectReference: {fileID: 1001320453}
     - target: {fileID: 6484884181527032043, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7150168795042175214, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_CullingMask.m_Bits
