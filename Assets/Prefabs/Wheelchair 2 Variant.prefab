@@ -2349,6 +2349,8 @@ MonoBehaviour:
   environmentCamera: {fileID: 0}
   navigation: {fileID: 4529962912691265922}
   mainCamera: {fileID: 4409127994939700669}
+  hoverTimeToConfirm: 5
+  hoverRadiusThreshold: 20
 --- !u!114 &8593705540223167679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5132,10 +5134,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   environmentCamera: {fileID: 0}
   minimapMain: {fileID: 0}
-  minimapCorner: {fileID: 0}
-  navigationConfirm: {fileID: 0}
-  minimapClose: {fileID: 0}
-  hoverTimeToOpen: 0.5
   hoverTimeToConfirm: 5
   hoverRadiusThreshold: 20
   navigation: {fileID: 0}

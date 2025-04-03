@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DP/MainScene.unity
     guid: 95f3db9cbe04fea4bbcf9aac27cf6712
+  - enabled: 1
+    path: Assets/Scenes/DP/ArrowsScene.unity
+    guid: 6744d4c92a013464bbb8390f7affccc3
+  - enabled: 1
+    path: Assets/Scenes/DP/NavigationScene.unity
+    guid: cf6666f84c181c14fa7daf363f52c26b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b250409d8d7e9d74ea099396e605dd9b, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 307cfdcfb20ee4845a26fce538999ccd, type: 2}

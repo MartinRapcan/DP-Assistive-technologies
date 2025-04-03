@@ -2751,10 +2751,6 @@ MonoBehaviour:
   mainCamera: {fileID: 1805476408}
   environmentCamera: {fileID: 1903216922}
   minimapMain: {fileID: 750444481}
-  minimapCorner: {fileID: 1215884749}
-  navigationConfirm: {fileID: 541804838}
-  minimapClose: {fileID: 131603527}
-  hoverTimeToOpen: 0.5
   hoverTimeToConfirm: 5
   hoverRadiusThreshold: 20
   navigation: {fileID: 1805476406}
@@ -4191,7 +4187,7 @@ GameObject:
   - component: {fileID: 750444481}
   m_Layer: 0
   m_Name: MinimapMain
-  m_TagString: Untagged
+  m_TagString: MinimapMain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6453,6 +6449,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1197867470}
   - component: {fileID: 1197867471}
+  - component: {fileID: 1197867472}
+  - component: {fileID: 1197867473}
   m_Layer: 0
   m_Name: Gaze Interactor
   m_TagString: Untagged
@@ -6605,6 +6603,46 @@ MonoBehaviour:
   m_OccludeARHitsWith3DObjects: 0
   m_OccludeARHitsWith2DObjects: 0
   m_ScaleMode: 0
+--- !u!114 &1197867472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197867469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6df71824f341bc4897680bb8beb4090, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxRaycastDistance: 10
+  m_ReticlePrefab: {fileID: 5682725569931978553, guid: 998151706998ec94daa032777401a596, type: 3}
+  m_PrefabScalingFactor: 0.05
+  m_UndoDistanceScaling: 1
+  m_AlignPrefabWithSurfaceNormal: 1
+  m_EndpointSmoothingTime: 0.02
+  m_DrawWhileSelecting: 0
+  m_DrawOnNoHit: 0
+  m_RaycastMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1197867473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197867469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acfaeb528ef0ed24f84b46049c4fbcf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RaycastMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LogLocalCanvasPosition: 1
+  m_MaxRaycastDistance: 10
 --- !u!1001 &1203263805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10311,7 +10349,7 @@ PrefabInstance:
       objectReference: {fileID: 1848020155}
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: simulationEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: gazeDataReady.m_PersistentCalls.m_Calls.Array.size

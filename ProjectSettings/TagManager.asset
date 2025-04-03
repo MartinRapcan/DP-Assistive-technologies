@@ -27,6 +27,7 @@ TagManager:
   - BackwardLeft
   - Stop
   - StopConfirm
+  - MinimapMain
   layers:
   - Default
   - TransparentFX
