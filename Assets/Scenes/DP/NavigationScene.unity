@@ -2624,7 +2624,7 @@ GameObject:
   - component: {fileID: 508687239}
   - component: {fileID: 508687238}
   - component: {fileID: 508687242}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Minimap Rework
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2888,7 +2888,7 @@ GameObject:
   - component: {fileID: 541804839}
   - component: {fileID: 541804838}
   - component: {fileID: 541804841}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: NavigationConfirm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3357,7 +3357,7 @@ GameObject:
   - component: {fileID: 606762156}
   - component: {fileID: 606762158}
   - component: {fileID: 606762157}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4185,7 +4185,7 @@ GameObject:
   - component: {fileID: 750444483}
   - component: {fileID: 750444482}
   - component: {fileID: 750444481}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MinimapMain
   m_TagString: MinimapMain
   m_Icon: {fileID: 0}
@@ -6625,7 +6625,7 @@ MonoBehaviour:
   m_DrawOnNoHit: 0
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
 --- !u!114 &1197867473
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6721,7 +6721,7 @@ GameObject:
   - component: {fileID: 1215884751}
   - component: {fileID: 1215884750}
   - component: {fileID: 1215884749}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: MinimapCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11678,7 +11678,7 @@ GameObject:
   - component: {fileID: 2079573947}
   - component: {fileID: 2079573949}
   - component: {fileID: 2079573948}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
