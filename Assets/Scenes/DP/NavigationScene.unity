@@ -6617,10 +6617,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxRaycastDistance: 10
   m_ReticlePrefab: {fileID: 6762273525918894703, guid: c98a9ecb9cf52b94cb135c6227483c0e, type: 3}
-  m_PrefabScalingFactor: 0.01
+  m_PrefabScalingFactor: 0.015
   m_UndoDistanceScaling: 1
   m_AlignPrefabWithSurfaceNormal: 1
-  m_EndpointSmoothingTime: 0.02
+  m_EndpointSmoothingTime: 0
   m_DrawWhileSelecting: 0
   m_DrawOnNoHit: 0
   m_RaycastMask:
