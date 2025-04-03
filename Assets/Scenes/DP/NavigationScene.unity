@@ -6616,8 +6616,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxRaycastDistance: 10
-  m_ReticlePrefab: {fileID: 5682725569931978553, guid: 998151706998ec94daa032777401a596, type: 3}
-  m_PrefabScalingFactor: 0.05
+  m_ReticlePrefab: {fileID: 6762273525918894703, guid: c98a9ecb9cf52b94cb135c6227483c0e, type: 3}
+  m_PrefabScalingFactor: 0.01
   m_UndoDistanceScaling: 1
   m_AlignPrefabWithSurfaceNormal: 1
   m_EndpointSmoothingTime: 0.02
