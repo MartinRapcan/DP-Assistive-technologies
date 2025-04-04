@@ -151,7 +151,7 @@ public class MinimapController : MonoBehaviour
                     // or updating a marker/indicator at the hover position
                 }
             
-                Debug.Log($"Navigation position updated to: {_confirmedNavigationPosition}");
+                // Debug.Log($"Navigation position updated to: {_confirmedNavigationPosition}");
             
                 // Don't break out of the loop - let it continue
                 // Just reset the timer to start checking for a new position
@@ -353,7 +353,7 @@ public class MinimapController : MonoBehaviour
         minimapClose.SetActive(true);
         navigationConfirm.SetActive(false);
         _isNavigationConfirmed = false;
-        Debug.Log("Minimap opened");
+        // Debug.Log("Minimap opened");
     }
     
     private void CloseMinimap()

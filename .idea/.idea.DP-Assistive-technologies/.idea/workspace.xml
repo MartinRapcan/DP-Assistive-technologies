@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Navigation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MinimapController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MinimapController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +223,7 @@
       <workItem from="1743454581564" duration="2403000" />
       <workItem from="1743690464607" duration="7532000" />
       <workItem from="1743754450881" duration="4315000" />
-      <workItem from="1743769403443" duration="4175000" />
+      <workItem from="1743769403443" duration="5415000" />
     </task>
     <servers />
   </component>
