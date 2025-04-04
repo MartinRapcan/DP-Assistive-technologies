@@ -117,12 +117,6 @@ public class MinimapController : MonoBehaviour
                     {
                         _positionHoverCoroutine = StartCoroutine(TrackHoverPosition());
                     }
-                
-                    // Debug.Log($"Started tracking hover position: {_lastHoverPosition}");
-                }
-                else
-                {
-                    // Debug.Log($"Hover position reset due to movement. New position: {_lastHoverPosition}");
                 }
             }
         }
