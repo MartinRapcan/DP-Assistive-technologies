@@ -2748,9 +2748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3be4d004d2f6d46b0062697f6a7e9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1805476408}
+  rayHover: {fileID: 1197867473}
   environmentCamera: {fileID: 1903216922}
-  minimapMain: {fileID: 750444481}
+  minimapMain: {fileID: 750444479}
+  minimapCorner: {fileID: 1215884747}
+  minimapClose: {fileID: 131603525}
+  navigationConfirm: {fileID: 541804836}
   hoverTimeToConfirm: 5
   hoverRadiusThreshold: 20
   navigation: {fileID: 1805476406}
