@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour
     [Header("UI Components")]
     [SerializeField] private RenderTexture renderTexture;
     [SerializeField] private GameObject monitor;
-    [SerializeField] private InteractionsCounter interactionsCounter;
+    [SerializeField] private InteractionTracker interactionsTracker;
     
     [Header("Movement Settings")]
     [SerializeField] private float stopTime = 2f;
@@ -43,6 +43,7 @@ public class Movement : MonoBehaviour
     private JointMotor _rightMotor;
     private readonly float _force = 500f;
     private float _backwardMaxVelocity;
+    public int _speed { get; set; }
     
     public void SetMaxVelocity(float velocity)
     {
@@ -57,7 +58,6 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-        interactionsCounter.InitializeInteractionTypes();
         CameraSetup();
 
         // Configure and apply motors
@@ -142,9 +142,9 @@ public class Movement : MonoBehaviour
 
     private void HandleMovementAndInteraction(Direction dir)
     {
-        if (interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
+        if (interactionsTracker.hasStarted && !interactionsTracker.hasEnded)
         {
-            interactionsCounter.SetInteractionType(dir);
+            interactionsTracker.SetInteractionType(dir.ToString(), _speed);
         }
 
         StartMovement(dir);
@@ -157,9 +157,9 @@ public class Movement : MonoBehaviour
 
     public void ShouldStopMoving(bool isClicked = false)
     {
-        if (isClicked)
+        if (interactionsTracker.hasStarted && !interactionsTracker.hasEnded)
         {
-            interactionsCounter.SetInteractionType(Direction.Stop);
+            interactionsTracker.SetInteractionType(Direction.Stop.ToString(), _speed);
         }
 
         StopMoving();

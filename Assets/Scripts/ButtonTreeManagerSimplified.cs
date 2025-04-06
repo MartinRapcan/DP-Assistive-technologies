@@ -158,11 +158,13 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         {
             SetVelocity(75f);
             movement.ShouldMoveForward();
+            movement._speed = 1;
         };
         buttonActions[forwardHigh] = () =>
         {
             SetVelocity();
             movement.ShouldMoveForward();
+            movement._speed = 2;
         };
 
         // Backward path actions
@@ -170,11 +172,13 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         {
             SetVelocity(75f);
             movement.ShouldMoveBackward();
+            movement._speed = 1;
         };
         buttonActions[backwardHigh] = () =>
         {
             SetVelocity();
             movement.ShouldMoveBackward();
+            movement._speed = 2;
         };
 
         // Left path actions
@@ -182,11 +186,13 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         {
             SetRotation(20f);
             movement.ShouldTurnLeft();
+            movement._speed = 1;
         };
         buttonActions[leftHigh] = () =>
         {
             SetRotation();
             movement.ShouldTurnLeft();
+            movement._speed = 2;
         };
 
         // Right path actions
@@ -194,17 +200,20 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         {
             SetRotation(20f);
             movement.ShouldTurnRight();
+            movement._speed = 1;
         };
         buttonActions[rightHigh] = () =>
         {
             SetRotation();
             movement.ShouldTurnRight();
+            movement._speed = 2;
         };
 
         // Stop action directly in second layer
         buttonActions[stopButton] = () =>
         {
             movement.ShouldStopMoving();
+            movement._speed = 0;
         };
     }
 

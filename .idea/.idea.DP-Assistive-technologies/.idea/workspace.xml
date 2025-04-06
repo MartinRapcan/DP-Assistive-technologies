@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Arrows.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Arrows.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CollisionTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CollisionTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractionsCounter.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractionsCounter.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -229,7 +236,8 @@
       <workItem from="1743769403443" duration="7215000" />
       <workItem from="1743798828151" duration="41000" />
       <workItem from="1743798912793" duration="1000" />
-      <workItem from="1743799007676" duration="797000" />
+      <workItem from="1743799007676" duration="1383000" />
+      <workItem from="1743885445405" duration="7530000" />
     </task>
     <servers />
   </component>

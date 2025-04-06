@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 
 public class CollisionTracker : MonoBehaviour
 {
-    [SerializeField] private InteractionsCounter interactionsCounter; // Reference to InteractionsCounter script
-    [SerializeField] private Movement movement; // Reference to Movement script
-    [SerializeField] private GlobalConfig globalConfig; // Reference to GlobalConfig script
-    [SerializeField] private BoxCollider boxCollider; // Reference to BoxCollider component
-    [SerializeField] private Navigation navigation; // Reference to Navigation script
+    [SerializeField] private InteractionTracker interactionTracker;
+    [SerializeField] private Movement movement;
+    [SerializeField] private GlobalConfig globalConfig;
+    [SerializeField] private BoxCollider boxCollider;
+    [SerializeField] private Navigation navigation;
     
     private void Start()
     {
@@ -23,32 +22,27 @@ public class CollisionTracker : MonoBehaviour
         {
             navigation.StopNavigation();
         }
-        if (!other.gameObject.CompareTag("Obstacle") || !interactionsCounter.hasStarted ||
-            interactionsCounter.hasEnded) return;
-        interactionsCounter.IncrementNumberOfCollisions();
+        if (!other.gameObject.CompareTag("Obstacle")) return;
+        interactionTracker.IncrementNumberOfCollisions();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("StartTrigger") && !interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
+        if (other.CompareTag("StartTrigger") && !interactionTracker.hasStarted && !interactionTracker.hasEnded)
         {
-            Debug.Log("Start trigger");
-            // Set the interaction type based on the current direction only if direction is not None
+            interactionTracker.hasStarted = true;
             if (movement.direction != Direction.None)
             {
-                interactionsCounter.SetInteractionType(movement.direction);
+                interactionTracker.SetInteractionType(movement.direction.ToString(), movement._speed);
             }
-            interactionsCounter.hasStarted = true;  // Set hasStarted via property
         }
-        else if (other.CompareTag("EndTrigger") && interactionsCounter.hasStarted && !interactionsCounter.hasEnded)
+        else if (other.CompareTag("EndTrigger") && interactionTracker.hasStarted && !interactionTracker.hasEnded)
         {
-            Debug.Log("End trigger");
-            // Set the interaction type based on the current direction only if direction is not None
+            interactionTracker.hasEnded = true;
             if (movement.direction != Direction.None)
             {
-                interactionsCounter.SetInteractionType(movement.direction);
+                interactionTracker.SetInteractionType(movement.direction.ToString(), movement._speed);
             }
-            interactionsCounter.hasEnded = true;  // Set hasEnded via property
         }
     }
 }

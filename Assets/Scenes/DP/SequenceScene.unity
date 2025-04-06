@@ -5229,6 +5229,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 915023563}
     m_Modifications:
+    - target: {fileID: 182076967640044416, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: interactionsTracker
+      value: 
+      objectReference: {fileID: 543043032325051280}
+    - target: {fileID: 1980320614572042157, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: interactionsTracker
+      value: 
+      objectReference: {fileID: 543043032325051280}
     - target: {fileID: 2913172331004714442, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: m_InteractionManager
       value: 
@@ -5241,6 +5249,10 @@ PrefabInstance:
       propertyPath: environmentCamera
       value: 
       objectReference: {fileID: 2092876024}
+    - target: {fileID: 5743093912656524828, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: interactionsTracker
+      value: 
+      objectReference: {fileID: 543043032325051280}
     - target: {fileID: 7253057394699932291, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: environmentCamera
       value: 
@@ -5294,6 +5306,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+--- !u!114 &543043032325051280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3270415804255668984, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+  m_PrefabInstance: {fileID: 543043032325051279}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 725265e3f626fbb46b1f0b5f2b016914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
