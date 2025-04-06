@@ -7,12 +7,8 @@ public class ObjectTrail : MonoBehaviour
     private readonly List<Vector3> _points = new List<Vector3>();
     
     [SerializeField] private InteractionTracker interactionsTracker; // Reference to InteractionsCounter script
-    [SerializeField] private Transform targetTransform;       // The transform to track
-    // [SerializeField] private float updateInterval = 1.0f;     // Time in seconds between points
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private Vector3 offset = new Vector3(0, 0.2f, 0); // Offset for the line
-    [SerializeField] private float PipeRadius = 0.01f;
-    private float _timeSinceLastPoint = 0f;
+    [SerializeField] private float lineRadius = 0.01f;
     
     private void Start()
     {
@@ -25,8 +21,8 @@ public class ObjectTrail : MonoBehaviour
         }
         
         // Configure LineRenderer for 3D pipe appearance
-        lineRenderer.startWidth = PipeRadius;
-        lineRenderer.endWidth = PipeRadius;
+        lineRenderer.startWidth = lineRadius;
+        lineRenderer.endWidth = lineRadius;
         lineRenderer.numCornerVertices = 8; // Controls how rounded the corners are
         lineRenderer.numCapVertices = 8;    // Controls how rounded the ends are
         lineRenderer.alignment = LineAlignment.View; // Makes the line face the camera
@@ -34,21 +30,11 @@ public class ObjectTrail : MonoBehaviour
     
     private void Update()
     {
-        // Make sure we have a target transform
-        if (targetTransform == null)
-        {
-            Debug.LogWarning("Target Transform is not assigned to ObjectTrail script!");
-            return;
-        }
-        
-        // Update timer
-        _timeSinceLastPoint += Time.deltaTime;
-        
-        // Add a new point every updateInterval seconds
+        // Add a new point if tracking is active
         if (!interactionsTracker.hasStarted || interactionsTracker.hasEnded) return;
         
-        AddPoint(targetTransform.position + offset);
-        _timeSinceLastPoint = 0f;
+        // Use this object's world position
+        AddPoint(transform.position);
     }
     
     private void AddPoint(Vector3 position)
@@ -67,11 +53,11 @@ public class ObjectTrail : MonoBehaviour
     // Update all positions in LateUpdate to ensure newest position is used
     private void LateUpdate()
     {
-        if (_points.Count > 0 && targetTransform && interactionsTracker.hasStarted && !interactionsTracker.hasEnded)
+        if (_points.Count > 0 && interactionsTracker.hasStarted && !interactionsTracker.hasEnded)
         {
-            // Always update the latest point to follow the transform with the offset
-            _points[_points.Count - 1] = targetTransform.position + offset;
-            lineRenderer.SetPosition(_points.Count - 1, targetTransform.position + offset);
+            // Always update the latest point to follow this transform
+            _points[_points.Count - 1] = transform.position;
+            lineRenderer.SetPosition(_points.Count - 1, transform.position);
         }
     }
 }
