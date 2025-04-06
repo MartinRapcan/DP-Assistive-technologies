@@ -3478,6 +3478,7 @@ MonoBehaviour:
   targetTransform: {fileID: 9014714121765686850}
   lineRenderer: {fileID: 6039468417455009286}
   offset: {x: 0, y: 0.2, z: 0}
+  PipeRadius: 0.01
 --- !u!120 &6039468417455009286
 LineRenderer:
   serializedVersion: 2
@@ -6978,6 +6979,9 @@ MonoBehaviour:
   cameraView: {fileID: 0}
   displayCamera: {fileID: 0}
   canvas: {fileID: 0}
+  panel: {fileID: 0}
+  toggleButton: {fileID: 0}
+  hoverActivationDelay: 1
 --- !u!114 &5273066921601392558
 MonoBehaviour:
   m_ObjectHideFlags: 0

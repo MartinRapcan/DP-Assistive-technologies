@@ -11,8 +11,7 @@ public class ObjectTrail : MonoBehaviour
     // [SerializeField] private float updateInterval = 1.0f;     // Time in seconds between points
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Vector3 offset = new Vector3(0, 0.2f, 0); // Offset for the line
-
-    private const float PipeRadius = 0.01f; // Controls the thickness of your pipe
+    [SerializeField] private float PipeRadius = 0.01f;
     private float _timeSinceLastPoint = 0f;
     
     private void Start()
@@ -26,8 +25,8 @@ public class ObjectTrail : MonoBehaviour
         }
         
         // Configure LineRenderer for 3D pipe appearance
-        lineRenderer.startWidth = PipeRadius * 2;
-        lineRenderer.endWidth = PipeRadius * 2;
+        lineRenderer.startWidth = PipeRadius;
+        lineRenderer.endWidth = PipeRadius;
         lineRenderer.numCornerVertices = 8; // Controls how rounded the corners are
         lineRenderer.numCapVertices = 8;    // Controls how rounded the ends are
         lineRenderer.alignment = LineAlignment.View; // Makes the line face the camera

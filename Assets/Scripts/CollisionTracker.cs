@@ -38,11 +38,11 @@ public class CollisionTracker : MonoBehaviour
         }
         else if (other.CompareTag("EndTrigger") && interactionTracker.hasStarted && !interactionTracker.hasEnded)
         {
-            interactionTracker.hasEnded = true;
             if (movement.direction != Direction.None)
             {
                 interactionTracker.SetInteractionType(movement.direction.ToString(), movement._speed);
             }
+            interactionTracker.hasEnded = true;
         }
     }
 }
