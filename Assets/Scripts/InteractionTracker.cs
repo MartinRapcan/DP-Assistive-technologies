@@ -23,6 +23,9 @@ public class InteractionTracker : MonoBehaviour
 
     [Header("Hover Settings")] [SerializeField]
     private float hoverActivationDelay = 1.0f; // Time in seconds for hover activation
+    
+    [Header("Scene Name for Files")]
+    [SerializeField] private string sceneName = ""; 
 
     private int _numberOfCollisions = 0;
     private bool _isPanelVisible = false;
@@ -382,7 +385,7 @@ public class InteractionTracker : MonoBehaviour
             // Save as PNG
             byte[] bytes = screenshot.EncodeToPNG();
             string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"screenshot_{timestamp}.png");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"screenshot_{timestamp}_{sceneName}.png");
             System.IO.File.WriteAllBytes(filePath, bytes);
         
             // Cleanup
@@ -439,7 +442,7 @@ public class InteractionTracker : MonoBehaviour
 
             // Create a filename with timestamp
             string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"interactions_{timestamp}.json");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"interactions_{timestamp}_{sceneName}.json");
 
             // Write to file
             System.IO.File.WriteAllText(filePath, json);

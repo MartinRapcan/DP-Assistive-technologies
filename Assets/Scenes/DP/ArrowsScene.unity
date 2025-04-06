@@ -2357,6 +2357,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 559857791}
     - target: {fileID: 230157675660354850, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+      propertyPath: sceneName
+      value: Arrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 230157675660354850, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
       propertyPath: cameraView
       value: 
       objectReference: {fileID: 1181012610}
