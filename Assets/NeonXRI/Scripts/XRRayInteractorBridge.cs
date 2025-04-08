@@ -17,11 +17,6 @@ public class XRRayInteractorBridge : MonoBehaviour
         {
             reference = Camera.main.transform;
         }
-
-        if (target == null)
-        {    
-            target = reference.GetComponentInChildren<XRRayInteractor>();
-        }
         
         target.transform.position = reference.TransformPoint(gazeDataProvider.GazeRay.origin);
         target.transform.forward = reference.TransformDirection(gazeDataProvider.GazeRay.direction);
