@@ -1121,6 +1121,7 @@ MonoBehaviour:
   sequenceSceneName: SequenceScene
   arrowsSceneName: ArrowsScene
   homeSceneName: MainScene
+  hoverActivationDelay: 1
 --- !u!114 &969992695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2641,6 +2642,12 @@ PrefabInstance:
     - {fileID: 8513701634911389805, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
     - {fileID: 5886846305494902277, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
     - {fileID: 9038353721720948186, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 5949783620177232891, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 7367616710567687308, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 8963134389617626423, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 2381750016393083952, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 5818977408471335509, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+    - {fileID: 8086617054940287695, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4299501261171652847, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
     m_AddedGameObjects:
@@ -2651,6 +2658,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 61924158}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4698689326711766593, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7144680290665306354}
     - targetCorrespondingSourceObject: {fileID: 7554047107593177188, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1697320153}
@@ -2705,6 +2715,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd95707e5a74c5488388dcc7dfcab4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7144680290665306353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4698689326711766593, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
+  m_PrefabInstance: {fileID: 7144680290665306348}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7144680290665306354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144680290665306353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7a0f195d8be6a4bb4ec6ece0bd96de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7144680290665306350}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

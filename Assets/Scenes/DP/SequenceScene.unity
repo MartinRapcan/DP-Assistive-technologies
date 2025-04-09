@@ -591,6 +591,7 @@ MonoBehaviour:
   sequenceSceneName: SequenceScene
   arrowsSceneName: ArrowsScene
   homeSceneName: MainScene
+  hoverActivationDelay: 1
 --- !u!114 &697150106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2207,6 +2208,22 @@ PrefabInstance:
       propertyPath: interactionsTracker
       value: 
       objectReference: {fileID: 543043032325051280}
+    - target: {fileID: 1175348838015872953, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0000625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175348838015872953, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0000625
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175348838015872953, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175348838015872953, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1980320614572042157, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: interactionsTracker
       value: 
@@ -2255,6 +2272,18 @@ PrefabInstance:
       propertyPath: environmentCamera
       value: 
       objectReference: {fileID: 2092876024}
+    - target: {fileID: 7335847107711279888, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.00025
+      objectReference: {fileID: 0}
+    - target: {fileID: 7335847107711279888, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.00025
+      objectReference: {fileID: 0}
+    - target: {fileID: 7335847107711279888, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8696742702858556644, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: m_Name
       value: Wheelchair 2
@@ -2299,13 +2328,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6803278407686683925, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+    - {fileID: 8989913122151148577, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+    - {fileID: 5218685343652731734, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+    - {fileID: 5922239876934410989, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+    - {fileID: 1107564391521899498, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+    - {fileID: 9120457645811969423, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8027226510559972795, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1965133504}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8027226510617858459, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 543043032325051285}
   m_SourcePrefab: {fileID: 100100000, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
 --- !u!114 &543043032325051280 stripped
 MonoBehaviour:
@@ -2334,6 +2372,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8027226510559972795, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
   m_PrefabInstance: {fileID: 543043032325051279}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &543043032325051283 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3408243936208123457, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+  m_PrefabInstance: {fileID: 543043032325051279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &543043032325051284 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8027226510617858459, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+  m_PrefabInstance: {fileID: 543043032325051279}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &543043032325051285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543043032325051284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be7a0f195d8be6a4bb4ec6ece0bd96de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 543043032325051283}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/NeonXRI/Scripts/XRRayInteractorBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/NeonXRI/Scripts/XRRayInteractorBridge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CustomSceneManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CustomSceneManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,6 +249,7 @@
       <workItem from="1744034088778" duration="1096000" />
       <workItem from="1744103229630" duration="800000" />
       <workItem from="1744104265744" duration="205000" />
+      <workItem from="1744229911632" duration="674000" />
     </task>
     <servers />
   </component>
