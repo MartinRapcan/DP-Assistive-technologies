@@ -10808,11 +10808,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -13982,6 +13982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 241207682}
   reference: {fileID: 700005325}
+  registerOnEnable: 1
 --- !u!1 &1723938910
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="" />
+    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/MainScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene2.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Movement.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -249,6 +257,8 @@
       <workItem from="1744229911632" duration="1357000" />
       <workItem from="1744412531073" duration="610000" />
       <workItem from="1745401704130" duration="417000" />
+      <workItem from="1745402277619" duration="653000" />
+      <workItem from="1745417015238" duration="1278000" />
     </task>
     <servers />
   </component>

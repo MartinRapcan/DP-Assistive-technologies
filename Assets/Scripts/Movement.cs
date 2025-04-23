@@ -18,7 +18,6 @@ public class Movement : MonoBehaviour
 
     [Header("UI Components")]
     [SerializeField] private RenderTexture renderTexture;
-    [SerializeField] private GameObject monitor;
     [SerializeField] private InteractionTracker interactionsTracker;
     
     [Header("Movement Settings")]
@@ -74,7 +73,6 @@ public class Movement : MonoBehaviour
     {
         if (interfaceType == InterfaceType.None)
         {
-            monitor.SetActive(false);
             return;
         }
 
