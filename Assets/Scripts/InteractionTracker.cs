@@ -102,7 +102,7 @@ public class InteractionTracker : MonoBehaviour
         // Check if tracking has just started
         if (!_wasStarted && hasStarted)
         {
-            _startTime = Time.timeSinceLevelLoad;
+            _startTime = Time.time;
             _wasStarted = true;
         }
 
@@ -110,8 +110,8 @@ public class InteractionTracker : MonoBehaviour
         if (hasStarted && hasEnded && toggleButton != null && !toggleButton.gameObject.activeSelf)
         {
             // Calculate total time directly when needed
-            _totalTime = Time.timeSinceLevelLoad - _startTime;
-            // Debug.Log($"Tracking ended at: {Time.timeSinceLevelLoad}, Total time: {_totalTime}, Tracking started at: {_startTime}");
+            _totalTime = Time.time - _startTime;
+            // Debug.Log($"Tracking ended at: {Time.time}, Total time: {_totalTime}, Tracking started at: {_startTime}");
             
             toggleButton.gameObject.SetActive(true);
             
@@ -127,7 +127,7 @@ public class InteractionTracker : MonoBehaviour
         // Handle hover activation
         if (_buttonHovered && toggleButton != null && toggleButton.gameObject.activeSelf)
         {
-            float hoverDuration = Time.timeSinceLevelLoad - _hoverStartTime;
+            float hoverDuration = Time.time - _hoverStartTime;
             if (hoverDuration >= hoverActivationDelay)
             {
                 _buttonHovered = false; // Reset hover to prevent multiple activations
@@ -161,7 +161,7 @@ public class InteractionTracker : MonoBehaviour
     private void OnButtonHoverEnter()
     {
         _buttonHovered = true;
-        _hoverStartTime = Time.timeSinceLevelLoad;
+        _hoverStartTime = Time.time;
     }
 
     private void OnButtonHoverExit()
