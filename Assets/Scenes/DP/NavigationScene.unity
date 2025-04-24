@@ -2070,6 +2070,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: XR Interaction Setup
       objectReference: {fileID: 0}
+    - target: {fileID: 7313654230448209575, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7696548424635294048, guid: 895f6f3c2d334633b5800312285058d2, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2108,6 +2112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1903216923}
   - component: {fileID: 1903216922}
+  - component: {fileID: 1903216924}
   m_Layer: 0
   m_Name: Environment Camera
   m_TagString: Untagged
@@ -2181,6 +2186,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1903216924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903216921}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dfb956b905036459d7de43b2007aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Scene
 --- !u!1001 &2512265911701229864
 PrefabInstance:
   m_ObjectHideFlags: 0

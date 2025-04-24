@@ -1547,6 +1547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1367293895}
   - component: {fileID: 1367293894}
+  - component: {fileID: 1367293896}
   m_Layer: 0
   m_Name: Environment Camera
   m_TagString: Untagged
@@ -1620,6 +1621,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1367293896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367293893}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dfb956b905036459d7de43b2007aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Scene
 --- !u!1 &1372855177 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7432195013115029580, guid: ee1f4d9b49c90ba4a91c5fc5564ca96d, type: 3}
