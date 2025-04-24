@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Maze 1.prefab" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Maze 1.prefab.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Navigation.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Navigation.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Wheelchair 2 Variant.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Display.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Display.mat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/MainScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/MainScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CustomRayHover.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CustomRayHover.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +26,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.pupil-labs.neon-xr.core@097996a159/Runtime/Scritps/GazeDataProvider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.pupil-labs.neon-xr.core@097996a159/Runtime/Scritps/GazeDataVisualizer.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.pupil-labs.neon-xr.core@097996a159/Runtime/Scritps/RTSPClient.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.pupil-labs.neon-xr.core@097996a159/Runtime/Scritps/ServiceLocator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ai.navigation@1.1.5/Samples~/Scripts/DynamicNavMeshObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ide.vscode@1.2.5/Editor/ProjectGeneration/ProjectGeneration.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.searcher@4.9.2/Samples~/Editor/SearcherExampleWindow.cs" root0="SKIP_HIGHLIGHTING" />
@@ -263,7 +256,7 @@
       <workItem from="1745401704130" duration="417000" />
       <workItem from="1745402277619" duration="653000" />
       <workItem from="1745417015238" duration="2704000" />
-      <workItem from="1745525539538" duration="1056000" />
+      <workItem from="1745525539538" duration="1435000" />
     </task>
     <servers />
   </component>
