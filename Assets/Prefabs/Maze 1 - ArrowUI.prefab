@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5640667590126864423}
   m_Layer: 0
-  m_Name: Maze 1
+  m_Name: Maze 1 - ArrowUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1726,15 +1726,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5026823295013051399, guid: 77a163cf0af790e45aad4061fac51345, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: 5026823295013051399, guid: 77a163cf0af790e45aad4061fac51345, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5026823295013051399, guid: 77a163cf0af790e45aad4061fac51345, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5
+      value: -0.4
       objectReference: {fileID: 0}
     - target: {fileID: 5026823295013051399, guid: 77a163cf0af790e45aad4061fac51345, type: 3}
       propertyPath: m_LocalRotation.w

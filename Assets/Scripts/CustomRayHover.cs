@@ -201,16 +201,6 @@ public class CustomRayHover : MonoBehaviour
              !m_HadHitLastFrame || 
              Vector3.Distance(hitPosition, m_LastHitPosition) > 0.001f))
         {
-            // Log position information
-            // if (m_LogLocalCanvasPosition && hitCanvas != null)
-            // {
-            //     Debug.Log($"MinimapMain Hit (Local): {localPosition} on Canvas: {hitCanvas.name}");
-            // }
-            // else
-            // {
-            //     Debug.Log($"MinimapMain Hit (World): {hitPosition}");
-            // }
-
             // Send position to other class - this is where you'll call your method
             // You can use either world or local position based on your needs
             if (hitCanvas != null)

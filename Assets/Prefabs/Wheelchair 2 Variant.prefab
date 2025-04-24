@@ -3475,10 +3475,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionsTracker: {fileID: 0}
-  targetTransform: {fileID: 9014714121765686850}
   lineRenderer: {fileID: 6039468417455009286}
-  offset: {x: 0, y: 0.2, z: 0}
-  PipeRadius: 0.01
+  lineRadius: 0.01
 --- !u!120 &6039468417455009286
 LineRenderer:
   serializedVersion: 2
@@ -6982,6 +6980,7 @@ MonoBehaviour:
   panel: {fileID: 0}
   toggleButton: {fileID: 0}
   hoverActivationDelay: 1
+  sceneName: 
 --- !u!114 &5273066921601392558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7003,7 +7002,6 @@ MonoBehaviour:
   cameraBack: {fileID: 2227584613739510265}
   cameraTop: {fileID: 1583218713988207814}
   renderTexture: {fileID: 8400000, guid: 77fba2f7adf38c14ebda31a8a39b3c81, type: 2}
-  monitor: {fileID: 2359334660547623412}
   interactionsTracker: {fileID: 0}
   stopTime: 2
   maxRotation: 60
