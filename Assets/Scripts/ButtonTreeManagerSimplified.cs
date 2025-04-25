@@ -661,7 +661,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
     private void ResetSelectionCompletelyToInitial()
     {
         // Stop any active movement
-        movement.ShouldStopMoving();
+        movement.ShouldStopMoving(true);
         activeMovementButton = null;
 
         // Reset the current selections
