@@ -3009,7 +3009,11 @@ PrefabInstance:
       objectReference: {fileID: 1903216922}
     - target: {fileID: 2163512827009161998, guid: eb6bfcfaa21a9804e8d6b8cef17f917e, type: 3}
       propertyPath: hoverRadiusThreshold
-      value: 40
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163512827009161998, guid: eb6bfcfaa21a9804e8d6b8cef17f917e, type: 3}
+      propertyPath: positionCheckInterval
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2394665010348549454, guid: eb6bfcfaa21a9804e8d6b8cef17f917e, type: 3}
       propertyPath: offset.x
