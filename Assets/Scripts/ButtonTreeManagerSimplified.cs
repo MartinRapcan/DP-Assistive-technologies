@@ -156,64 +156,64 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Forward path actions
         buttonActions[forwardLow] = () =>
         {
+            movement._speed = 1;
             SetVelocity(75f);
             movement.ShouldMoveForward();
-            movement._speed = 1;
         };
         buttonActions[forwardHigh] = () =>
         {
+            movement._speed = 2;
             SetVelocity();
             movement.ShouldMoveForward();
-            movement._speed = 2;
         };
 
         // Backward path actions
         buttonActions[backwardLow] = () =>
         {
+            movement._speed = 1;
             SetVelocity(75f);
             movement.ShouldMoveBackward();
-            movement._speed = 1;
         };
         buttonActions[backwardHigh] = () =>
         {
+            movement._speed = 2;
             SetVelocity();
             movement.ShouldMoveBackward();
-            movement._speed = 2;
         };
 
         // Left path actions
         buttonActions[leftLow] = () =>
         {
+            movement._speed = 1;
             SetRotation(20f);
             movement.ShouldTurnLeft();
-            movement._speed = 1;
         };
         buttonActions[leftHigh] = () =>
         {
+            movement._speed = 2;
             SetRotation();
             movement.ShouldTurnLeft();
-            movement._speed = 2;
         };
 
         // Right path actions
         buttonActions[rightLow] = () =>
         {
+            movement._speed = 1;
             SetRotation(20f);
             movement.ShouldTurnRight();
-            movement._speed = 1;
         };
         buttonActions[rightHigh] = () =>
         {
+            movement._speed = 2;
             SetRotation();
             movement.ShouldTurnRight();
-            movement._speed = 2;
         };
 
         // Stop action directly in second layer
         buttonActions[stopButton] = () =>
         {
-            movement.ShouldStopMoving();
             movement._speed = 0;
+            movement.ShouldStopMoving();
         };
     }
 

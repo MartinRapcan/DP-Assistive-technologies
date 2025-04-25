@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="" />
+    <list default="true" id="e2dfaf1a-1633-470f-90ce-6c933035114d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DP-Assistive-technologies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/ArrowsScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/NavigationScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DP/SequenceScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ArrowUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ArrowUIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ButtonTreeManagerSimplified.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InteractionTracker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InteractionTracker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectTrail.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/down 1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/down 1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/left 1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/left 1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/right 1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/right 1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/rounded-sprite 2.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/rounded-sprite 2.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/up 1.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/up 1.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -253,6 +268,7 @@
       <workItem from="1745402277619" duration="653000" />
       <workItem from="1745417015238" duration="2704000" />
       <workItem from="1745525539538" duration="1734000" />
+      <workItem from="1745575230710" duration="4905000" />
     </task>
     <servers />
   </component>

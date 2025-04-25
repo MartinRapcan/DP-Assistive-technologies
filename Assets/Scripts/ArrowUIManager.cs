@@ -94,35 +94,35 @@ public class ArrowUIManager : MonoBehaviour
         // Map each button to its corresponding movement action
         buttonActions[forwardButton] = () =>
         {
-            movement._speed = 2;
+            // movement._speed = 2;
             SetVelocity();
             movement.ShouldMoveForward();
         };
 
         buttonActions[backwardButton] = () =>
         {
-            movement._speed = 2;
+            // movement._speed = 2;
             SetVelocity();
             movement.ShouldMoveBackward();
         };
 
         buttonActions[leftButton] = () =>
         {
-            movement._speed = 2;
+            // movement._speed = 2;
             SetRotation();
             movement.ShouldTurnLeft();
         };
 
         buttonActions[rightButton] = () =>
         {
-            movement._speed = 2;
+            // movement._speed = 2;
             SetRotation();
             movement.ShouldTurnRight();
         };
 
         buttonActions[stopButton] = () =>
         {
-            movement._speed = 0;
+            // movement._speed = 0;
             movement.ShouldStopMoving();
         };
     }

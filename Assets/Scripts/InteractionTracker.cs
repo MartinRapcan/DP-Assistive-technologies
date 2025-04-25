@@ -12,6 +12,7 @@ public class InteractionTracker : MonoBehaviour
     // References to UI elements (assign these in the inspector)
     [Header("UI References")] [SerializeField]
     private TMP_Text interactionCountText;
+
     [SerializeField] private RawImage cameraView;
     [SerializeField] private Camera displayCamera;
     [SerializeField] private GameObject canvas;
@@ -23,9 +24,9 @@ public class InteractionTracker : MonoBehaviour
 
     [Header("Hover Settings")] [SerializeField]
     private float hoverActivationDelay = 1.0f; // Time in seconds for hover activation
-    
-    [Header("Scene Name for Files")]
-    [SerializeField] private string sceneName = ""; 
+
+    [Header("Scene Name for Files")] [SerializeField]
+    private string sceneName = "";
 
     private int _numberOfCollisions = 0;
     private bool _isPanelVisible = false;
@@ -112,9 +113,9 @@ public class InteractionTracker : MonoBehaviour
             // Calculate total time directly when needed
             _totalTime = Time.time - _startTime;
             // Debug.Log($"Tracking ended at: {Time.time}, Total time: {_totalTime}, Tracking started at: {_startTime}");
-            
+
             toggleButton.gameObject.SetActive(true);
-            
+
             // Save data when the toggle button first appears
             if (!_dataSaved)
             {
@@ -215,11 +216,11 @@ public class InteractionTracker : MonoBehaviour
         // Determine key based on speed parameter
         string key = interactionType;
 
-        if (speed == 1)
+        if (speed == 1 && interactionType != Direction.Stop.ToString())
         {
             key = interactionType + "Slow";
         }
-        else if (speed == 2)
+        else if (speed == 2 && interactionType != Direction.Stop.ToString())
         {
             key = interactionType + "Fast";
         }
@@ -244,7 +245,7 @@ public class InteractionTracker : MonoBehaviour
         if (!hasStarted || hasEnded) return;
         _numberOfCollisions++;
     }
-    
+
     // Update text display with current interactions
     private void UpdateInteractionDisplay()
     {
@@ -279,7 +280,7 @@ public class InteractionTracker : MonoBehaviour
         {
             // Make sure the camera renders to its assigned texture
             displayCamera.Render();
-        
+
             // Assign the camera's render texture to the UI RawImage
             cameraView.texture = displayCamera.targetTexture;
         }
@@ -298,7 +299,7 @@ public class InteractionTracker : MonoBehaviour
         _startTime = 0f;
         _totalTime = 0f;
         _dataSaved = false;
-        
+
         // Clear data
         _interactionCounts.Clear();
         _numberOfCollisions = 0;
@@ -354,50 +355,50 @@ public class InteractionTracker : MonoBehaviour
         return _interactionCounts;
     }
 
-    // Save camera view as PNG
-    public void SaveToPNG()
-    {
-        if (displayCamera == null) return;
-    
-        try
-        {
-            // Use the existing RenderTexture already assigned to the camera
-            RenderTexture currentRT = displayCamera.targetTexture;
-        
-            if (currentRT == null)
-            {
-                Debug.LogError("No RenderTexture assigned to camera");
-                return;
-            }
-        
-            // Make sure the camera renders to the current texture
-            displayCamera.Render();
-        
-            // Read the pixels from the render texture
-            Texture2D screenshot = new Texture2D(currentRT.width, currentRT.height, TextureFormat.RGBA32, false);
-            RenderTexture.active = currentRT;
-            screenshot.ReadPixels(new Rect(0, 0, currentRT.width, currentRT.height), 0, 0);
-            screenshot.Apply();
-        
-            // Reset the active render texture
-            RenderTexture.active = null;
-        
-            // Save as PNG
-            byte[] bytes = screenshot.EncodeToPNG();
-            string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"screenshot_{timestamp}_{sceneName}.png");
-            System.IO.File.WriteAllBytes(filePath, bytes);
-        
-            // Cleanup
-            Destroy(screenshot);
-        
-            Debug.Log($"Camera view saved to: {filePath}");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"Failed to save camera view: {e.Message}");
-        }
-    }
+    // // Save camera view as PNG
+    // public void SaveToPNG()
+    // {
+    //     if (displayCamera == null) return;
+    //
+    //     try
+    //     {
+    //         // Use the existing RenderTexture already assigned to the camera
+    //         RenderTexture currentRT = displayCamera.targetTexture;
+    //     
+    //         if (currentRT == null)
+    //         {
+    //             Debug.LogError("No RenderTexture assigned to camera");
+    //             return;
+    //         }
+    //     
+    //         // Make sure the camera renders to the current texture
+    //         displayCamera.Render();
+    //     
+    //         // Read the pixels from the render texture
+    //         Texture2D screenshot = new Texture2D(currentRT.width, currentRT.height, TextureFormat.RGBA32, false);
+    //         RenderTexture.active = currentRT;
+    //         screenshot.ReadPixels(new Rect(0, 0, currentRT.width, currentRT.height), 0, 0);
+    //         screenshot.Apply();
+    //     
+    //         // Reset the active render texture
+    //         RenderTexture.active = null;
+    //     
+    //         // Save as PNG
+    //         byte[] bytes = screenshot.EncodeToPNG();
+    //         string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
+    //         string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"screenshot_{timestamp}_{sceneName}.png");
+    //         System.IO.File.WriteAllBytes(filePath, bytes);
+    //     
+    //         // Cleanup
+    //         Destroy(screenshot);
+    //     
+    //         Debug.Log($"Camera view saved to: {filePath}");
+    //     }
+    //     catch (System.Exception e)
+    //     {
+    //         Debug.LogError($"Failed to save camera view: {e.Message}");
+    //     }
+    // }
 
     [System.Serializable]
     public class InteractionDataToSave
@@ -409,6 +410,110 @@ public class InteractionTracker : MonoBehaviour
         public int[] interactionCounts;
     }
 
+
+    // // Save interaction data as JSON
+    // public void SaveToJSON()
+    // {
+    //     try
+    //     {
+    //         // Convert dictionary to arrays for serialization
+    //         string[] types = new string[_interactionCounts.Count];
+    //         int[] counts = new int[_interactionCounts.Count];
+    //
+    //         int index = 0;
+    //         foreach (var kvp in _interactionCounts)
+    //         {
+    //             types[index] = kvp.Key;
+    //             counts[index] = kvp.Value;
+    //             index++;
+    //         }
+    //
+    //         // Create the data object
+    //         InteractionDataToSave data = new InteractionDataToSave
+    //         {
+    //             totalCollisions = _numberOfCollisions,
+    //             totalTime = _totalTime,
+    //             formattedTime = FormatTime(_totalTime),
+    //             interactionTypes = types,
+    //             interactionCounts = counts
+    //         };
+    //
+    //         // Convert to JSON
+    //         string json = UnityEngine.JsonUtility.ToJson(data, true);
+    //
+    //         // Create a filename with timestamp
+    //         string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
+    //         string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"interactions_{timestamp}_{sceneName}.json");
+    //
+    //         // Write to file
+    //         System.IO.File.WriteAllText(filePath, json);
+    //
+    //         Debug.Log($"Interaction data saved to: {filePath}");
+    //     }
+    //     catch (System.Exception e)
+    //     {
+    //         Debug.LogError($"Failed to save interaction data: {e.Message}");
+    //     }
+    // }
+
+    // Save camera view as PNG
+    public void SaveToPNG()
+    {
+        if (displayCamera == null) return;
+
+        try
+        {
+            // Use the existing RenderTexture already assigned to the camera
+            RenderTexture currentRT = displayCamera.targetTexture;
+
+            if (currentRT == null)
+            {
+                Debug.LogError("No RenderTexture assigned to camera");
+                return;
+            }
+
+            // Make sure the camera renders to the current texture
+            displayCamera.Render();
+
+            // Read the pixels from the render texture
+            Texture2D screenshot = new Texture2D(currentRT.width, currentRT.height, TextureFormat.RGBA32, false);
+            RenderTexture.active = currentRT;
+            screenshot.ReadPixels(new Rect(0, 0, currentRT.width, currentRT.height), 0, 0);
+            screenshot.Apply();
+
+            // Reset the active render texture
+            RenderTexture.active = null;
+
+            // Encode to PNG (still on main thread as it requires Unity objects)
+            byte[] bytes = screenshot.EncodeToPNG();
+
+            // Create filename
+            string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath,
+                $"screenshot_{timestamp}_{sceneName}.png");
+
+            // Write to disk on a background thread
+            System.Threading.ThreadPool.QueueUserWorkItem(state =>
+            {
+                try
+                {
+                    System.IO.File.WriteAllBytes(filePath, bytes);
+                    Debug.Log($"Camera view saved to: {filePath}");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Failed to save camera view in background thread: {e.Message}");
+                }
+            });
+
+            // Cleanup
+            Destroy(screenshot);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Failed to save camera view: {e.Message}");
+        }
+    }
 
     // Save interaction data as JSON
     public void SaveToJSON()
@@ -437,17 +542,27 @@ public class InteractionTracker : MonoBehaviour
                 interactionCounts = counts
             };
 
-            // Convert to JSON
+            // Convert to JSON on main thread
             string json = UnityEngine.JsonUtility.ToJson(data, true);
 
             // Create a filename with timestamp
             string timestamp = System.DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, $"interactions_{timestamp}_{sceneName}.json");
+            string filePath = System.IO.Path.Combine(Application.persistentDataPath,
+                $"interactions_{timestamp}_{sceneName}.json");
 
-            // Write to file
-            System.IO.File.WriteAllText(filePath, json);
-
-            Debug.Log($"Interaction data saved to: {filePath}");
+            // Write to file on background thread
+            System.Threading.ThreadPool.QueueUserWorkItem(state =>
+            {
+                try
+                {
+                    System.IO.File.WriteAllText(filePath, json);
+                    Debug.Log($"Interaction data saved to: {filePath}");
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError($"Failed to save interaction data in background thread: {e.Message}");
+                }
+            });
         }
         catch (System.Exception e)
         {
