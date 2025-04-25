@@ -155,7 +155,7 @@ public class Movement : MonoBehaviour
 
     public void ShouldStopMoving(bool isClicked = false)
     {
-        if (interactionsTracker.hasStarted && !interactionsTracker.hasEnded)
+        if (interactionsTracker.hasStarted && !interactionsTracker.hasEnded && !isClicked)
         {
             interactionsTracker.SetInteractionType(Direction.Stop.ToString(), _speed);
         }

@@ -3042,6 +3042,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1980320614572042157, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: maxRotation
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980320614572042157, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: interactionsTracker
       value: 
       objectReference: {fileID: 543043032325051280}

@@ -185,7 +185,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         buttonActions[leftLow] = () =>
         {
             movement._speed = 1;
-            SetRotation(20f);
+            SetRotation(12f);
             movement.ShouldTurnLeft();
         };
         buttonActions[leftHigh] = () =>
@@ -199,7 +199,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         buttonActions[rightLow] = () =>
         {
             movement._speed = 1;
-            SetRotation(20f);
+            SetRotation(12f);
             movement.ShouldTurnRight();
         };
         buttonActions[rightHigh] = () =>
@@ -222,7 +222,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         movement.SetMaxVelocity(velocity);
     }
     
-    private void SetRotation(float rotation = 40f)
+    private void SetRotation(float rotation = 25f)
     {
         movement.SetMaxRotation(rotation);
     }
@@ -542,8 +542,9 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
                 SetButtonColor(activeMovementButton, originalColors[activeMovementButton]);
                 SetButtonOpacity(activeMovementButton, initialOpacity);
 
-                // Stop previous movement
-                movement.ShouldStopMoving();
+                // Stop previous movement 
+                // Passing true to not count as interaction
+                movement.ShouldStopMoving(true);
             }
 
             // Valid sequence - change color to green and keep only necessary buttons
