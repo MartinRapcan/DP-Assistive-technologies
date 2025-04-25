@@ -1045,7 +1045,7 @@ PrefabInstance:
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: gazeDataReady.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 992933005}
+      objectReference: {fileID: 0}
     - target: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
       propertyPath: gazeDataReady.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -1065,42 +1065,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8710468954958210967, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 992933005}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
 --- !u!114 &992933003 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4643929119041158635, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
   m_PrefabInstance: {fileID: 992933002}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992933004}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3e2126fa8eaf04c83082fe7ab4fce6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &992933004 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8710468954958210967, guid: eeacfa95a4fc551498f6048f6565a766, type: 3}
-  m_PrefabInstance: {fileID: 992933002}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &992933005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 992933004}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0923edacfc53993479d7cd151b3e548b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1213430976}
-  reference: {fileID: 1374871916}
-  registerOnEnable: 1
 --- !u!1 &1213430974
 GameObject:
   m_ObjectHideFlags: 0

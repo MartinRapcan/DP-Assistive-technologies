@@ -1702,7 +1702,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1965133504
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2055,6 +2055,26 @@ PrefabInstance:
       propertyPath: interactionsTracker
       value: 
       objectReference: {fileID: 543043032325051280}
+    - target: {fileID: 215203819385328883, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_RaycastPadding.w
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 215203819385328883, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_RaycastPadding.x
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 215203819385328883, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_RaycastPadding.y
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 215203819385328883, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_RaycastPadding.z
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1030122994058584838, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1175348838015872953, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.0000625
@@ -2079,6 +2099,10 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 915023564}
+    - target: {fileID: 3069136460708793810, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3270415804255668984, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: panel
       value: 
@@ -2087,6 +2111,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1965133503}
+    - target: {fileID: 3270415804255668984, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: sceneName
+      value: Sequence
+      objectReference: {fileID: 0}
     - target: {fileID: 3270415804255668984, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: cameraView
       value: 
@@ -2107,14 +2135,66 @@ PrefabInstance:
       propertyPath: interactionCountText
       value: 
       objectReference: {fileID: 1467941749}
+    - target: {fileID: 3778670337912973658, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3830620864069439242, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4153285624291152036, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_CullTransparentMesh
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4490056016987410518, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: environmentCamera
       value: 
       objectReference: {fileID: 2092876024}
+    - target: {fileID: 4612878209552669237, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4623673999564556599, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088487649283837400, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743093912656524828, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: lineRadius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5743093912656524828, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: interactionsTracker
       value: 
       objectReference: {fileID: 543043032325051280}
+    - target: {fileID: 6210748282720671750, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913251455295479820, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6977164200141875222, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109084793032386290, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7135811245382220872, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159603409144875759, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7253057394699932291, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: environmentCamera
       value: 
@@ -2130,6 +2210,10 @@ PrefabInstance:
     - target: {fileID: 7335847107711279888, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136235152988229090, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8696742702858556644, guid: cd01f77359bf5e24d9bb49765eb76f0b, type: 3}
       propertyPath: m_Name
