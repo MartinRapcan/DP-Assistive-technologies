@@ -45,7 +45,7 @@ public class ObjectTrail : MonoBehaviour
         // Update the line renderer
         lineRenderer.positionCount = _points.Count;
         
-        Debug.Log($"Adding point {position} to line renderer. Total points: {_points.Count}");
+        // Debug.Log($"Adding point {position} to line renderer. Total points: {_points.Count}");
         
         for (var i = 0; i < _points.Count; i++)
         {
