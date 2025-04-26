@@ -17800,7 +17800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979751, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_Name
-      value: Wheelchair 2 Variant 1
+      value: Wheelchair 2 Sequence
       objectReference: {fileID: 0}
     - target: {fileID: 3091501375087979751, guid: bbfaa2da11bf6ef46a25d6daa044133e, type: 3}
       propertyPath: m_IsActive
