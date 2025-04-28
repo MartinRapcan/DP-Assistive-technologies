@@ -48,6 +48,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
     // Track current sequence state
     private bool middleButtonActivated = false;
+    private bool hasSelectedSecondLayer = false;
     private Button currentSecondLayerButton;
     private Button finalSelectedButton;
 
@@ -360,7 +361,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         // Second layer buttons are interactable if middle button was activated
         if (secondLayerButtons.Contains(button) && middleButtonActivated)
         {
-            return true; // Allow hovering on any second layer button if middle was activated
+            return !hasSelectedSecondLayer || button == currentSecondLayerButton;
         }
 
         // Third layer buttons are interactable if they are valid children of the current second layer button
@@ -428,6 +429,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
         // Set state flag for valid sequence
         middleButtonActivated = true;
+        hasSelectedSecondLayer = false;
 
         // If we had an active movement button before, make sure it stays visible and green
         if (previousActiveButton != null)
@@ -487,6 +489,13 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
             ResetSelectionCompletelyToInitial();
             return;
         }
+        
+        // If we've already selected a second layer button and trying to select another one
+        // without going back to middle, prevent this
+        if (hasSelectedSecondLayer && currentSecondLayerButton != activatedButton)
+        {
+            return;
+        }
 
         // If we're switching from one second layer button to another, handle cleanup
         if (currentSecondLayerButton != null && currentSecondLayerButton != activatedButton)
@@ -502,7 +511,8 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
 
         // Set the current second layer button
         currentSecondLayerButton = activatedButton;
-
+        hasSelectedSecondLayer = true;
+        
         // Highlight the selected second layer button
         foreach (Button button in secondLayerButtons)
         {
@@ -515,6 +525,9 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
                 SetButtonOpacity(button, initialOpacity);
             }
         }
+        
+        // Set middle button to low opacity while maintaining its activated state
+        SetButtonOpacity(middleButton, initialOpacity);
 
         // Show only valid child buttons of this second layer button
         foreach (Button childButton in validConnections[activatedButton])
@@ -668,6 +681,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         currentSecondLayerButton = null;
         finalSelectedButton = null;
         middleButtonActivated = false;
+        hasSelectedSecondLayer = false;
 
         // Reset hover state
         currentHoverButton = null;
@@ -700,6 +714,7 @@ public class HoverButtonTreeManagerSimplified : MonoBehaviour
         currentSecondLayerButton = null;
         finalSelectedButton = null;
         middleButtonActivated = false;
+        hasSelectedSecondLayer = false;
 
         // Reset hover state
         currentHoverButton = null;
