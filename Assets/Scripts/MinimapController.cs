@@ -14,6 +14,7 @@ public class MinimapController : MonoBehaviour
     [SerializeField] private GameObject minimapCorner;
     [SerializeField] private GameObject minimapClose;
     [SerializeField] private GameObject navigationConfirm;
+    [SerializeField] private GameObject navigationStop;
     
     [Header("Hover Settings")] 
     [SerializeField] private float hoverTimeToConfirm = 5f;
@@ -28,11 +29,13 @@ public class MinimapController : MonoBehaviour
     private Button _cornerButton;
     private Button _closeButton;
     private Button _confirmButton;
+    private Button _stopButton;
     
     private Coroutine _cornerHoverCoroutine;
     private Coroutine _closeHoverCoroutine;
     private Coroutine _confirmHoverCoroutine;
     private Coroutine _positionHoverCoroutine;
+    private Coroutine _stopHoverCoroutine;
     
     private Vector3 _lastHoverPosition;
     private Vector3 _confirmedNavigationPosition;
@@ -41,7 +44,7 @@ public class MinimapController : MonoBehaviour
     private bool _isNavigationConfirmed = false;
     
     private RectTransform _buttonRect;
-    
+ 
     private void Start()
     {
         // Subscribe to the events
@@ -52,7 +55,7 @@ public class MinimapController : MonoBehaviour
         }
         
         // Initialize the minimap UI elements
-        if(!minimapMain || !minimapCorner || !minimapClose || !navigationConfirm)
+        if(!minimapMain || !minimapCorner || !minimapClose || !navigationConfirm || !navigationStop)
         {
             Debug.LogError("Minimap UI elements are not assigned in the inspector.");
             return;
@@ -61,6 +64,7 @@ public class MinimapController : MonoBehaviour
         minimapCorner.SetActive(true);
         minimapClose.SetActive(false);
         navigationConfirm.SetActive(false);
+        navigationStop.SetActive(false);
         
         // Get the RectTransform of the minimap
         _buttonRect = minimapMain.GetComponent<RectTransform>();
@@ -84,10 +88,27 @@ public class MinimapController : MonoBehaviour
             _confirmButton = navigationConfirm.AddComponent<Button>();
         }
         
+        _stopButton = navigationStop.GetComponentInChildren<Button>();
+        if (_stopButton == null && navigationStop != null)
+        {
+            _stopButton = navigationStop.AddComponent<Button>();
+        }
+        
         // Add hover handlers
         AddHoverHandlers(_cornerButton);
         AddHoverHandlers(_closeButton);
         AddHoverHandlers(_confirmButton);
+        AddHoverHandlers(_stopButton);
+    }
+    
+    private void Update()
+    {
+        // Check if navigation is active and update navigationStop visibility
+        if (navigation != null && navigationStop != null && navigation.decelerationCoroutine == null)
+        {
+            bool isNavigating = navigation.navigationState != NavigationState.Stationary;
+            navigationStop.SetActive(_isMinimapActive && isNavigating);
+        }
     }
     
     // Handle the minimap hit event
@@ -297,6 +318,17 @@ public class MinimapController : MonoBehaviour
             // Start hover timer
             _confirmHoverCoroutine = StartCoroutine(ButtonHoverTimer(ConfirmNavigation, buttonHoverTime));
         }
+        // Add this for the stop button
+        else if (button == navigationStop.GetComponent<Button>() && navigation != null)
+        {
+            // Cancel any existing coroutine for the stop button
+            if (_stopHoverCoroutine != null)
+            {
+                StopCoroutine(_stopHoverCoroutine);
+            }
+            // Start hover timer
+            _stopHoverCoroutine = StartCoroutine(ButtonHoverTimer(StopNavigation, buttonHoverTime));
+        }
     }
     
     private void OnPointerExit(Button button, PointerEventData data)
@@ -329,6 +361,15 @@ public class MinimapController : MonoBehaviour
             {
                 StopCoroutine(_confirmHoverCoroutine);
                 _confirmHoverCoroutine = null;
+            }
+        }
+        else if (button == navigationStop.GetComponent<Button>())
+        {
+            // Cancel hover timer
+            if (_stopHoverCoroutine != null)
+            {
+                StopCoroutine(_stopHoverCoroutine);
+                _stopHoverCoroutine = null;
             }
         }
     }
@@ -366,6 +407,19 @@ public class MinimapController : MonoBehaviour
         {
             StopCoroutine(_positionHoverCoroutine);
             _positionHoverCoroutine = null;
+        }
+    }
+    
+    // Add this function to handle the stop navigation action
+    private void StopNavigation()
+    {
+        if (navigation != null)
+        {
+            navigation.navigationState = NavigationState.Stationary;
+            navigation.StopNavigation();
+            navigationStop.SetActive(false);
+            // Optionally close the minimap after stopping navigation
+            // CloseMinimap();
         }
     }
     

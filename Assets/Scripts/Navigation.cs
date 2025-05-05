@@ -39,8 +39,8 @@ public class Navigation : MonoBehaviour
     private List<Vector3> _pathPoints;
     private float _currentVelocity = 0f;
     private float? _brakingDistance = null;
-    private Coroutine _decelerationCoroutine;
-    private float _stopDistanceThreshold = 0.08f; // Distance to stop at// Time to stop the wheels
+    public Coroutine decelerationCoroutine;
+    private float _stopDistanceThreshold = 0.12f; // Distance to stop at// Time to stop the wheels
 
     private void Start()
     {
@@ -66,14 +66,12 @@ public class Navigation : MonoBehaviour
             DrawPath();
         }
 
-        Debug.DrawRay(frameRb.position, frameRb.transform.forward * 20f, Color.red);
-
         navMeshAgent.Warp(frameRb.position);
     }
 
     private void FixedUpdate()
     {
-        if (_hasPath && _pathPoints.Count > 0 && _decelerationCoroutine == null)
+        if (_hasPath && _pathPoints.Count > 0 && decelerationCoroutine == null)
         {
             switch (navigationState)
             {
@@ -243,10 +241,10 @@ public class Navigation : MonoBehaviour
         rightHinge.motor = _rightMotor;
     }
     
-    private void StopMoving()
+    public void StopMoving()
     {
         // Start deceleration coroutine if not already running
-        _decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
+        decelerationCoroutine ??= StartCoroutine(DecelerateWheels());
     
         // However, we still want to zero out physics velocities to prevent sliding
         frameRb.velocity = Vector3.zero;
@@ -255,7 +253,7 @@ public class Navigation : MonoBehaviour
         rightCasterRb.velocity = Vector3.zero;
     }
     
-    private IEnumerator DecelerateWheels()
+    private IEnumerator DecelerateWheels(NavigationState state = NavigationState.Rotating)
     {
         // Store initial velocities when deceleration starts
         float initialLeftVelocity = _leftMotor.targetVelocity;
@@ -297,10 +295,10 @@ public class Navigation : MonoBehaviour
         _currentVelocity = 0f;
     
         // Reset direction once fully stopped
-        navigationState = NavigationState.Rotating;
+        navigationState = state;
     
         // Clear the coroutine reference
-        _decelerationCoroutine = null;
+        decelerationCoroutine = null;
     }
 
     public void SetDestination(Vector3 newDestination)
@@ -414,6 +412,11 @@ public class Navigation : MonoBehaviour
 
     public void StopNavigation()
     {
+        ClearDestination();
+        
+        // Start deceleration coroutine if not already running
+        decelerationCoroutine ??= StartCoroutine(DecelerateWheels(NavigationState.Stationary));
+        
         _leftMotor.targetVelocity = 0;
         _rightMotor.targetVelocity = 0;
         leftHinge.motor = _leftMotor;
@@ -431,7 +434,5 @@ public class Navigation : MonoBehaviour
         _currentVelocity = 0f;
 
         navigationState = NavigationState.Stationary;
-
-        ClearDestination();
     }
 }
